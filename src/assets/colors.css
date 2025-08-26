@@ -1,0 +1,44 @@
+:root {
+  /* ===== PRIMARY BRAND COLORS ===== */
+  --color-primary-purple: #7F00FD;
+  --color-primary-purple-dark: #4C0097;
+  
+  /* ===== SECONDARY BRAND COLORS ===== */
+  --color-secondary-teal: #22FCB0;
+  --color-secondary-blue: #2181FA;
+  
+  /* ===== ACCENT COLORS ===== */
+  --color-accent-teal: #14B8A6;
+  --color-accent-blue: #3B82F6;
+  
+  /* ===== NEUTRAL COLORS ===== */
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+  --color-dark-gray: #333333;
+  
+  /* ===== BACKGROUND COLORS ===== */
+  --color-bg-dark-light: #16141C;
+  --color-bg-dark-dark: #09080B;
+  
+  /* ===== GRADIENTS ===== */
+  --gradient-primary: linear-gradient(135deg, var(--color-primary-purple) 0%, var(--color-primary-purple-dark) 100%);
+  --gradient-secondary: linear-gradient(135deg, var(--color-bg-dark-light) 0%, var(--color-bg-dark-dark) 100%);
+  --gradient-accent: linear-gradient(135deg, var(--color-secondary-teal) 0%, var(--color-secondary-blue) 100%);
+  --gradient-burger: linear-gradient(135deg, var(--color-accent-teal) 0%, var(--color-accent-blue) 100%);
+  
+  /* ===== SEMANTIC COLORS ===== */
+  --color-text-primary: var(--color-white);
+  --color-text-secondary: var(--color-black);
+  --color-text-muted: rgba(255, 255, 255, 0.8);
+  --color-text-muted-dark: rgba(0, 0, 0, 0.8);
+  
+  /* ===== INTERACTIVE COLORS ===== */
+  --color-hover-light: rgba(255, 255, 255, 0.05);
+  --color-hover-dark: rgba(0, 0, 0, 0.05);
+  
+  /* ===== TRANSPARENCY VARIANTS ===== */
+  --color-white-90: rgba(255, 255, 255, 0.9);
+  --color-white-80: rgba(255, 255, 255, 0.8);
+  --color-black-90: rgba(0, 0, 0, 0.9);
+  --color-black-80: rgba(0, 0, 0, 0.8);
+}
