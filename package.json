@@ -19,6 +19,7 @@
     "performance": "npm run build && npm run lighthouse"
   },
   "dependencies": {
+    "gsap": "^3.13.0",
     "lucide-vue-next": "^0.541.0",
     "pinia": "^3.0.3",
     "vue": "^3.5.18",
