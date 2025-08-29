@@ -5,7 +5,6 @@ import CareersView from '../views/CareersView.vue'
 import CostCalculationView from '../views/CostCalculationView.vue'
 import EnhancedCostCalculationView from '../views/EnhancedCostCalculationView.vue'
 import ContactView from '../views/ContactView.vue'
-import AboutView from '../views/AboutView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -39,11 +38,6 @@ const router = createRouter({
       path: '/contact',
       name: 'contact',
       component: ContactView
-    },
-    {
-      path: '/about',
-      name: 'about',
-      component: AboutView
     }
   ],
 })
