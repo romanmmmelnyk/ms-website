@@ -20,7 +20,7 @@
           
           <div class="hero-buttons">
             <button class="btn btn-outline">Our services</button>
-            <button class="btn btn-primary">View projects</button>
+            <button class="btn btn-primary" @click="navigateToContact">Get in touch</button>
           </div>
         </div>
         
@@ -47,9 +47,11 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
+import { useRouter } from 'vue-router'
 import Container from './Container.vue'
 import { performanceMonitor, measureSync } from '@/utils/performance'
 
+const router = useRouter()
 const currentTextIndex = ref(0)
 let intervalId: number | null = null
 const componentStartTime = performance.now()
@@ -60,6 +62,10 @@ const startTextRotation = () => {
   intervalId = setInterval(() => {
     currentTextIndex.value = (currentTextIndex.value + 1) % texts.length
   }, 3000)
+}
+
+const navigateToContact = () => {
+  router.push('/contact')
 }
 
 const scrollToNextSection = () => {

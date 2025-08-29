@@ -1,9 +1,161 @@
 <template>
   <div class="step-component">
-    <h3 class="step-title">What features does your project need?</h3>
+    <h3 class="step-title">
+      {{ isDesignProject ? 'What design deliverables do you need?' : 'What features does your project need?' }}
+    </h3>
     
-    <!-- Feature Categories -->
-    <div class="feature-categories">
+    <!-- UI/UX Design Specific Questions -->
+    <div v-if="isDesignProject" class="design-features">
+      <div class="design-categories">
+        <div class="design-category">
+          <h4 class="category-title">🎨 Design Deliverables</h4>
+          <div class="design-options">
+            <label class="design-option">
+              <input 
+                type="checkbox" 
+                v-model="modelValue.designDeliverables.wireframes"
+                class="design-input"
+              >
+              <div class="design-content">
+                <h5>Wireframes & User Flows</h5>
+                <p>Low-fidelity layouts and user journey maps</p>
+                <span class="design-price">+£800</span>
+              </div>
+            </label>
+            
+            <label class="design-option">
+              <input 
+                type="checkbox" 
+                v-model="modelValue.designDeliverables.mockups"
+                class="design-input"
+              >
+              <div class="design-content">
+                <h5>High-Fidelity Mockups</h5>
+                <p>Detailed visual designs with realistic content</p>
+                <span class="design-price">+£1,200</span>
+              </div>
+            </label>
+            
+            <label class="design-option">
+              <input 
+                type="checkbox" 
+                v-model="modelValue.designDeliverables.prototype"
+                class="design-input"
+              >
+              <div class="design-content">
+                <h5>Interactive Prototype</h5>
+                <p>Clickable prototype for user testing</p>
+                <span class="design-price">+£1,500</span>
+              </div>
+            </label>
+            
+            <label class="design-option">
+              <input 
+                type="checkbox" 
+                v-model="modelValue.designDeliverables.designSystem"
+                class="design-input"
+              >
+              <div class="design-content">
+                <h5>Design System & Style Guide</h5>
+                <p>Reusable components and brand guidelines</p>
+                <span class="design-price">+£2,000</span>
+              </div>
+            </label>
+          </div>
+        </div>
+        
+        <div class="design-category">
+          <h4 class="category-title">📱 Platform Requirements</h4>
+          <div class="design-options">
+            <label class="design-option">
+              <input 
+                type="checkbox" 
+                v-model="modelValue.designDeliverables.mobile"
+                class="design-input"
+              >
+              <div class="design-content">
+                <h5>Mobile-First Design</h5>
+                <p>Responsive design optimized for mobile devices</p>
+                <span class="design-price">+£600</span>
+              </div>
+            </label>
+            
+            <label class="design-option">
+              <input 
+                type="checkbox" 
+                v-model="modelValue.designDeliverables.desktop"
+                class="design-input"
+              >
+              <div class="design-content">
+                <h5>Desktop Design</h5>
+                <p>Full desktop experience with advanced layouts</p>
+                <span class="design-price">+£400</span>
+              </div>
+            </label>
+            
+            <label class="design-option">
+              <input 
+                type="checkbox" 
+                v-model="modelValue.designDeliverables.tablet"
+                class="design-input"
+              >
+              <div class="design-content">
+                <h5>Tablet Design</h5>
+                <p>Optimized layouts for tablet devices</p>
+                <span class="design-price">+£300</span>
+              </div>
+            </label>
+          </div>
+        </div>
+        
+        <div class="design-category">
+          <h4 class="category-title">🔍 Research & Testing</h4>
+          <div class="design-options">
+            <label class="design-option">
+              <input 
+                type="checkbox" 
+                v-model="modelValue.designDeliverables.userResearch"
+                class="design-input"
+              >
+              <div class="design-content">
+                <h5>User Research</h5>
+                <p>Interviews, surveys, and user behavior analysis</p>
+                <span class="design-price">+£1,800</span>
+              </div>
+            </label>
+            
+            <label class="design-option">
+              <input 
+                type="checkbox" 
+                v-model="modelValue.designDeliverables.usabilityTesting"
+                class="design-input"
+              >
+              <div class="design-content">
+                <h5>Usability Testing</h5>
+                <p>User testing sessions and feedback analysis</p>
+                <span class="design-price">+£1,200</span>
+              </div>
+            </label>
+            
+            <label class="design-option">
+              <input 
+                type="checkbox" 
+                v-model="modelValue.designDeliverables.accessibility"
+                class="design-input"
+              >
+              <div class="design-content">
+                <h5>Accessibility Design</h5>
+                <p>WCAG compliant design for all users</p>
+                <span class="design-price">+£800</span>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Regular Feature Categories (for non-design projects) -->
+    <div v-else class="feature-categories">
       <div 
         v-for="category in featureCategories" 
         :key="category.key"
@@ -21,11 +173,11 @@
             class="feature-card"
             :class="{ selected: modelValue.features.includes(feature.key) }"
           >
-                        <input 
+            <input 
               type="checkbox" 
               :value="feature.key" 
               v-model="modelValue.features" 
-              class="feature-input"
+              class="design-input"
             >
             
             <div class="feature-content">
@@ -170,6 +322,9 @@ interface Emits {
 
 const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
+
+// Check if this is a design-only project
+const isDesignProject = computed(() => props.modelValue.productType === 'design_only')
 
 const showHelp = ref(false)
 
@@ -467,6 +622,90 @@ const clearAllFeatures = () => {
   font-weight: 600;
   text-align: center;
   margin-bottom: 32px;
+}
+
+/* Design Features */
+.design-features {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.design-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.design-category {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.design-category .category-title {
+  color: var(--color-text-primary);
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.design-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.design-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.design-option:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--color-secondary-teal);
+}
+
+.design-input {
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+.design-content {
+  flex: 1;
+}
+
+.design-content h5 {
+  color: var(--color-text-primary);
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+.design-content p {
+  color: var(--color-text-muted);
+  font-size: 14px;
+  margin: 0 0 12px 0;
+  line-height: 1.4;
+}
+
+.design-price {
+  color: var(--color-secondary-teal);
+  font-size: 16px;
+  font-weight: 700;
 }
 
 /* Feature Categories */
@@ -906,6 +1145,10 @@ const clearAllFeatures = () => {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .design-options {
+    grid-template-columns: 1fr;
+  }
+  
   .features-grid {
     grid-template-columns: 1fr;
   }

@@ -1624,6 +1624,21 @@ export interface Questionnaire {
   warrantyMonths?: number;
   extraLicensesCost?: number;
   extraHostingSetup?: boolean;
+  
+  // Design deliverables for UI/UX projects
+  designDeliverables?: {
+    wireframes: boolean;
+    mockups: boolean;
+    prototype: boolean;
+    designSystem: boolean;
+    mobile: boolean;
+    desktop: boolean;
+    tablet: boolean;
+    userResearch: boolean;
+    usabilityTesting: boolean;
+    accessibility: boolean;
+  };
+  
   // Business context properties
   industry?: string;
   marketPosition?: string;
@@ -1650,7 +1665,12 @@ export interface QuoteResult {
 export const makePricer = (config?: any) => {
   return {
     calculateQuote: (questionnaire: Questionnaire) => {
-      // Simple calculation for backward compatibility
+      // Check if this is a design-only project
+      if (questionnaire.productType === 'design_only') {
+        return calculateDesignQuote(questionnaire, config);
+      }
+      
+      // Regular development project calculation
       let basePrice = config?.baseRate || 1000;
       let total = basePrice;
       
@@ -1697,5 +1717,139 @@ export const makePricer = (config?: any) => {
         breakdown: [],
       };
     }
+  };
+};
+
+// Calculate quote for design-only projects
+const calculateDesignQuote = (questionnaire: Questionnaire, config?: any): QuoteResult => {
+  let total = 0;
+  const breakdown: any[] = [];
+  
+  // Base design cost
+  const baseDesignCost = 1500;
+  total += baseDesignCost;
+  breakdown.push({
+    item: 'Base Design Package',
+    cost: baseDesignCost,
+    description: 'Initial consultation and project setup'
+  });
+  
+  // Add design deliverables
+  if (questionnaire.designDeliverables) {
+    if (questionnaire.designDeliverables.wireframes) {
+      total += 800;
+      breakdown.push({
+        item: 'Wireframes & User Flows',
+        cost: 800,
+        description: 'Low-fidelity layouts and user journey maps'
+      });
+    }
+    
+    if (questionnaire.designDeliverables.mockups) {
+      total += 1200;
+      breakdown.push({
+        item: 'High-Fidelity Mockups',
+        cost: 1200,
+        description: 'Detailed visual designs with realistic content'
+      });
+    }
+    
+    if (questionnaire.designDeliverables.prototype) {
+      total += 1500;
+      breakdown.push({
+        item: 'Interactive Prototype',
+        cost: 1500,
+        description: 'Clickable prototype for user testing'
+      });
+    }
+    
+    if (questionnaire.designDeliverables.designSystem) {
+      total += 2000;
+      breakdown.push({
+        item: 'Design System & Style Guide',
+        cost: 2000,
+        description: 'Reusable components and brand guidelines'
+      });
+    }
+    
+    if (questionnaire.designDeliverables.mobile) {
+      total += 600;
+      breakdown.push({
+        item: 'Mobile-First Design',
+        cost: 600,
+        description: 'Responsive design optimized for mobile devices'
+      });
+    }
+    
+    if (questionnaire.designDeliverables.desktop) {
+      total += 400;
+      breakdown.push({
+        item: 'Desktop Design',
+        cost: 400,
+        description: 'Full desktop experience with advanced layouts'
+      });
+    }
+    
+    if (questionnaire.designDeliverables.tablet) {
+      total += 300;
+      breakdown.push({
+        item: 'Tablet Design',
+        cost: 300,
+        description: 'Optimized layouts for tablet devices'
+      });
+    }
+    
+    if (questionnaire.designDeliverables.userResearch) {
+      total += 1800;
+      breakdown.push({
+        item: 'User Research',
+        cost: 1800,
+        description: 'Interviews, surveys, and user behavior analysis'
+      });
+    }
+    
+    if (questionnaire.designDeliverables.usabilityTesting) {
+      total += 1200;
+      breakdown.push({
+        item: 'Usability Testing',
+        cost: 1200,
+        description: 'User testing sessions and feedback analysis'
+      });
+    }
+    
+    if (questionnaire.designDeliverables.accessibility) {
+      total += 800;
+      breakdown.push({
+        item: 'Accessibility Design',
+        cost: 800,
+        description: 'WCAG compliant design for all users'
+      });
+    }
+  }
+  
+  // Apply timeline factor for design projects
+  const timelineFactor = timelines[questionnaire.timeline as keyof typeof timelines]?.factor || 1.0;
+  total *= timelineFactor;
+  
+  // Calculate margins
+  const margin = total * (config?.defaultMarginPct || 0.25);
+  const contingency = (total + margin) * (config?.contingencyPct || 0.10);
+  
+  const finalTotal = total + margin + contingency;
+  
+  return {
+    currency: config?.currency || "GBP",
+    baseRate: baseDesignCost,
+    subtotal: Math.round(total),
+    marginApplied: Math.round(margin),
+    contingencyApplied: Math.round(contingency),
+    discountApplied: 0,
+    regionMultiplier: config?.regionMultiplier || 1,
+    total: Math.round(finalTotal),
+    rangeLow: Math.round(finalTotal * 0.85),
+    rangeHigh: Math.round(finalTotal * 1.25),
+    riskScore: 30, // Lower risk for design projects
+    monthlySupportFee: undefined,
+    breakdown: breakdown,
   };
 };

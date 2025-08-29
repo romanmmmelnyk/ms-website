@@ -277,7 +277,21 @@ const formData = ref<Questionnaire>({
   trainingSessions: 0,
   warrantyMonths: 1,
   extraLicensesCost: 0,
-  extraHostingSetup: false
+  extraHostingSetup: false,
+  
+  // Design deliverables for UI/UX projects
+  designDeliverables: {
+    wireframes: false,
+    mockups: false,
+    prototype: false,
+    designSystem: false,
+    mobile: false,
+    desktop: false,
+    tablet: false,
+    userResearch: false,
+    usabilityTesting: false,
+    accessibility: false
+  }
 })
 
 // Results
@@ -314,7 +328,7 @@ const stepDefinitions = computed(() => [
     assistantMessage: "Design is crucial for user experience! What level of design quality are you looking for?",
     hint: "This affects both the visual appeal and the development time. Premium designs take longer but look amazing!",
     required: true,
-    skipCondition: () => false
+    skipCondition: () => formData.value.productType === 'design_only'
   },
   {
     id: 4,
@@ -332,7 +346,7 @@ const stepDefinitions = computed(() => [
     assistantMessage: "What kind of team do you want working on your project?",
     hint: "Larger teams can work faster but cost more. Solo developers are cost-effective but take longer.",
     required: true,
-    skipCondition: () => false
+    skipCondition: () => formData.value.productType === 'design_only'
   },
   {
     id: 6,
@@ -375,7 +389,13 @@ const canProceed = computed(() => {
   
   switch (currentStep.value) {
     case 1: return !!formData.value.productType
-    case 2: return formData.value.features.length > 0
+    case 2: 
+      if (formData.value.productType === 'design_only') {
+        // For design projects, check if at least one design deliverable is selected
+        return formData.value.designDeliverables && 
+               Object.values(formData.value.designDeliverables).some(deliverable => deliverable)
+      }
+      return formData.value.features.length > 0
     case 3: return !!formData.value.designLevel
     case 4: return !!formData.value.timeline
     case 5: return !!formData.value.team

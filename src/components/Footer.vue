@@ -100,7 +100,7 @@
         <h4>Company</h4>
         <ul class="footer-links">
           <li><a href="#">About us</a></li>
-          <li><a href="#">Contact us</a></li>
+          <li><a href="/contact">Contact us</a></li>
           <li><a href="#">Portfolio</a></li>
         </ul>
       </div>
