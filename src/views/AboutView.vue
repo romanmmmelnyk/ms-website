@@ -1,24 +1,14 @@
 <template>
   <div class="about-page">
-    <!-- Hero Section with 3D Parallax -->
+    <!-- Hero Section -->
     <section class="hero-section">
-      <div class="hero-background">
-        <div class="floating-shapes">
-          <div class="shape shape-1" ref="shape1"></div>
-          <div class="shape shape-2" ref="shape2"></div>
-          <div class="shape shape-3" ref="shape3"></div>
-          <div class="shape shape-4" ref="shape4"></div>
-        </div>
-        <div class="particle-container" ref="particleContainer"></div>
-      </div>
-      
       <div class="hero-content">
-        <h1 class="hero-title" ref="heroTitle">
+        <h1 class="hero-title">
           <span class="title-line">We're Not Just</span>
           <span class="title-line">A Company</span>
           <span class="title-line">We're A Movement</span>
         </h1>
-        <p class="hero-subtitle" ref="heroSubtitle">
+        <p class="hero-subtitle">
           Crafting digital experiences that transcend the ordinary
         </p>
         <div class="hero-cta">
@@ -30,45 +20,47 @@
           </button>
         </div>
       </div>
+      <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+      </div>
     </section>
 
-    <!-- Interactive Timeline -->
+    <!-- Timeline Section -->
     <section class="timeline-section" ref="timelineSection">
       <div class="container">
-        <h2 class="section-title" ref="timelineTitle">Our Journey</h2>
+        <h2 class="section-title">Our Journey</h2>
         <div class="timeline">
-          <div class="timeline-item" v-for="(item, index) in timelineData" :key="index" ref="timelineItems">
-            <div class="timeline-marker" :class="{ 'active': item.active }"></div>
-            <div class="timeline-content" :class="{ 'active': item.active }">
+          <div class="timeline-item" v-for="(item, index) in timelineData" :key="index">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
               <div class="timeline-year">{{ item.year }}</div>
               <h3 class="timeline-title">{{ item.title }}</h3>
               <p class="timeline-description">{{ item.description }}</p>
-              <div class="timeline-icon">
-                <component :is="item.icon" />
-              </div>
+              <div class="timeline-icon">{{ item.icon }}</div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Interactive Team Section -->
+    <!-- Team Section -->
     <section class="team-section" ref="teamSection">
       <div class="container">
-        <h2 class="section-title" ref="teamTitle">The Dream Team</h2>
+        <h2 class="section-title">The Dream Team</h2>
         <div class="team-grid">
           <div 
             v-for="(member, index) in teamData" 
             :key="index" 
             class="team-member"
-            :class="{ 'hovered': hoveredMember === index }"
             @mouseenter="hoveredMember = index"
             @mouseleave="hoveredMember = null"
-            ref="teamMembers"
           >
             <div class="member-avatar">
               <div class="avatar-image" :style="{ backgroundImage: `url(${member.avatar})` }"></div>
-              <div class="avatar-overlay">
+              <div class="avatar-overlay" v-show="hoveredMember === index">
                 <div class="social-links">
                   <a href="#" class="social-link">LinkedIn</a>
                   <a href="#" class="social-link">Twitter</a>
@@ -89,26 +81,22 @@
       </div>
     </section>
 
-    <!-- Interactive Values Section -->
-    <section class="values-section" ref="valuesSection">
+    <!-- Values Section -->
+    <section class="values-section">
       <div class="container">
-        <h2 class="section-title" ref="valuesTitle">Our Core Values</h2>
+        <h2 class="section-title">Our Core Values</h2>
         <div class="values-grid">
           <div 
             v-for="(value, index) in valuesData" 
             :key="index" 
             class="value-card"
-            :class="{ 'active': activeValue === index }"
             @mouseenter="activeValue = index"
             @mouseleave="activeValue = null"
-            ref="valueCards"
           >
-            <div class="value-icon">
-              <component :is="value.icon" />
-            </div>
+            <div class="value-icon">{{ value.icon }}</div>
             <h3 class="value-title">{{ value.title }}</h3>
             <p class="value-description">{{ value.description }}</p>
-            <div class="value-animation">
+            <div class="value-animation" v-show="activeValue === index">
               <div class="pulse-ring"></div>
             </div>
           </div>
@@ -116,32 +104,29 @@
       </div>
     </section>
 
-    <!-- Interactive Stats Section -->
-    <section class="stats-section" ref="statsSection">
+    <!-- Stats Section -->
+    <section class="stats-section">
       <div class="container">
-        <h2 class="section-title" ref="statsTitle">Numbers That Matter</h2>
+        <h2 class="section-title">Numbers That Matter</h2>
         <div class="stats-grid">
           <div 
             v-for="(stat, index) in statsData" 
             :key="index" 
             class="stat-item"
-            ref="statItems"
           >
-            <div class="stat-number" ref="statNumbers">{{ stat.current }}</div>
+            <div class="stat-number">{{ stat.target }}</div>
             <div class="stat-label">{{ stat.label }}</div>
-            <div class="stat-icon">
-              <component :is="stat.icon" />
-            </div>
+            <div class="stat-icon">{{ stat.icon }}</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Interactive Contact CTA -->
-    <section class="contact-cta" ref="contactCta">
+    <!-- Contact CTA -->
+    <section class="contact-cta">
       <div class="container">
         <div class="cta-content">
-          <h2 class="cta-title" ref="ctaTitle">Ready to Build Something Amazing?</h2>
+          <h2 class="cta-title">Ready to Build Something Amazing?</h2>
           <p class="cta-description">Let's turn your vision into reality</p>
           <div class="cta-buttons">
             <button class="cta-button primary" @click="scrollToTop">
@@ -165,26 +150,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-// Register GSAP plugins
-gsap.registerPlugin(ScrollTrigger)
-
-// Reactive refs
-const heroTitle = ref<HTMLElement>()
-const heroSubtitle = ref<HTMLElement>()
-const timelineItems = ref<HTMLElement[]>([])
-const teamMembers = ref<HTMLElement[]>([])
-const valueCards = ref<HTMLElement[]>([])
-const statItems = ref<HTMLElement[]>([])
-const statNumbers = ref<HTMLElement[]>([])
-const shape1 = ref<HTMLElement>()
-const shape2 = ref<HTMLElement>()
-const shape3 = ref<HTMLElement>()
-const shape4 = ref<HTMLElement>()
-const particleContainer = ref<HTMLElement>()
+import { ref } from 'vue'
 
 // State
 const hoveredMember = ref<number | null>(null)
@@ -196,36 +162,31 @@ const timelineData = ref([
     year: '2020',
     title: 'The Beginning',
     description: 'Started as a small team with big dreams',
-    icon: '🚀',
-    active: false
+    icon: '🚀'
   },
   {
     year: '2021',
     title: 'First Breakthrough',
     description: 'Launched our flagship product',
-    icon: '💡',
-    active: false
+    icon: '💡'
   },
   {
     year: '2022',
     title: 'Global Expansion',
     description: 'Reached customers in 50+ countries',
-    icon: '🌍',
-    active: false
+    icon: '🌍'
   },
   {
     year: '2023',
     title: 'Innovation Hub',
     description: 'Became a leader in digital transformation',
-    icon: '🏆',
-    active: false
+    icon: '🏆'
   },
   {
     year: '2024',
     title: 'Future Forward',
     description: 'Pioneering next-gen technologies',
-    icon: '⚡',
-    active: false
+    icon: '⚡'
   }
 ])
 
@@ -284,10 +245,10 @@ const valuesData = ref([
 ])
 
 const statsData = ref([
-  { label: 'Projects Completed', current: 0, target: 150, icon: '📊' },
-  { label: 'Happy Clients', current: 0, target: 89, icon: '😊' },
-  { label: 'Team Members', current: 0, target: 24, icon: '👥' },
-  { label: 'Countries Reached', current: 0, target: 52, icon: '🌍' }
+  { label: 'Projects Completed', target: 150, icon: '📊' },
+  { label: 'Happy Clients', target: 89, icon: '😊' },
+  { label: 'Team Members', target: 24, icon: '👥' },
+  { label: 'Countries Reached', target: 52, icon: '🌍' }
 ])
 
 // Methods
@@ -302,175 +263,6 @@ const scrollToTeam = () => {
 const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }
-
-// Animations
-const initHeroAnimations = () => {
-  if (heroTitle.value && heroSubtitle.value) {
-    gsap.fromTo(heroTitle.value.children, 
-      { y: 100, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1, stagger: 0.2, ease: 'power3.out' }
-    )
-    
-    gsap.fromTo(heroSubtitle.value,
-      { y: 50, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1, delay: 0.8, ease: 'power3.out' }
-    )
-  }
-}
-
-const initFloatingShapes = () => {
-  if (shape1.value && shape2.value && shape3.value && shape4.value) {
-    gsap.to(shape1.value, { y: -20, rotation: 360, duration: 8, repeat: -1, ease: 'none' })
-    gsap.to(shape2.value, { y: 20, rotation: -360, duration: 10, repeat: -1, ease: 'none' })
-    gsap.to(shape3.value, { x: 15, y: -15, rotation: 180, duration: 12, repeat: -1, ease: 'none' })
-    gsap.to(shape4.value, { x: -20, y: 10, rotation: -180, duration: 9, repeat: -1, ease: 'none' })
-  }
-}
-
-const initTimelineAnimations = () => {
-  timelineItems.value.forEach((item, index) => {
-    gsap.fromTo(item,
-      { x: index % 2 === 0 ? -100 : 100, opacity: 0 },
-      {
-        x: 0,
-        opacity: 1,
-        duration: 0.8,
-        delay: index * 0.2,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: item,
-          start: 'top 80%',
-          end: 'bottom 20%',
-          toggleActions: 'play none none reverse'
-        }
-      }
-    )
-  })
-}
-
-const initTeamAnimations = () => {
-  teamMembers.value.forEach((member, index) => {
-    gsap.fromTo(member,
-      { y: 100, opacity: 0, scale: 0.8 },
-      {
-        y: 0,
-        opacity: 1,
-        scale: 1,
-        duration: 0.8,
-        delay: index * 0.1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: member,
-          start: 'top 80%',
-          end: 'bottom 20%',
-          toggleActions: 'play none none reverse'
-        }
-      }
-    )
-  })
-}
-
-const initValueAnimations = () => {
-  valueCards.value.forEach((card, index) => {
-    gsap.fromTo(card,
-      { y: 50, opacity: 0, rotationY: 45 },
-      {
-        y: 0,
-        opacity: 1,
-        rotationY: 0,
-        duration: 0.8,
-        delay: index * 0.1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: card,
-          start: 'top 80%',
-          end: 'bottom 20%',
-          toggleActions: 'play none none reverse'
-        }
-      }
-    )
-  })
-}
-
-const initStatsAnimations = () => {
-  statItems.value.forEach((item, index) => {
-    gsap.fromTo(item,
-      { y: 50, opacity: 0, scale: 0.8 },
-      {
-        y: 0,
-        opacity: 1,
-        scale: 1,
-        duration: 0.8,
-        delay: index * 0.1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: item,
-          start: 'top 80%',
-          end: 'bottom 20%',
-          toggleActions: 'play none none reverse'
-        }
-      }
-    )
-  })
-}
-
-const animateStats = () => {
-  statsData.value.forEach((stat, index) => {
-    const target = stat.target
-    const duration = 2
-    
-    gsap.to(stat, {
-      current: target,
-      duration: duration,
-      delay: index * 0.2,
-      ease: 'power2.out',
-      onUpdate: () => {
-        if (statNumbers.value[index]) {
-          statNumbers.value[index].textContent = Math.round(stat.current).toString()
-        }
-      }
-    })
-  })
-}
-
-const createParticles = () => {
-  if (!particleContainer.value) return
-  
-  for (let i = 0; i < 50; i++) {
-    const particle = document.createElement('div')
-    particle.className = 'particle'
-    particle.style.left = Math.random() * 100 + '%'
-    particle.style.animationDelay = Math.random() * 20 + 's'
-    particle.style.animationDuration = (Math.random() * 10 + 10) + 's'
-    particleContainer.value.appendChild(particle)
-  }
-}
-
-// Lifecycle
-onMounted(() => {
-  initHeroAnimations()
-  initFloatingShapes()
-  createParticles()
-  
-  // Initialize scroll-triggered animations
-  setTimeout(() => {
-    initTimelineAnimations()
-    initTeamAnimations()
-    initValueAnimations()
-    initStatsAnimations()
-    
-    // Trigger stats animation when stats section is visible
-    ScrollTrigger.create({
-      trigger: '.stats-section',
-      start: 'top 80%',
-      onEnter: animateStats
-    })
-  }, 100)
-})
-
-onUnmounted(() => {
-  ScrollTrigger.getAll().forEach(trigger => trigger.kill())
-})
 </script>
 
 <style scoped>
@@ -489,89 +281,6 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-}
-
-.hero-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-}
-
-.floating-shapes {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-
-.shape {
-  position: absolute;
-  border-radius: 50%;
-  background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.shape-1 {
-  width: 120px;
-  height: 120px;
-  top: 20%;
-  left: 10%;
-}
-
-.shape-2 {
-  width: 80px;
-  height: 80px;
-  top: 60%;
-  right: 15%;
-}
-
-.shape-3 {
-  width: 100px;
-  height: 100px;
-  bottom: 20%;
-  left: 20%;
-}
-
-.shape-4 {
-  width: 60px;
-  height: 60px;
-  top: 30%;
-  right: 30%;
-}
-
-.particle-container {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-
-.particle {
-  position: absolute;
-  width: 2px;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.6);
-  border-radius: 50%;
-  animation: float linear infinite;
-}
-
-@keyframes float {
-  0% {
-    transform: translateY(100vh) rotate(0deg);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-100px) rotate(360deg);
-    opacity: 0;
-  }
 }
 
 .hero-content {
@@ -595,8 +304,20 @@ onUnmounted(() => {
 
 .title-line {
   display: block;
-  transform: translateY(100px);
+  animation: fadeInUp 1s ease-out forwards;
   opacity: 0;
+  transform: translateY(30px);
+}
+
+.title-line:nth-child(1) { animation-delay: 0.2s; }
+.title-line:nth-child(2) { animation-delay: 0.4s; }
+.title-line:nth-child(3) { animation-delay: 0.6s; }
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .hero-subtitle {
@@ -604,6 +325,9 @@ onUnmounted(() => {
   margin-bottom: 3rem;
   opacity: 0.9;
   line-height: 1.6;
+  animation: fadeInUp 1s ease-out 0.8s forwards;
+  opacity: 0;
+  transform: translateY(30px);
 }
 
 .hero-cta {
@@ -611,6 +335,9 @@ onUnmounted(() => {
   gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
+  animation: fadeInUp 1s ease-out 1s forwards;
+  opacity: 0;
+  transform: translateY(30px);
 }
 
 .cta-button {
@@ -648,6 +375,65 @@ onUnmounted(() => {
 .cta-button.secondary:hover {
   border-color: rgba(255, 255, 255, 0.6);
   background: rgba(255, 255, 255, 0.1);
+}
+
+.floating-shapes {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: float 8s ease-in-out infinite;
+}
+
+.shape-1 {
+  width: 120px;
+  height: 120px;
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.shape-2 {
+  width: 80px;
+  height: 80px;
+  top: 60%;
+  right: 15%;
+  animation-delay: 2s;
+}
+
+.shape-3 {
+  width: 100px;
+  height: 100px;
+  bottom: 20%;
+  left: 20%;
+  animation-delay: 4s;
+}
+
+.shape-4 {
+  width: 60px;
+  height: 60px;
+  top: 30%;
+  right: 30%;
+  animation-delay: 6s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+  }
 }
 
 /* Timeline Section */
@@ -693,11 +479,31 @@ onUnmounted(() => {
   position: relative;
   margin-bottom: 4rem;
   opacity: 0;
-  transform: translateX(-100px);
+  animation: slideInFromLeft 0.8s ease-out forwards;
 }
 
 .timeline-item:nth-child(even) {
-  transform: translateX(100px);
+  animation: slideInFromRight 0.8s ease-out forwards;
+}
+
+.timeline-item:nth-child(1) { animation-delay: 0.2s; }
+.timeline-item:nth-child(2) { animation-delay: 0.4s; }
+.timeline-item:nth-child(3) { animation-delay: 0.6s; }
+.timeline-item:nth-child(4) { animation-delay: 0.8s; }
+.timeline-item:nth-child(5) { animation-delay: 1s; }
+
+@keyframes slideInFromLeft {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .timeline-item:nth-child(even) .timeline-content {
@@ -716,12 +522,6 @@ onUnmounted(() => {
   transform: translateX(-50%);
   z-index: 2;
   transition: all 0.3s ease;
-}
-
-.timeline-marker.active {
-  width: 30px;
-  height: 30px;
-  box-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
 }
 
 .timeline-content {
@@ -786,7 +586,15 @@ onUnmounted(() => {
   transition: all 0.3s ease;
   border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
+  animation: fadeInUp 0.8s ease-out forwards;
+  opacity: 0;
+  transform: translateY(30px);
 }
+
+.team-member:nth-child(1) { animation-delay: 0.1s; }
+.team-member:nth-child(2) { animation-delay: 0.2s; }
+.team-member:nth-child(3) { animation-delay: 0.3s; }
+.team-member:nth-child(4) { animation-delay: 0.4s; }
 
 .team-member:hover {
   transform: translateY(-10px) scale(1.02);
@@ -821,12 +629,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0;
   transition: all 0.3s ease;
-}
-
-.team-member:hover .avatar-overlay {
-  opacity: 1;
 }
 
 .social-links {
@@ -905,7 +708,15 @@ onUnmounted(() => {
   backdrop-filter: blur(10px);
   position: relative;
   overflow: hidden;
+  animation: fadeInUp 0.8s ease-out forwards;
+  opacity: 0;
+  transform: translateY(30px);
 }
+
+.value-card:nth-child(1) { animation-delay: 0.1s; }
+.value-card:nth-child(2) { animation-delay: 0.2s; }
+.value-card:nth-child(3) { animation-delay: 0.3s; }
+.value-card:nth-child(4) { animation-delay: 0.4s; }
 
 .value-card:hover {
   transform: translateY(-5px);
@@ -977,7 +788,15 @@ onUnmounted(() => {
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
+  animation: fadeInUp 0.8s ease-out forwards;
+  opacity: 0;
+  transform: translateY(30px);
 }
+
+.stat-item:nth-child(1) { animation-delay: 0.1s; }
+.stat-item:nth-child(2) { animation-delay: 0.2s; }
+.stat-item:nth-child(3) { animation-delay: 0.3s; }
+.stat-item:nth-child(4) { animation-delay: 0.4s; }
 
 .stat-item:hover {
   transform: translateY(-5px);
@@ -1060,6 +879,7 @@ onUnmounted(() => {
   border-radius: 50%;
   background: linear-gradient(45deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
   border: 1px solid rgba(102, 126, 234, 0.2);
+  animation: float-slow 8s ease-in-out infinite;
 }
 
 .element-1 {
@@ -1067,7 +887,7 @@ onUnmounted(() => {
   height: 80px;
   top: 20%;
   left: 10%;
-  animation: float-slow 8s ease-in-out infinite;
+  animation-delay: 0s;
 }
 
 .element-2 {
@@ -1075,7 +895,7 @@ onUnmounted(() => {
   height: 120px;
   top: 60%;
   right: 15%;
-  animation: float-slow 10s ease-in-out infinite reverse;
+  animation-delay: 4s;
 }
 
 .element-3 {
@@ -1083,7 +903,7 @@ onUnmounted(() => {
   height: 60px;
   bottom: 30%;
   left: 20%;
-  animation: float-slow 12s ease-in-out infinite;
+  animation-delay: 8s;
 }
 
 @keyframes float-slow {
