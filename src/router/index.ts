@@ -6,6 +6,8 @@ import CostCalculationView from '../views/CostCalculationView.vue'
 import EnhancedCostCalculationView from '../views/EnhancedCostCalculationView.vue'
 import ContactView from '../views/ContactView.vue'
 import AboutView from '../views/AboutView.vue'
+import InDevelopmentView from '../views/InDevelopmentView.vue'
+import NotFoundView from '../views/NotFoundView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,27 +25,69 @@ const router = createRouter({
     {
       path: '/portfolio',
       name: 'portfolio',
-      component: PortfolioView
+      redirect: '/in-development'
     },
     {
       path: '/careers',
       name: 'careers',
-      component: CareersView
+      redirect: '/in-development'
     },
     {
       path: '/cost-calculator',
       name: 'cost-calculator',
-      component: CostCalculationView
+      redirect: '/in-development'
     },
     {
       path: '/enhanced-calculator',
       name: 'enhanced-calculator',
-      component: EnhancedCostCalculationView
+      redirect: '/in-development'
     },
     {
       path: '/contact',
       name: 'contact',
       component: ContactView
+    },
+    {
+      path: '/in-development',
+      name: 'in-development',
+      component: InDevelopmentView
+    },
+    // Service pages that redirect to in-development
+    {
+      path: '/services/software-development',
+      name: 'software-development',
+      redirect: '/in-development'
+    },
+    {
+      path: '/services/web-development',
+      name: 'web-development',
+      redirect: '/in-development'
+    },
+    {
+      path: '/services/application-development',
+      name: 'application-development',
+      redirect: '/in-development'
+    },
+    {
+      path: '/services/ui-ux-design',
+      name: 'ui-ux-design',
+      redirect: '/in-development'
+    },
+    {
+      path: '/services/web-design',
+      name: 'web-design',
+      redirect: '/in-development'
+    },
+    {
+      path: '/apply',
+      name: 'apply',
+      redirect: '/in-development'
+    },
+    // Catch-all route for 404 pages
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'not-found',
+      component: NotFoundView
     }
   ],
   scrollBehavior(to, from, savedPosition) {
