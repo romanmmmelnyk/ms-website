@@ -1,0 +1,40 @@
+name: Build & Deploy (no registry)
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # збираємо образ локально в раннері
+      - name: Build image
+        run: |
+          docker build -t ms-vue-app:latest .
+
+      # додаємо SSH-ключ
+      - name: Start ssh-agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_KEY }}
+
+      # передаємо образ на сервер безпосередньо та перезапускаємо контейнер
+      - name: Transfer image & restart container
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_PORT: ${{ secrets.SSH_PORT || 22 }}
+        run: |
+          # передати образ на сервер і завантажити в docker
+          docker save ms-vue-app:latest | bzip2 | \
+            ssh -o StrictHostKeyChecking=no -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" 'bunzip2 | docker load'
+
+          # перезапустити контейнер із новим образом
+          ssh -o StrictHostKeyChecking=no -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" << 'EOF'
+            set -e
+            docker rm -f ms-vue-app || true
+            docker run -d --name ms-vue-app --restart unless-stopped -p 9100:9100 ms-vue-app:latest
+            docker image prune -f
+          EOF

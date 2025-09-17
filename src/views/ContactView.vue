@@ -98,7 +98,7 @@
               </div>
               <div class="method-content">
                 <h3>Call us directly</h3>
-                <p>Speak with our team at +1 (555) 123-4567</p>
+                <p>Speak with our team at +44 7787 292197</p>
               </div>
             </div>
 
@@ -111,7 +111,7 @@
               </div>
               <div class="method-content">
                 <h3>Email us</h3>
-                <p>Send us an email at hello@company.com</p>
+                <p>Send us an email at hello@mothsolutions.com</p>
               </div>
             </div>
           </div>

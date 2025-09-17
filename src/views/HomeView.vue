@@ -311,159 +311,7 @@ onMounted(() => {
 
 
 
-@media (max-width: 1024px) {
-  /* Tablet service cards */
-  .service-cards {
-    position: relative;
-  }
-}
 
-@media (max-width: 768px) {
-  /* Services responsive */
-  .services-title {
-    font-size: 2.5rem;
-  }
-  
-  .services-subtitle {
-    font-size: 1rem;
-  }
-  
-  .service-category {
-    flex-direction: column;
-    gap: 30px;
-  }
-  
-  .category-header {
-    min-width: auto;
-    text-align: center;
-  }
-  
-  .category-number {
-    font-size: 1.5rem;
-  }
-  
-  .category-title {
-    font-size: 0.4rem;
-  }
-  
-  .service-cards {
-    display: flex;
-    overflow-x: auto;
-    gap: 20px;
-    padding: 0 20px;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    position: relative;
-  }
-  
-  .service-cards::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .service-card {
-    min-width: 280px;
-    flex-shrink: 0;
-    scroll-snap-align: start;
-    min-height: 300px;
-    padding: 25px;
-  }
-  
-  .service-card h4 {
-    font-size: 1.1rem;
-  }
-  
-  .service-card p {
-    font-size: 0.9rem;
-  }
-  
-  /* CTA responsive */
-  .cta-content {
-    grid-template-columns: 1fr;
-    gap: 40px;
-    text-align: center;
-  }
-  
-  .cta-text h2 {
-    font-size: 2.5rem;
-    text-align: center;
-  }
-  
-  .cta-text p {
-    font-size: 1.1rem;
-    text-align: center;
-  }
-  
-  .cta-features {
-    align-items: center;
-  }
-  
-  .calculator-mockup {
-    width: 250px;
-  }
-}
-
-@media (max-width: 480px) {
-  /* Services responsive for small mobile */
-  .services-title {
-    font-size: 1.2rem;
-  }
-  
-  .services-subtitle {
-    font-size: 0.9rem;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  .vertical-line-dark {
-    width: 40px;
-    height: 2px;
-  }
-  
-  .category-number {
-    font-size: 1.3rem;
-  }
-  
-  .category-title {
-    font-size: 0.3rem;
-  }
-  
-  .service-cards {
-    gap: 15px;
-  }
-  
-  .service-card {
-    padding: 20px;
-  }
-  
-  .service-card h4 {
-    font-size: 1rem;
-  }
-  
-  .service-card p {
-    font-size: 0.85rem;
-  }
-  
-  /* CTA responsive for small mobile */
-  .cta-text h2 {
-    font-size: 2rem;
-  }
-  
-  .cta-text p {
-    font-size: 1rem;
-  }
-  
-  .cta-button {
-    padding: 16px 24px;
-    font-size: 16px;
-  }
-  
-  .calculator-mockup {
-    width: 200px;
-    padding: 16px;
-  }
-}
 
 /* Other Sections */
 .section {
@@ -581,6 +429,7 @@ onMounted(() => {
   flex-direction: column;
   min-height: 320px;
   justify-content: space-between;
+  max-width: 350px;
 }
 
 .service-card:hover {
@@ -789,9 +638,10 @@ onMounted(() => {
 
 .cta-features {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 16px;
   margin-bottom: 40px;
+  justify-content: flex-start;
 }
 
 .cta-feature {
@@ -931,5 +781,203 @@ p {
   font-size: 1.2rem;
   line-height: 1.6;
   text-align: center;
+}
+
+@media (max-width: 1024px) {
+  /* Tablet service cards */
+  .service-cards {
+    position: relative;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Services responsive */
+  .services-title {
+    font-size: 2rem;
+  }
+  
+  .services-subtitle {
+    font-size: 1rem;
+  }
+  
+  .service-category {
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .category-header {
+    min-width: auto;
+    text-align: center;
+  }
+  
+  .category-number {
+    font-size: 1.5rem;
+  }
+  
+  .category-title {
+    font-size: 1rem;
+  }
+  
+  .service-cards {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding: 0 20px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    position: relative;
+  }
+  
+  .service-cards::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .service-card {
+    min-width: 280px;
+    max-width: 300px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    min-height: 300px;
+    padding: 25px;
+  }
+  
+  .service-card h4 {
+    font-size: 1.1rem;
+  }
+  
+  .service-card p {
+    font-size: 0.9rem;
+  }
+  
+  /* CTA responsive */
+  .cta-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    text-align: center;
+  }
+  
+  .cta-text h2 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  
+  .cta-text p {
+    font-size: 0.9rem;
+    text-align: center;
+  }
+  
+  .cta-features {
+    align-items: center;
+    gap: 12px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+  
+  .cta-feature {
+    font-size: 0.9rem;
+  }
+  
+  .feature-icon {
+    font-size: 20px;
+    width: 35px;
+    height: 35px;
+  }
+  
+  .calculator-mockup {
+    width: 250px;
+  }
+  
+  .cta-button {
+    padding: 14px 24px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Services responsive for small mobile */
+  .services-title {
+    font-size: 1.8rem;
+  }
+  
+  .services-subtitle {
+    font-size: 0.9rem;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .vertical-line-dark {
+    width: 40px;
+    height: 2px;
+  }
+  
+  .category-number {
+    font-size: 1.3rem;
+  }
+  
+  .category-title {
+    font-size: 1rem;
+  }
+  
+  .service-cards {
+    gap: 15px;
+  }
+  
+  .service-card {
+    padding: 20px;
+    max-width: 280px;
+  }
+  
+  .service-card h4 {
+    font-size: 1rem;
+  }
+  
+  .service-card p {
+    font-size: 0.85rem;
+  }
+  
+  /* CTA responsive for small mobile */
+  .cta-text h2 {
+    font-size: 1.2rem;
+  }
+  
+  .cta-text p {
+    font-size: 0.8rem;
+  }
+  
+  .cta-features {
+    gap: 10px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+  
+  .cta-feature {
+    font-size: 0.85rem;
+  }
+  
+  .feature-icon {
+    font-size: 18px;
+    width: 32px;
+    height: 32px;
+  }
+  
+  .calculator-mockup {
+    width: 200px;
+    padding: 16px;
+  }
+  
+  .cost-calculator-cta {
+    padding: 40px 0;
+  }
+  
+  .cta-content {
+    gap: 20px;
+  }
+  
+  .cta-button {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
 }
 </style>

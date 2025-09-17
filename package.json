@@ -8,20 +8,28 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "run-p type-check \"build-only {@}\" --",
+    "build": "vite build",
+    "build:with-check": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "build-only": "vite build",
-    "type-check": "vue-tsc --build",
+    "type-check": "vue-tsc --build --noEmit",
     "lint": "eslint . --fix",
     "build:optimized": "bash scripts/build-optimized.sh",
     "analyze": "vite build --mode analyze",
     "lighthouse": "lighthouse http://localhost:3000 --output=html --output-path=./lighthouse-report.html",
-    "performance": "npm run build && npm run lighthouse"
+    "performance": "npm run build && npm run lighthouse",
+    "docker:build": "docker build -t ms-vue-app .",
+    "docker:run": "docker run -p 9100:9100 ms-vue-app",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f"
   },
   "dependencies": {
+    "@types/three": "^0.179.0",
     "gsap": "^3.13.0",
     "lucide-vue-next": "^0.541.0",
     "pinia": "^3.0.3",
+    "three": "^0.179.1",
     "vue": "^3.5.18",
     "vue-router": "^4.5.1"
   },

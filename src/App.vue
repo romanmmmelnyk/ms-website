@@ -4,6 +4,7 @@ import { Header } from './components/header'
 import Footer from './components/Footer.vue'
 import Navigation from './components/header/Navigation.vue'
 import ErrorBoundary from './components/ErrorBoundary.vue'
+import CookieConsent from './components/CookieConsent.vue'
 
 const isNavigationOpen = ref(false)
 
@@ -29,6 +30,8 @@ const closeNavigation = () => {
     </main>
 
     <Footer />
+    
+    <CookieConsent />
   </div>
 </template>
 

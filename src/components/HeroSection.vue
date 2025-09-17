@@ -24,15 +24,15 @@
           </div>
         </div>
         
-        <!-- Right Side - Placeholder -->
+        <!-- Right Side - Hero SVG -->
         <div class="hero-visual">
-            <GetInTouchHero
-    line1="GET"
-    line2="IN"
-    line3="TOUCH"
-    accent="#7b2cff"
-    glow="#6be1ff"
-  />
+          <img 
+            src="/hero.svg" 
+            alt="Hero illustration" 
+            class="hero-svg"
+            loading="lazy"
+            decoding="async"
+          />
         </div>
       </div>
       
@@ -101,6 +101,7 @@ onUnmounted(() => {
   align-items: center;
   position: relative;
   padding: 120px 0 80px;
+  overflow: hidden;
 }
 
 .hero-content {
@@ -213,18 +214,20 @@ onUnmounted(() => {
   box-shadow: 0 10px 25px rgba(127, 0, 253, 0.3);
 }
 
-/* Right Side - Hero Sphere SVG */
+/* Right Side - Hero SVG */
 .hero-visual {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.hero-sphere {
-  width: 300px;
-  height: 300px;
-  max-width: 100%;
+.hero-svg {
+  width: 100%;
+  max-width: 500px;
   height: auto;
+  object-fit: contain;
+  transform: scale(2) translateX(-50px);
+  transition: transform 0.3s ease;
 }
 
 /* Scroll Indicator */
@@ -297,9 +300,9 @@ onUnmounted(() => {
     font-size: 3rem;
   }
   
-  .hero-sphere {
-    width: 250px;
-    height: 250px;
+  .hero-svg {
+    max-width: 400px;
+    transform: scale(2) translateX(-50px);
   }
   
   .text-item {
@@ -327,7 +330,15 @@ onUnmounted(() => {
   }
   
   .hero-visual {
-    display: none; /* Hide on mobile */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .hero-svg {
+    max-width: 200px;
+    opacity: 0.5;
+    transform: scale(5) translate(-50px, -20px);
   }
   
   .hero-section {
@@ -378,6 +389,12 @@ onUnmounted(() => {
   
   .rotating-text {
     min-width: 120px;
+  }
+  
+  .hero-svg {
+    max-width: 120px;
+    opacity: 0.2;
+    transform: scale(6) translate(-15px, -20px);
   }
 }
 </style>
