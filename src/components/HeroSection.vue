@@ -8,34 +8,34 @@
             <div class="vertical-line"></div>
             <span>Creating innovative IT solutions for your business</span>
           </div>
-          
+
           <h1 class="hero-title">
-            We inspire ideas and turn them into functional digital 
+            We inspire ideas and turn them into functional digital
             <span class="highlight rotating-text">
               <span class="text-item" :class="{ active: currentTextIndex === 0 }">products.</span>
               <span class="text-item" :class="{ active: currentTextIndex === 1 }">designs.</span>
               <span class="text-item" :class="{ active: currentTextIndex === 2 }">apps.</span>
             </span>
           </h1>
-          
+
           <div class="hero-buttons">
             <button class="btn btn-outline">Our services</button>
             <button class="btn btn-primary" @click="navigateToContact">Get in touch</button>
           </div>
         </div>
-        
+
         <!-- Right Side - Hero SVG -->
         <div class="hero-visual">
-          <img 
-            src="/hero.svg" 
-            alt="Hero illustration" 
+          <img
+            src="/hero.svg"
+            alt="Hero illustration"
             class="hero-svg"
             loading="lazy"
             decoding="async"
           />
         </div>
       </div>
-      
+
       <!-- Scroll Indicator -->
       <div class="scroll-indicator" @click="scrollToNextSection" title="Scroll to next section">
         <div class="chevron"></div>
@@ -72,7 +72,7 @@ const scrollToNextSection = () => {
   measureSync(() => {
     const nextSection = document.querySelector('.services-section')
     if (nextSection) {
-      nextSection.scrollIntoView({ 
+      nextSection.scrollIntoView({
         behavior: 'smooth',
         block: 'start'
       })
@@ -113,6 +113,7 @@ onUnmounted(() => {
 
 .hero-text {
   max-width: 900px;
+  z-index: 20;
 }
 
 .hero-subtitle {
@@ -295,16 +296,16 @@ onUnmounted(() => {
   .hero-content {
     gap: 60px;
   }
-  
+
   .hero-title {
     font-size: 3rem;
   }
-  
+
   .hero-svg {
     max-width: 400px;
     transform: scale(2) translateX(-50px);
   }
-  
+
   .text-item {
     top: -50px;
   }
@@ -316,39 +317,39 @@ onUnmounted(() => {
     gap: 40px;
     text-align: center;
   }
-  
+
   .hero-text {
     max-width: 100%;
   }
-  
+
   .hero-title {
     font-size: 2.5rem;
   }
-  
+
   .hero-buttons {
     justify-content: center;
   }
-  
+
   .hero-visual {
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  
+
   .hero-svg {
     max-width: 200px;
     opacity: 0.5;
     transform: scale(5) translate(-50px, -20px);
   }
-  
+
   .hero-section {
     padding: 100px 0 60px;
   }
-  
+
   .rotating-text {
     min-width: 150px;
   }
-  
+
   .text-item {
     top: -39px;
   }
@@ -359,38 +360,38 @@ onUnmounted(() => {
     text-align: start;
     font-size: 1.85rem;
   }
-  
+
   .hero-subtitle {
-    text-align: start;  
+    text-align: start;
     font-size: 1rem;
     flex-direction: column;
     gap: 15px;
   }
-  
+
   .vertical-line {
     width: 40px;
     height: 2px;
   }
-  
+
   .text-item {
     align-items: center;
     top: -30px;
   }
-  
+
   .btn {
     padding: 14px 24px;
     font-size: 0.9rem;
   }
-  
+
   .hero-buttons {
     flex-direction: column;
     align-items: center;
   }
-  
+
   .rotating-text {
     min-width: 120px;
   }
-  
+
   .hero-svg {
     max-width: 120px;
     opacity: 0.2;
