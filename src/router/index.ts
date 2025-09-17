@@ -30,12 +30,12 @@ const router = createRouter({
     {
       path: '/careers',
       name: 'careers',
-      redirect: '/in-development'
+      component: CareersView
     },
     {
       path: '/cost-calculator',
       name: 'cost-calculator',
-      redirect: '/in-development'
+      component: CostCalculationView
     },
     {
       path: '/enhanced-calculator',
