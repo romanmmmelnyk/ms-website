@@ -21,20 +21,20 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_KEY }}
 
       # передаємо образ на сервер безпосередньо та перезапускаємо контейнер
-      - name: Transfer image & restart container
-        env:
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-          SSH_USER: ${{ secrets.SSH_USER }}
-          SSH_PORT: ${{ secrets.SSH_PORT || 22 }}
-        run: |
-          # передати образ на сервер і завантажити в docker
-          docker save ms-vue-app:latest | bzip2 | \
-            ssh -o StrictHostKeyChecking=no -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" 'bunzip2 | docker load'
-
-          # перезапустити контейнер із новим образом
-          ssh -o StrictHostKeyChecking=no -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" << 'EOF'
-            set -e
-            docker rm -f ms-vue-app || true
-            docker run -d --name ms-vue-app --restart unless-stopped -p 9100:9100 ms-vue-app:latest
-            docker image prune -f
-          EOF
+      - name: Transfer image & restart container (gzip)
+    env:
+      SSH_HOST: ${{ secrets.SSH_HOST }}
+      SSH_USER: ${{ secrets.SSH_USER }}
+      SSH_PORT: ${{ secrets.SSH_PORT || 22 }}
+    run: |
+      # передати образ на сервер і завантажити в docker (через gzip)
+      docker save ms-vue-app:latest | gzip -1 | \
+        ssh -o StrictHostKeyChecking=no -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" "gunzip | docker load"
+      
+      # перезапустити контейнер з новим образом
+      ssh -o StrictHostKeyChecking=no -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" << 'EOF'
+        set -e
+        docker rm -f ms-vue-app || true
+        docker run -d --name ms-vue-app --restart unless-stopped -p 9100:9100 ms-vue-app:latest
+        docker image prune -f || true
+      EOF
