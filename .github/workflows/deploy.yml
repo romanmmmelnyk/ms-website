@@ -1,40 +1,60 @@
 name: Build & Deploy (no registry)
+
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
 
-      # збираємо образ локально в раннері
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Build image
         run: |
           docker build -t ms-vue-app:latest .
 
-      # додаємо SSH-ключ
       - name: Start ssh-agent
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.SSH_KEY }}
 
-      # передаємо образ на сервер безпосередньо та перезапускаємо контейнер
-      - name: Transfer image & restart container (gzip)
-    env:
-      SSH_HOST: ${{ secrets.SSH_HOST }}
-      SSH_USER: ${{ secrets.SSH_USER }}
-      SSH_PORT: ${{ secrets.SSH_PORT || 22 }}
-    run: |
-      # передати образ на сервер і завантажити в docker (через gzip)
-      docker save ms-vue-app:latest | gzip -1 | \
-        ssh -o StrictHostKeyChecking=no -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" "gunzip | docker load"
-      
-      # перезапустити контейнер з новим образом
-      ssh -o StrictHostKeyChecking=no -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" << 'EOF'
-        set -e
-        docker rm -f ms-vue-app || true
-        docker run -d --name ms-vue-app --restart unless-stopped -p 9100:9100 ms-vue-app:latest
-        docker image prune -f || true
-      EOF
+      # (опційно) додай ключ хоста і прибери StrictHostKeyChecking=no у нижніх кроках
+      # - name: Add server host key
+      #   run: ssh-keyscan -p "${{ secrets.SSH_PORT || 22 }}" "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts
+
+      - name: Transfer image (gzip) and load on server
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+        run: |
+          docker save ms-vue-app:latest | gzip -1 | \
+            ssh -o StrictHostKeyChecking=no -p "${SSH_PORT:-22}" "$SSH_USER@$SSH_HOST" "gunzip | docker load"
+
+      - name: Restart container
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+        run: |
+          ssh -o StrictHostKeyChecking=no -p "${SSH_PORT:-22}" "$SSH_USER@$SSH_HOST" << 'EOF'
+            set -e
+            docker rm -f ms-vue-app || true
+            docker run -d --name ms-vue-app --restart unless-stopped -p 9100:9100 ms-vue-app:latest
+            docker image prune -f || true
+          EOF
+
+      - name: Smoke check (HTTP 200 expected)
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+        run: |
+          # невелика пауза, щоб контейнер піднявся
+          sleep 2
+          ssh -o StrictHostKeyChecking=no -p "${SSH_PORT:-22}" "$SSH_USER@$SSH_HOST" \
+            "curl -sSf -I http://localhost:9100 >/dev/null && echo 'OK: app is up on :9100'"
