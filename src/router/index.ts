@@ -3,11 +3,12 @@ import HomeView from '../views/HomeView.vue'
 import PortfolioView from '../views/PortfolioView.vue'
 import CareersView from '../views/CareersView.vue'
 import CostCalculationView from '../views/CostCalculationView.vue'
-import EnhancedCostCalculationView from '../views/EnhancedCostCalculationView.vue'
 import ContactView from '../views/ContactView.vue'
 import AboutView from '../views/AboutView.vue'
 import InDevelopmentView from '../views/InDevelopmentView.vue'
 import NotFoundView from '../views/NotFoundView.vue'
+import PrivacyPolicyView from '../views/PrivacyPolicyView.vue'
+import TermsOfServiceView from '../views/TermsOfServiceView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -82,6 +83,16 @@ const router = createRouter({
       path: '/apply',
       name: 'apply',
       redirect: '/in-development'
+    },
+    {
+      path: '/privacy-policy',
+      name: 'privacy-policy',
+      component: PrivacyPolicyView
+    },
+    {
+      path: '/terms-of-service',
+      name: 'terms-of-service',
+      component: TermsOfServiceView
     },
     // Catch-all route for 404 pages
     {
