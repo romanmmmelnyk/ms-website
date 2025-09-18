@@ -105,9 +105,10 @@
             @mouseleave="handleMemberLeave(index)"
           >
             <div class="member-photo">
-              <div class="photo-placeholder">
+              <div class="photo-placeholder" v-if="!member.photo">
                 <span>{{ member.initials }}</span>
               </div>
+              <img v-else :src="(member as any).photo" :alt="member.name" class="member-image" />
             </div>
             <div class="member-info">
               <h3 class="member-name">{{ member.name }}</h3>
@@ -224,28 +225,52 @@ const services = ref([
 
 const teamMembers = ref([
   {
-    name: 'Alex Johnson',
-    role: 'CEO & Founder',
-    bio: 'Visionary leader with 10+ years in digital transformation',
-    initials: 'AJ'
+    name: 'Roman Nikotov',
+    role: 'Co-Founder, CEO',
+    bio: 'Visionary leader with extensive experience in digital transformation and business strategy',
+    initials: 'RN'
   },
   {
-    name: 'Sarah Chen',
-    role: 'CTO',
-    bio: 'Tech expert specializing in scalable architecture and AI solutions',
-    initials: 'SC'
+    name: 'Anton Fomenko',
+    role: 'Co-Founder, CTO',
+    bio: 'Tech expert specializing in scalable architecture and innovative solutions',
+    initials: 'AF'
   },
   {
-    name: 'Marcus Rodriguez',
-    role: 'Head of Design',
-    bio: 'Creative director with a passion for user experience excellence',
-    initials: 'MR'
+    name: 'Daniil',
+    role: 'Full Stack Developer',
+    bio: 'Experienced developer with expertise in both frontend and backend technologies',
+    initials: 'D'
   },
   {
-    name: 'Emma Thompson',
-    role: 'Lead Developer',
-    bio: 'Full-stack expert with expertise in modern frameworks',
-    initials: 'ET'
+    name: 'Anton',
+    role: 'Backend Developer',
+    bio: 'Specialized in server-side development and database optimization',
+    initials: 'A'
+  },
+  {
+    name: 'Evgenii',
+    role: 'Web Designer',
+    bio: 'Creative designer focused on user experience and modern web aesthetics',
+    initials: 'E'
+  },
+  {
+    name: 'Artur',
+    role: 'SEO Specialist',
+    bio: 'Expert in search engine optimization and digital marketing strategies',
+    initials: 'AR'
+  },
+  {
+    name: 'Oleksii',
+    role: 'DevOps Engineer',
+    bio: 'Infrastructure specialist ensuring smooth deployment and system reliability',
+    initials: 'O'
+  },
+  {
+    name: 'Olga',
+    role: 'Project Manager',
+    bio: 'Experienced project coordinator ensuring timely delivery and client satisfaction',
+    initials: 'OL'
   }
 ])
 
@@ -874,6 +899,20 @@ onUnmounted(() => {
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--color-white);
+}
+
+.member-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--color-primary-purple);
+  transition: all 0.3s ease;
+}
+
+.member-image:hover {
+  border-color: var(--color-secondary-teal);
+  transform: scale(1.05);
 }
 
 .member-name {
