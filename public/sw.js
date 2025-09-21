@@ -1,5 +1,5 @@
 // Service Worker for offline functionality and caching
-const CACHE_NAME = 'ms-v2-cache-v1'
+const CACHE_NAME = 'ms-v2-cache-v2'
 const urlsToCache = [
   '/',
   '/index.html',
