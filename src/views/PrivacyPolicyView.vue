@@ -35,7 +35,6 @@
           <strong>Questions or concerns?</strong> Reading this Privacy Notice will help you understand your privacy rights and choices. We are responsible for making decisions about how your personal information is processed. If you do not agree with our policies and practices, please do not use our Services.
         </p>
       </section>
-
       <section class="document-section">
         <h2>SUMMARY OF KEY POINTS</h2>
         <p>This summary provides key points from our Privacy Notice, but you can find out more details about any of these topics by clicking the link following each key point or by using our <a href="#table-of-contents">table of contents</a> below to find the section you are looking for.</p>
@@ -131,8 +130,8 @@
           <li><strong>Business Transfers.</strong> We may share or transfer your information in connection with, or during negotiations of, any merger, sale of company assets, financing, or acquisition of all or a portion of our business to another company.</li>
           <li><strong>Affiliates.</strong> We may share your information with our affiliates, in which case we will require those affiliates to honour this Privacy Notice. Affiliates include our parent company and any subsidiaries, joint venture partners, or other companies that we control or that are under common control with us.</li>
           <li><strong>Business Partners.</strong> We may share your information with our business partners to offer you certain products, services, or promotions.</li>
-        </ul>
-      </section>
+            </ul>
+          </section>
 
       <section id="section-4" class="document-section">
         <h2>4. DO WE USE COOKIES AND OTHER TRACKING TECHNOLOGIES?</h2>
@@ -161,13 +160,13 @@
         <p><strong>In Short:</strong> We keep your information for as long as necessary to fulfil the purposes outlined in this Privacy Notice unless otherwise required by law.</p>
         <p>We will only keep your personal information for as long as it is necessary for the purposes set out in this Privacy Notice, unless a longer retention period is required or permitted by law (such as tax, accounting, or other legal requirements).</p>
         <p>When we have no ongoing legitimate business need to process your personal information, we will either delete or anonymise such information, or, if this is not possible (for example, because your personal information has been stored in backup archives), then we will securely store your personal information and isolate it from any further processing until deletion is possible.</p>
-      </section>
+          </section>
 
       <section id="section-8" class="document-section">
         <h2>8. DO WE COLLECT INFORMATION FROM MINORS?</h2>
         <p><strong>In Short:</strong> We do not knowingly collect data from or market to children under 18 years of age.</p>
         <p>We do not knowingly collect, solicit data from, or market to children under 18 years of age, nor do we knowingly sell such personal information. By using the Services, you represent that you are at least 18 or that you are the parent or guardian of such a minor and consent to such minor dependent's use of the Services. If we learn that personal information from users less than 18 years of age has been collected, we will deactivate the account and take reasonable measures to promptly delete such data from our records. If you become aware of any data we may have collected from children under age 18, please contact us at {{ email }}.</p>
-      </section>
+          </section>
 
       <section id="section-9" class="document-section">
         <h2>9. WHAT ARE YOUR PRIVACY RIGHTS?</h2>
@@ -180,23 +179,23 @@
         <h3>Account Information</h3>
         <p>If you would at any time like to review or change the information in your account or terminate your account, you can contact us using the information provided below.</p>
         <p>Upon your request to terminate your account, we will deactivate or delete your account and information from our active databases. However, we may retain some information in our files to prevent fraud, troubleshoot problems, assist with any investigations, enforce our legal terms and/or comply with applicable legal requirements.</p>
-      </section>
+          </section>
 
       <section id="section-10" class="document-section">
         <h2>10. CONTROLS FOR DO-NOT-TRACK FEATURES</h2>
         <p>Most web browsers and some mobile operating systems and mobile applications include a Do-Not-Track ('DNT') feature or setting you can activate to signal your privacy preference not to have data about your online browsing activities monitored and collected. At this stage, no uniform technology standard for recognising and implementing DNT signals has been finalised. As such, we do not currently respond to DNT browser signals or any other mechanism that automatically communicates your choice not to be tracked online. If a standard for online tracking is adopted that we must follow in the future, we will inform you about that practice in a revised version of this Privacy Notice.</p>
-      </section>
+          </section>
 
       <section id="section-11" class="document-section">
         <h2>11. DO WE MAKE UPDATES TO THIS NOTICE?</h2>
         <p><strong>In Short:</strong> Yes, we will update this notice as necessary to stay compliant with relevant laws.</p>
         <p>We may update this Privacy Notice from time to time. The updated version will be indicated by an updated 'Revised' date at the top of this Privacy Notice. If we make material changes to this Privacy Notice, we may notify you either by prominently posting a notice of such changes or by directly sending you a notification. We encourage you to review this Privacy Notice frequently to be informed of how we are protecting your information.</p>
-      </section>
+          </section>
 
       <section id="section-12" class="document-section">
         <h2>12. HOW CAN YOU CONTACT US ABOUT THIS NOTICE?</h2>
         <p>If you have questions or comments about this notice, you may contact us using any of the following methods:</p>
-        <div class="contact-info">
+            <div class="contact-info">
           <div class="contact-method">
             <h3>Email</h3>
             <p><a href="mailto:privacy@moth.solutions" class="contact-link">privacy@moth.solutions</a></p>
@@ -208,7 +207,7 @@
           <div class="contact-method">
             <h3>Registered Office</h3>
             <p><strong>{{ address }}</strong></p>
-          </div>
+            </div>
         </div>
       </section>
 
@@ -216,7 +215,7 @@
         <h2>13. HOW CAN YOU REVIEW, UPDATE, OR DELETE THE DATA WE COLLECT FROM YOU?</h2>
         <p>Based on the applicable laws of your country, you may have the right to request access to the personal information we collect from you, details about how we have processed it, correct inaccuracies, or delete your personal information. You may also have the right to withdraw your consent to our processing of your personal information. These rights may be limited in some circumstances by applicable law. To request to review, update, or delete your personal information, please contact us using the information provided above.</p>
       </section>
-    </div>
+      </div>
   </TermsAndPoliciesLayout>
 </template>
 
