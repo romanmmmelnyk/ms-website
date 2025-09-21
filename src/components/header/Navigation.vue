@@ -27,7 +27,7 @@
                 </defs>
               </svg>
             </div>
-            <a class="phone-number" href="tel:+447424654306">+44 7424 654306</a>
+            <a class="phone-number" :href="getPhoneLink()">{{ phone }}</a>
           </div>
 
           <div class="company-stats">
@@ -69,6 +69,7 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
+import { useSiteConfig } from '@/composables/useSiteConfig'
 
 interface Props {
   isOpen: boolean
@@ -80,6 +81,7 @@ const emit = defineEmits<{
 }>()
 
 const router = useRouter()
+const { phone, getPhoneLink } = useSiteConfig()
 
 const navigateTo = (path: string) => {
   router.push(path)
@@ -87,7 +89,7 @@ const navigateTo = (path: string) => {
 }
 
 const makePhoneCall = () => {
-  window.location.href = 'tel:+447787292197'
+  window.location.href = getPhoneLink()
 }
 </script>
 

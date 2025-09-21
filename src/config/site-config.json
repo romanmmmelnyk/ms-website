@@ -1,0 +1,203 @@
+{
+  "company": {
+    "name": "Moth Solutions",
+    "tagline": "Digital Development Agency",
+    "description": "Leading digital development agency specializing in web development, software solutions, digital marketing, and automation. Transform your ideas into functional digital products with our expert team.",
+    "founded": "2023",
+    "website": "https://mothsolutions.com"
+  },
+  "contact": {
+    "email": {
+      "primary": "office@mothsolutions.com",
+      "support": "support@mothsolutions.com",
+      "careers": "careers@mothsolutions.com",
+      "roman": "roman@moth.solutions"
+    },
+    "phone": {
+      "primary": "+44 7424 654306",
+      "formatted": "+44 7424 654306",
+      "international": "+44 7424 654306"
+    },
+    "address": {
+      "country": "United Kingdom",
+      "region": "United Kingdom",
+      "city": "London",
+      "full": "United Kingdom"
+    },
+    "business_hours": {
+      "timezone": "GMT",
+      "weekdays": "9:00 AM - 6:00 PM",
+      "weekends": "By appointment"
+    }
+  },
+  "social": {
+    "linkedin": {
+      "url": "https://www.linkedin.com/company/107398024/",
+      "company_id": "107398024",
+      "username": "moth-solutions"
+    },
+    "instagram": {
+      "url": "https://instagram.com/moth.solutions",
+      "username": "moth.solutions"
+    },
+    "facebook": {
+      "url": "https://facebook.com/mothsolutions",
+      "username": "mothsolutions"
+    },
+    "twitter": {
+      "url": "https://twitter.com/mothsolutions",
+      "username": "mothsolutions"
+    },
+    "github": {
+      "url": "https://github.com/mothsolutions",
+      "username": "mothsolutions"
+    }
+  },
+  "reviews": {
+    "clutch": {
+      "rating": "5.0",
+      "review_count": "15+",
+      "url": "https://clutch.co/profile/moth-solutions"
+    },
+    "goodfirms": {
+      "rating": "5.0",
+      "review_count": "10+",
+      "url": "https://www.goodfirms.co/company/moth-solutions"
+    }
+  },
+  "seo": {
+    "meta": {
+      "title": "Moth Solutions - Digital Development Agency | Web Development, Software Solutions & Digital Marketing",
+      "description": "Leading digital development agency specializing in web development, software solutions, digital marketing, and automation. Transform your ideas into functional digital products with our expert team.",
+      "keywords": "web development, software development, digital marketing, IT solutions, web design, mobile app development, e-commerce, CRM systems, ERP systems, SEO optimization, social media marketing, PPC campaigns, UI/UX design, chatbots, process automation, digital transformation, custom software, SaaS development, marketplace development, cost calculator, project pricing"
+    },
+    "social": {
+      "twitter": {
+        "card": "summary_large_image",
+        "site": "@mothsolutions",
+        "creator": "@mothsolutions",
+        "image": "https://mothsolutions.com/twitter-image.jpg"
+      },
+      "open_graph": {
+        "title": "Moth Solutions - Digital Development Agency",
+        "description": "Leading digital development agency specializing in web development, software solutions, digital marketing, and automation.",
+        "image": "https://mothsolutions.com/og-image.jpg",
+        "url": "https://mothsolutions.com"
+      }
+    }
+  },
+  "services": {
+    "main": [
+      {
+        "id": "web-development",
+        "name": "Web Development",
+        "url": "/services/web-development",
+        "description": "Custom web applications and websites"
+      },
+      {
+        "id": "software-development",
+        "name": "Software Development",
+        "url": "/services/software-development",
+        "description": "Custom software solutions"
+      },
+      {
+        "id": "application-development",
+        "name": "Application Development",
+        "url": "/services/application-development",
+        "description": "Mobile and desktop applications"
+      },
+      {
+        "id": "ui-ux-design",
+        "name": "UI/UX Design",
+        "url": "/services/ui-ux-design",
+        "description": "User interface and experience design"
+      },
+      {
+        "id": "web-design",
+        "name": "Web Design",
+        "url": "/services/web-design",
+        "description": "Modern and responsive web design"
+      }
+    ]
+  },
+  "navigation": {
+    "main": [
+      {
+        "name": "About us",
+        "url": "/about"
+      },
+      {
+        "name": "Contact us",
+        "url": "/contact"
+      },
+      {
+        "name": "Portfolio",
+        "url": "/portfolio"
+      },
+      {
+        "name": "Careers",
+        "url": "/careers"
+      }
+    ],
+    "legal": [
+      {
+        "name": "Privacy Policy",
+        "url": "/privacy-policy"
+      },
+      {
+        "name": "Terms of Service",
+        "url": "/terms-of-service"
+      }
+    ]
+  },
+  "testimonials": [
+    {
+      "text": "Working with this team was an absolute pleasure. They delivered our project on time and exceeded our expectations. The attention to detail and communication throughout the process was outstanding.",
+      "name": "Sarah Johnson",
+      "title": "CEO",
+      "company": "TechStart Inc.",
+      "initials": "SJ"
+    },
+    {
+      "text": "The level of expertise and professionalism is unmatched. They transformed our vision into reality and helped us scale our business. Highly recommended for any development project.",
+      "name": "Michael Chen",
+      "title": "CTO",
+      "company": "InnovateCorp",
+      "initials": "MC"
+    },
+    {
+      "text": "Exceptional service from start to finish. They understood our requirements perfectly and delivered a solution that perfectly fits our needs. The ongoing support has been invaluable.",
+      "name": "Emily Rodriguez",
+      "title": "Product Manager",
+      "company": "GrowthLabs",
+      "initials": "ER"
+    }
+  ],
+  "faq": [
+    {
+      "question": "How long does a typical project take?",
+      "answer": "Project timelines vary depending on complexity and scope. Simple websites typically take 4-6 weeks, while complex applications can take 3-6 months. We'll provide a detailed timeline during our initial consultation.",
+      "isOpen": false
+    },
+    {
+      "question": "What is your development process?",
+      "answer": "We follow an agile methodology with regular client check-ins. Our process includes discovery, planning, design, development, testing, and deployment. We maintain transparent communication throughout.",
+      "isOpen": false
+    },
+    {
+      "question": "Do you provide ongoing support?",
+      "answer": "Yes, we offer various support packages including maintenance, updates, and technical support. We can also provide hosting and monitoring services to ensure your application runs smoothly.",
+      "isOpen": false
+    },
+    {
+      "question": "What technologies do you specialize in?",
+      "answer": "We work with modern technologies including React, Vue.js, Node.js, Python, and cloud platforms like AWS and Azure. We choose the best tech stack for each project's specific requirements.",
+      "isOpen": false
+    },
+    {
+      "question": "How do you handle project changes?",
+      "answer": "We understand that requirements can evolve. We have a flexible change management process that allows for modifications while maintaining project timelines and budgets.",
+      "isOpen": false
+    }
+  ]
+}

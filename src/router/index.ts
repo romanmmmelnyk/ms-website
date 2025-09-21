@@ -9,6 +9,7 @@ import InDevelopmentView from '../views/InDevelopmentView.vue'
 import NotFoundView from '../views/NotFoundView.vue'
 import PrivacyPolicyView from '../views/PrivacyPolicyView.vue'
 import TermsOfServiceView from '../views/TermsOfServiceView.vue'
+import PolicyHistoryView from '../views/PolicyHistoryView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -93,6 +94,13 @@ const router = createRouter({
       path: '/terms-of-service',
       name: 'terms-of-service',
       component: TermsOfServiceView
+    },
+    // Policy history routes
+    {
+      path: '/terms-policies/:type/history/:versionId',
+      name: 'policy-history',
+      component: PolicyHistoryView,
+      props: true
     },
     // Catch-all route for 404 pages
     {

@@ -209,12 +209,12 @@
           </p>
           <div class="contact-actions">
             <router-link to="/contact" class="btn btn-primary btn-large">Start a Project</router-link>
-            <a href="mailto:roman@moth.solutions" class="btn btn-secondary btn-large">Send Email</a>
+            <a :href="`mailto:${contact.email.roman}`" class="btn btn-secondary btn-large">Send Email</a>
           </div>
           <div class="contact-info">
             <div class="contact-item">
               <span class="contact-label">Email:</span>
-              <a href="mailto:roman@moth.solutions" class="contact-value">roman@moth.solutions</a>
+              <a :href="`mailto:${contact.email.roman}`" class="contact-value">{{ contact.email.roman }}</a>
             </div>
             <div class="contact-item">
               <span class="contact-label">LinkedIn:</span>
@@ -229,8 +229,11 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { useSiteConfig } from '@/composables/useSiteConfig'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+const { contact } = useSiteConfig()
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger)

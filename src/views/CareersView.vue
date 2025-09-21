@@ -232,10 +232,10 @@
                 </div>
                 <div class="contact-details">
                   <h4>Call Us Directly</h4>
-                  <p>+44 7787 292197</p>
-                  <span class="response-time">Mon-Fri, 9:00 AM - 6:00 PM GMT</span>
+                  <p>{{ phone }}</p>
+                  <span class="response-time">{{ businessHours.weekdays }} {{ businessHours.timezone }}</span>
                 </div>
-                <a href="tel:+447787292197" class="contact-action">Call Now</a>
+                <a :href="getPhoneLink()" class="contact-action">Call Now</a>
               </div>
               
               <div class="contact-card">
@@ -289,6 +289,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import Container from '../components/Container.vue'
+import { useSiteConfig } from '@/composables/useSiteConfig'
+
+const { phone, getPhoneLink, businessHours } = useSiteConfig()
 
 interface Position {
   id: number

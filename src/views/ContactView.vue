@@ -98,7 +98,7 @@
               </div>
               <div class="method-content">
                 <h3>Call us directly</h3>
-                <p>Speak with our team at +44 7787 292197</p>
+                <p>Speak with our team at {{ phone }}</p>
               </div>
             </div>
 
@@ -111,7 +111,7 @@
               </div>
               <div class="method-content">
                 <h3>Email us</h3>
-                <p>Send us an email at hello@mothsolutions.com</p>
+                <p>Send us an email at {{ email }}</p>
               </div>
             </div>
           </div>
@@ -136,7 +136,7 @@
           </div>
           
           <div class="testimonials-grid" ref="testimonialsGrid">
-            <div class="testimonial-card" v-for="(testimonial, index) in testimonials" :key="index" :ref="`testimonial${index}`">
+            <div class="testimonial-card" v-for="(testimonial, index) in testimonialsData" :key="index" :ref="`testimonial${index}`">
               <div class="testimonial-content">
                 <div class="quote-icon">"</div>
                 <p class="testimonial-text">{{ testimonial.text }}</p>
@@ -169,7 +169,7 @@
           <div class="faq-list" ref="faqList">
             <div 
               class="faq-item" 
-              v-for="(faq, index) in faqs" 
+              v-for="(faq, index) in faqsData" 
               :key="index" 
               :ref="`faq${index}`"
               @click="toggleFaq(index)"
@@ -203,6 +203,16 @@
 import { ref, reactive, onMounted, onUnmounted } from 'vue'
 import Container from '@/components/Container.vue'
 import ContactModal from '@/components/ContactModal.vue'
+import { useSiteConfig } from '@/composables/useSiteConfig'
+
+const {
+  email,
+  phone,
+  testimonials,
+  faq,
+  getEmailLink,
+  getPhoneLink
+} = useSiteConfig()
 
 const isModalOpen = ref(false)
 const heroSection = ref<HTMLElement>()
@@ -218,57 +228,9 @@ const faqSection = ref<HTMLElement>()
 const faqHeader = ref<HTMLElement>()
 const faqList = ref<HTMLElement>()
 
-const testimonials = reactive([
-  {
-    text: "Working with this team was an absolute pleasure. They delivered our project on time and exceeded our expectations. The attention to detail and communication throughout the process was outstanding.",
-    name: "Sarah Johnson",
-    title: "CEO",
-    company: "TechStart Inc.",
-    initials: "SJ"
-  },
-  {
-    text: "The level of expertise and professionalism is unmatched. They transformed our vision into reality and helped us scale our business. Highly recommended for any development project.",
-    name: "Michael Chen",
-    title: "CTO",
-    company: "InnovateCorp",
-    initials: "MC"
-  },
-  {
-    text: "Exceptional service from start to finish. They understood our requirements perfectly and delivered a solution that perfectly fits our needs. The ongoing support has been invaluable.",
-    name: "Emily Rodriguez",
-    title: "Product Manager",
-    company: "GrowthLabs",
-    initials: "ER"
-  }
-])
-
-const faqs = reactive([
-  {
-    question: "How long does a typical project take?",
-    answer: "Project timelines vary depending on complexity and scope. Simple websites typically take 4-6 weeks, while complex applications can take 3-6 months. We'll provide a detailed timeline during our initial consultation.",
-    isOpen: false
-  },
-  {
-    question: "What is your development process?",
-    answer: "We follow an agile methodology with regular client check-ins. Our process includes discovery, planning, design, development, testing, and deployment. We maintain transparent communication throughout.",
-    isOpen: false
-  },
-  {
-    question: "Do you provide ongoing support?",
-    answer: "Yes, we offer various support packages including maintenance, updates, and technical support. We can also provide hosting and monitoring services to ensure your application runs smoothly.",
-    isOpen: false
-  },
-  {
-    question: "What technologies do you specialize in?",
-    answer: "We work with modern technologies including React, Vue.js, Node.js, Python, and cloud platforms like AWS and Azure. We choose the best tech stack for each project's specific requirements.",
-    isOpen: false
-  },
-  {
-    question: "How do you handle project changes?",
-    answer: "We understand that requirements can evolve. We have a flexible change management process that allows for modifications while maintaining project timelines and budgets.",
-    isOpen: false
-  }
-])
+// Create reactive copies of testimonials and FAQ from config
+const testimonialsData = reactive([...testimonials.value])
+const faqsData = reactive([...faq.value])
 
 const openContactModal = () => {
   isModalOpen.value = true
@@ -279,7 +241,7 @@ const closeContactModal = () => {
 }
 
 const toggleFaq = (index: number) => {
-  faqs[index].isOpen = !faqs[index].isOpen
+  faqsData[index].isOpen = !faqsData[index].isOpen
 }
 
 // Geometric Grid Pattern Functions
