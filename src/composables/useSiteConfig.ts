@@ -4,10 +4,16 @@ import siteConfig from '@/config/site-config.json'
 // Type definitions for better TypeScript support
 export interface CompanyInfo {
   name: string
+  legal_name: string
   tagline: string
   description: string
   founded: string
   website: string
+  registration: {
+    country: string
+    company_number: string
+    registered_office: string
+  }
 }
 
 export interface ContactInfo {
@@ -144,8 +150,12 @@ export function useSiteConfig() {
   // Company information
   const company = computed(() => config.value.company)
   const companyName = computed(() => config.value.company.name)
+  const legalName = computed(() => config.value.company.legal_name)
   const companyTagline = computed(() => config.value.company.tagline)
   const companyDescription = computed(() => config.value.company.description)
+  const companyRegistration = computed(() => config.value.company.registration)
+  const companyNumber = computed(() => config.value.company.registration.company_number)
+  const registeredOffice = computed(() => config.value.company.registration.registered_office)
 
   // Contact information
   const contact = computed(() => config.value.contact)
@@ -236,8 +246,12 @@ export function useSiteConfig() {
 
     // Computed properties for easy access
     companyName,
+    legalName,
     companyTagline,
     companyDescription,
+    companyRegistration,
+    companyNumber,
+    registeredOffice,
     email,
     phone,
     phoneFormatted,

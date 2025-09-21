@@ -1,10 +1,16 @@
 {
   "company": {
     "name": "Moth Solutions",
+    "legal_name": "Moth Solutions Ltd",
     "tagline": "Digital Development Agency",
     "description": "Leading digital development agency specializing in web development, software solutions, digital marketing, and automation. Transform your ideas into functional digital products with our expert team.",
     "founded": "2023",
-    "website": "https://mothsolutions.com"
+    "website": "https://mothsolutions.com",
+    "registration": {
+      "country": "England & Wales",
+      "company_number": "16664532",
+      "registered_office": "21 Clifford Road E16 4JW London, United Kingdom"
+    }
   },
   "contact": {
     "email": {
@@ -20,9 +26,10 @@
     },
     "address": {
       "country": "United Kingdom",
-      "region": "United Kingdom",
+      "region": "England",
       "city": "London",
-      "full": "United Kingdom"
+      "postcode": "E16 4JW",
+      "full": "21 Clifford Road E16 4JW London, United Kingdom"
     },
     "business_hours": {
       "timezone": "GMT",
@@ -147,6 +154,10 @@
       {
         "name": "Terms of Service",
         "url": "/terms-of-service"
+      },
+      {
+        "name": "Cookie Policy",
+        "url": "/cookie-policy"
       }
     ]
   },

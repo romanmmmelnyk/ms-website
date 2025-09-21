@@ -6,7 +6,7 @@
 
         <!-- Main title section -->
         <div class="main-title-section">
-          <p class="subtitle">Terms & Policies</p>
+          <p class="subtitle">{{ documentType }}</p>
           <h1 class="main-title">{{ title }}</h1>
         </div>
 
