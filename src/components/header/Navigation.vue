@@ -188,21 +188,16 @@ const makePhoneCall = () => {
 
 /* Highlighted For Models Link */
 .nav-list a.highlighted-for-models {
-  font-weight: 700;
+  color: #ef4444;
+  font-style: italic;
+  font-weight: 600;
   position: relative;
-  padding: 8px 16px;
-  border-radius: 8px;
-  background-color: rgba(255, 255, 255, 0.15);
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  color: var(--color-text-primary);
 }
 
 .nav-list a.highlighted-for-models:hover {
-  background-color: rgba(255, 255, 255, 0.25);
-  border-color: rgba(255, 255, 255, 0.5);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-  transform: translateX(10px) translateY(-2px);
+  color: #dc2626;
+  transform: translateX(10px);
+  opacity: 0.9;
 }
 
 .content-right {
