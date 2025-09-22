@@ -7,6 +7,7 @@
             <ul>
               <li><a @click="navigateTo('/about')">ABOUT US</a></li>
               <li><a @click="navigateTo('/models')">MODELS</a></li>
+              <li><a class="highlighted-for-models" @click="navigateTo('/models')">FOR MODELS</a></li>
               <li><a @click="navigateTo('/portfolio')">PORTFOLIO</a></li>
               <li><a @click="navigateTo('/careers')">CAREERS</a></li>
               <li><a @click="navigateTo('/cost-calculator')">COST CALCULATOR</a></li>
@@ -150,6 +151,7 @@ const makePhoneCall = () => {
 .nav-list li:nth-child(5) { animation-delay: 0.5s; }
 .nav-list li:nth-child(6) { animation-delay: 0.6s; }
 .nav-list li:nth-child(7) { animation-delay: 0.7s; }
+.nav-list li:nth-child(8) { animation-delay: 0.8s; }
 
 @keyframes fadeInSlide {
   to {
@@ -182,6 +184,35 @@ const makePhoneCall = () => {
 .nav-list a:hover {
   transform: translateX(10px);
   opacity: 0.8;
+}
+
+/* Highlighted For Models Link */
+.nav-list a.highlighted-for-models {
+  background: linear-gradient(135deg, #7f00fd 0%, #22FCB0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  position: relative;
+  padding: 8px 16px;
+  border-radius: 8px;
+  background-color: rgba(127, 0, 253, 0.1);
+  -webkit-text-fill-color: #7f00fd;
+  border: 2px solid rgba(127, 0, 253, 0.3);
+  box-shadow: 0 4px 12px rgba(127, 0, 253, 0.2);
+}
+
+.nav-list a.highlighted-for-models::before {
+  content: '✨';
+  margin-right: 10px;
+  font-size: 1rem;
+}
+
+.nav-list a.highlighted-for-models:hover {
+  background-color: rgba(127, 0, 253, 0.2);
+  border-color: #7f00fd;
+  box-shadow: 0 6px 16px rgba(127, 0, 253, 0.3);
+  transform: translateX(10px) translateY(-2px);
 }
 
 .content-right {
