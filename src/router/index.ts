@@ -11,6 +11,7 @@ import PrivacyPolicyView from '../views/PrivacyPolicyView.vue'
 import TermsOfServiceView from '../views/TermsOfServiceView.vue'
 import PolicyHistoryView from '../views/PolicyHistoryView.vue'
 import CookiePolicyView from '../views/CookiePolicyView.vue'
+import ModelsView from '../views/ModelsView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -100,6 +101,11 @@ const router = createRouter({
       path: '/cookie-policy',
       name: 'cookie-policy',
       component: CookiePolicyView
+    },
+    {
+      path: '/models',
+      name: 'models',
+      component: ModelsView
     },
     // Policy history routes
     {
