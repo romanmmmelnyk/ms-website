@@ -1488,8 +1488,9 @@ onMounted(() => {
 
   .btn-cancel,
   .btn-book {
-    padding: 8px 12px;
-    font-size: 0.75rem;
+    padding: 14px 20px;
+    font-size: 0.9rem;
+    min-height: 48px;
   }
 }
 
@@ -1532,8 +1533,9 @@ onMounted(() => {
 
   .btn-cancel,
   .btn-book {
-    padding: 6px 10px;
-    font-size: 0.7rem;
+    padding: 16px 24px;
+    font-size: 0.95rem;
+    min-height: 52px;
   }
 }
 
@@ -1737,6 +1739,13 @@ onMounted(() => {
   .booking-status {
     align-self: flex-end;
   }
+
+  .btn-view-all,
+  .btn-manage-availability {
+    padding: 14px 20px;
+    font-size: 0.9rem;
+    min-height: 48px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1772,8 +1781,9 @@ onMounted(() => {
 
   .btn-view-all,
   .btn-manage-availability {
-    padding: 12px 20px;
-    font-size: 0.85rem;
+    padding: 16px 24px;
+    font-size: 0.95rem;
+    min-height: 52px;
   }
 }
 </style>
