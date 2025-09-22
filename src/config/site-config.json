@@ -9,7 +9,7 @@
     "registration": {
       "country": "England & Wales",
       "company_number": "16664532",
-      "registered_office": "21 Clifford Road E16 4JW London, United Kingdom"
+      "registered_office": "Office 14825, 182-184 High Street North, East Ham, London, E6 2JA, United Kingdom"
     }
   },
   "contact": {
@@ -27,9 +27,9 @@
     "address": {
       "country": "United Kingdom",
       "region": "England",
-      "city": "London",
-      "postcode": "E16 4JW",
-      "full": "London, United Kingdom"
+      "city": "East Ham",
+      "postcode": "E6 2JA",
+      "full": "Office 14825, 182-184 High Street North, East Ham, London, E6 2JA, United Kingdom"
     },
     "business_hours": {
       "timezone": "GMT",
