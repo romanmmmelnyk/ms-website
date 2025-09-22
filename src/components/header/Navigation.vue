@@ -188,30 +188,20 @@ const makePhoneCall = () => {
 
 /* Highlighted For Models Link */
 .nav-list a.highlighted-for-models {
-  background: linear-gradient(135deg, #7f00fd 0%, #22FCB0 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
   font-weight: 700;
   position: relative;
   padding: 8px 16px;
   border-radius: 8px;
-  background-color: rgba(127, 0, 253, 0.1);
-  -webkit-text-fill-color: #7f00fd;
-  border: 2px solid rgba(127, 0, 253, 0.3);
-  box-shadow: 0 4px 12px rgba(127, 0, 253, 0.2);
-}
-
-.nav-list a.highlighted-for-models::before {
-  content: '✨';
-  margin-right: 10px;
-  font-size: 1rem;
+  background-color: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  color: var(--color-text-primary);
 }
 
 .nav-list a.highlighted-for-models:hover {
-  background-color: rgba(127, 0, 253, 0.2);
-  border-color: #7f00fd;
-  box-shadow: 0 6px 16px rgba(127, 0, 253, 0.3);
+  background-color: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
   transform: translateX(10px) translateY(-2px);
 }
 
