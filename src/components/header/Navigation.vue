@@ -337,8 +337,38 @@ const makePhoneCall = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--gradient-accent);
   overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.social-icon.linkedin {
+  background: #0077b5;
+  color: white;
+}
+
+.social-icon.linkedin:hover {
+  background: #005885;
+  transform: translateY(-2px);
+}
+
+.social-icon.instagram {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  color: white;
+}
+
+.social-icon.instagram:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(220, 38, 67, 0.4);
+}
+
+.social-icon.facebook {
+  background: #1877f2;
+  color: white;
+}
+
+.social-icon.facebook:hover {
+  background: #166fe5;
+  transform: translateY(-2px);
 }
 
 .social-icon svg {
