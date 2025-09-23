@@ -37,6 +37,43 @@
         </Container>
       </section>
 
+      <!-- Black Block Section -->
+      <section class="black-block-section" ref="portfolioSection" :class="{ 'animate-in': isPortfolioVisible }">
+        <Container>
+          <div class="black-block">
+            <img src="/src/assets/model-hero.png" alt="Model Portfolio" class="portfolio-image" ref="portfolioImage" :class="{ 'animate-in': isPortfolioImageVisible }" />
+            <h2 class="portfolio-title" ref="portfolioTitle" :class="{ 'animate-in': isPortfolioTitleVisible }">PORTFOLIO</h2>
+            <h2 class="portfolio-title-stroke" ref="portfolioTitleStroke" :class="{ 'animate-in': isPortfolioTitleStrokeVisible }">PORTFOLIO</h2>
+            <div class="futuristic-beauty" ref="futuristicBeauty" :class="{ 'animate-in': isFuturisticBeautyVisible }">
+              <span class="futuristic-beauty-line">FUTURISTIC</span>
+              <span class="futuristic-beauty-line">BEAUTY</span>
+            </div>
+            <div class="portfolio-arrow" ref="portfolioArrow" :class="{ 'animate-in': isPortfolioArrowVisible }">
+              <svg width="120" height="20" viewBox="0 0 120 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 10L100 10M100 10L80 0M100 10L80 20" stroke="#cdf2f6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="portfolio-socials" ref="portfolioSocials" :class="{ 'animate-in': isPortfolioSocialsVisible }">
+              <a href="https://instagram.com/moth.solutions" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" fill="#cdf2f6"/>
+                </svg>
+              </a>
+              <a href="https://facebook.com/mothsolutions" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Facebook">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#cdf2f6"/>
+                </svg>
+              </a>
+              <a href="https://x.com/mothsolutions" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="X (Twitter)">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="#cdf2f6"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </Container>
+      </section>
+
       <!-- Featured Article Section -->
       <section ref="articleSection" class="featured-article-section white-bg" :class="{ 'animate-in': isArticleVisible }">
         <Container>
@@ -91,19 +128,37 @@
                   <img src="/src/assets/google.png" alt="Google" class="google-logo" />
                 </div>
                 <div class="search-bar">
-                  <svg class="search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M7 14C10.866 14 14 10.866 14 7C14 3.13401 10.866 0 7 0C3.13401 0 0 3.13401 0 7C0 10.866 3.13401 14 7 14Z" stroke="#9AA0A6" stroke-width="1.5" fill="none"/>
-                    <path d="M12 12L15 15" stroke="#9AA0A6" stroke-width="1.5" stroke-linecap="round"/>
+                  <svg class="search-icon" width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_75_1983)">
+                      <path d="M12.9166 11.8933H12.2583L12.025 11.6683C13.025 10.5016 13.5416 8.90993 13.2583 7.21826C12.8666 4.9016 10.9333 3.0516 8.59997 2.76826C5.07497 2.33493 2.10831 5.3016 2.54164 8.8266C2.82497 11.1599 4.67497 13.0933 6.99164 13.4849C8.68331 13.7683 10.275 13.2516 11.4416 12.2516L11.6666 12.4849V13.1433L15.2083 16.6849C15.55 17.0266 16.1083 17.0266 16.45 16.6849C16.7916 16.3433 16.7916 15.7849 16.45 15.4433L12.9166 11.8933ZM7.91664 11.8933C5.84164 11.8933 4.16664 10.2183 4.16664 8.14326C4.16664 6.06826 5.84164 4.39326 7.91664 4.39326C9.99164 4.39326 11.6666 6.06826 11.6666 8.14326C11.6666 10.2183 9.99164 11.8933 7.91664 11.8933Z" fill="#9AA0A6"/>
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_75_1983">
+                        <rect width="20" height="20" fill="white" transform="translate(0 0.226562)"/>
+                      </clipPath>
+                    </defs>
                   </svg>
                   <span ref="searchQuery" class="search-query" :class="{ 'typing': isSearchQueryTyping }">{{ typedText }}</span>
                   <div class="search-icons">
-                    <svg class="mic-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                      <path d="M8 1C6.9 1 6 1.9 6 3V8C6 9.1 6.9 10 8 10C9.1 10 10 9.1 10 8V3C10 1.9 9.1 1 8 1Z" fill="#9AA0A6"/>
-                      <path d="M13 8C13 11.31 10.31 14 7 14C3.69 14 1 11.31 1 8H2C2 10.76 4.24 13 7 13C9.76 13 12 10.76 12 8H13Z" fill="#9AA0A6"/>
+                    <svg class="mic-icon" width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 15.2266C13.66 15.2266 15 13.9166 15 12.2566V5.23656C15 3.57656 13.66 2.22656 12 2.22656C10.34 2.22656 9 3.56656 9 5.23656V12.2566C9 13.9166 10.34 15.2266 12 15.2266Z" fill="#4285F4"/>
+                      <path d="M11 18.3066H13V22.2266H11V18.3066Z" fill="#34A853"/>
+                      <path d="M7.05 17.0966C5.78 15.7666 5 14.2666 5 12.2266H7C7 13.6766 7.56 14.6466 8.47 15.6066V15.9266L7.32 17.1066L7.05 17.0966Z" fill="#FBBC05"/>
+                      <path d="M12 17.1566C11.3422 17.1585 10.6906 17.0225 10.0829 16.7565C9.47521 16.4904 8.92358 16.0995 8.45999 15.6066L7.04999 17.0966C8.30999 18.4366 10.07 19.2266 12 19.2266C15.87 19.2266 18.99 16.3066 18.99 12.2266H17C17 15.1466 14.76 17.1566 12 17.1566Z" fill="#EA4335"/>
                     </svg>
-                    <svg class="camera-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                      <path d="M14 4H12L11 2H5L4 4H2C1.45 4 1 4.45 1 5V13C1 13.55 1.45 14 2 14H14C14.55 14 15 13.55 15 13V5C15 4.45 14.55 4 14 4Z" stroke="#9AA0A6" stroke-width="1.5" fill="none"/>
-                      <circle cx="8" cy="9" r="2.5" stroke="#9AA0A6" stroke-width="1.5" fill="none"/>
+                    <svg class="camera-icon" width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g clip-path="url(#clip0_75_1992)">
+                        <path d="M12 16.7454C13.933 16.7454 15.5 15.1784 15.5 13.2454C15.5 11.3124 13.933 9.74536 12 9.74536C10.067 9.74536 8.5 11.3124 8.5 13.2454C8.5 15.1784 10.067 16.7454 12 16.7454Z" fill="#4285F4"/>
+                        <path d="M20 9.22656V14.2453V17.2266C20 17.4378 19.9575 17.6378 19.8975 17.8291C19.7012 18.4441 19.2188 18.9266 18.6038 19.1228C18.4125 19.1841 18.2125 19.2253 18.0012 19.2253H8.25L10.25 21.2253H16.5H18C18.5525 21.2253 19.0788 21.1128 19.5575 20.9116C20.0363 20.7091 20.4675 20.4166 20.8288 20.0541C21.01 19.8728 21.1737 19.6753 21.3175 19.4616C21.605 19.0366 21.8125 18.5516 21.9188 18.0316C21.9725 17.7716 22 17.5016 22 17.2253V15.7253V12.2453V10.7266L21.25 8.35156L19.8975 8.62406C19.9575 8.81531 20 9.01531 20 9.22656Z" fill="#EA4335"/>
+                        <path d="M4 9.22656C4 9.01531 4.0425 8.81531 4.1025 8.62406C4.29875 8.00906 4.78125 7.52656 5.39625 7.33031C5.58875 7.26906 5.78875 7.22656 6 7.22656H18C18.2113 7.22656 18.4113 7.26906 18.6025 7.32906L18.625 5.85156L16.5 5.22656L14.5 3.22656H12.82H12H11.18H9.5L7.5 5.22656H6C3.79125 5.22656 2 7.01781 2 9.22656V10.7266V13.2266L4 15.2266V9.22656Z" fill="#4285F4"/>
+                        <path d="M18 5.22656H16.5L18.6038 7.33031C18.7575 7.37906 18.9025 7.44656 19.0375 7.52906C19.3075 7.69406 19.5337 7.92031 19.6987 8.19031C19.7812 8.32531 19.8487 8.47031 19.8975 8.62406L22 10.7266V9.22656C22 7.01781 20.2088 5.22656 18 5.22656Z" fill="#34A853"/>
+                        <path d="M6 21.2265H10.9862L8.98625 19.2265H6C4.8975 19.2265 4 18.329 4 17.2265V14.2402L2 12.2402V17.2265C2 19.4352 3.79125 21.2265 6 21.2265Z" fill="#FBBC04"/>
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_75_1992">
+                          <rect width="24" height="24" fill="white" transform="translate(0 0.226562)"/>
+                        </clipPath>
+                      </defs>
                     </svg>
                   </div>
                 </div>
@@ -114,18 +169,16 @@
                     <span class="model-name">Colton Haynes</span>
                   </div>
                   <div class="model-profile blurred" :class="{ 'fade-in': isModelProfilesVisible }">
-                    <img src="/src/assets/chase.png" alt="Jack Fletcher" class="model-photo" />
-                    <span class="model-name">Jack Fletcher</span>
+                    <img src="/src/assets/chase.png" alt="Chace Crawford" class="model-photo" />
+                    <span class="model-name">Chace Crawford</span>
                   </div>
                   <div class="model-profile blurred" :class="{ 'fade-in': isModelProfilesVisible }">
-                    <img src="/src/assets/dean geyers.png" alt="Aidan Rose" class="model-photo" />
-                    <span class="model-name">Aidan Rose</span>
+                    <img src="/src/assets/dean geyers.png" alt="Dean Geyer" class="model-photo" />
+                    <span class="model-name">Dean Geyer</span>
                   </div>
                   <div class="model-profile blurred mobile-hidden" :class="{ 'fade-in': isModelProfilesVisible }">
-                    <div class="model-photo placeholder">
-                      <span>N</span>
-                    </div>
-                    <span class="model-name">Niko</span>
+                    <img src="/src/assets/zac.png" alt="Zac Efron" class="model-photo" />
+                    <span class="model-name">Zac Efron</span>
                   </div>
                 </div>
               </div>
@@ -485,6 +538,24 @@ const isModelProfilesVisible = ref(false)
 const isTopResultTextVisible = ref(false)
 const typedText = ref('')
 
+// Portfolio section animation refs
+const portfolioSection = ref<HTMLElement | null>(null)
+const portfolioTitle = ref<HTMLElement | null>(null)
+const portfolioTitleStroke = ref<HTMLElement | null>(null)
+const portfolioImage = ref<HTMLElement | null>(null)
+const futuristicBeauty = ref<HTMLElement | null>(null)
+const portfolioArrow = ref<HTMLElement | null>(null)
+const portfolioSocials = ref<HTMLElement | null>(null)
+
+// Portfolio section animation states
+const isPortfolioVisible = ref(false)
+const isPortfolioTitleVisible = ref(false)
+const isPortfolioTitleStrokeVisible = ref(false)
+const isPortfolioImageVisible = ref(false)
+const isFuturisticBeautyVisible = ref(false)
+const isPortfolioArrowVisible = ref(false)
+const isPortfolioSocialsVisible = ref(false)
+
 const navigateToContact = () => {
   router.push('/contact')
 }
@@ -592,6 +663,34 @@ const setupIntersectionObserver = () => {
               isTopResultTextVisible.value = true
             }, 1000)
           }
+          
+          if (target === portfolioSection.value) {
+            isPortfolioVisible.value = true
+            // Trigger portfolio title animation
+            setTimeout(() => {
+              isPortfolioTitleVisible.value = true
+            }, 200)
+            // Trigger portfolio title stroke animation
+            setTimeout(() => {
+              isPortfolioTitleStrokeVisible.value = true
+            }, 400)
+            // Trigger portfolio image animation
+            setTimeout(() => {
+              isPortfolioImageVisible.value = true
+            }, 600)
+            // Trigger futuristic beauty text animation
+            setTimeout(() => {
+              isFuturisticBeautyVisible.value = true
+            }, 800)
+            // Trigger portfolio arrow animation
+            setTimeout(() => {
+              isPortfolioArrowVisible.value = true
+            }, 1000)
+            // Trigger portfolio socials animation
+            setTimeout(() => {
+              isPortfolioSocialsVisible.value = true
+            }, 1200)
+          }
         }
       })
     },
@@ -607,6 +706,10 @@ const setupIntersectionObserver = () => {
   
   if (topResultSection.value) {
     observer.observe(topResultSection.value)
+  }
+  
+  if (portfolioSection.value) {
+    observer.observe(portfolioSection.value)
   }
 
   return observer
@@ -634,7 +737,7 @@ onMounted(() => {
   display: flex;
   align-items: center;
   position: relative;
-  padding: 120px 0 80px;
+  padding: 120px 0 300px;
   overflow: hidden;
 }
 
@@ -852,7 +955,7 @@ onMounted(() => {
   }
 
   .hero-section {
-    padding: 100px 0 60px;
+    padding: 100px 0 200px;
   }
 }
 
@@ -884,9 +987,353 @@ onMounted(() => {
   }
 }
 
+/* Black Block Section */
+.black-block-section {
+  background: #ffffff;
+  padding: 0;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.black-block-section.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.black-block {
+  width: 100%;
+  height: 680px; /* Increased height for better visual impact */
+  background: radial-gradient(circle, #cdf2f6 0%, #768c9e 100%);
+  border-radius: 24px;
+  margin: 0 auto;
+  max-width: 1400px; /* Increased width for better visual impact */
+  transform: translateY(-200px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.portfolio-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  z-index: 3;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.9);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.portfolio-image.animate-in {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.portfolio-title {
+  font-size: 9rem;
+  font-weight: 900;
+  color: #cdf2f6;
+  text-align: center;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 0.1em;
+  transform: scaleY(2);
+  line-height: 0.7;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scaleY(2);
+  z-index: 1;
+  opacity: 0;
+  transform: translate(-50%, -50%) scaleY(2) scale(0.8);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.portfolio-title.animate-in {
+  opacity: 1;
+  transform: translate(-50%, -50%) scaleY(2) scale(1);
+}
+
+.portfolio-title-stroke {
+  font-size: 9rem;
+  font-weight: 900;
+  color: transparent;
+  -webkit-text-stroke: 2px #cdf2f6;
+  text-stroke: 2px #cdf2f6;
+  text-align: center;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 0.1em;
+  transform: translate(-50%, -50%) scaleY(2);
+  line-height: 0.7;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 4;
+  opacity: 0;
+  transform: translate(-50%, -50%) scaleY(2) scale(0.8);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.portfolio-title-stroke.animate-in {
+  opacity: 1;
+  transform: translate(-50%, -50%) scaleY(2) scale(1);
+}
+
+.portfolio-arrow {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  z-index: 5;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateX(30px);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.portfolio-arrow.animate-in {
+  opacity: 0.8;
+  transform: translateX(0);
+}
+
+.portfolio-arrow:hover {
+  opacity: 1;
+  transform: translateX(5px);
+}
+
+.futuristic-beauty {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.futuristic-beauty.animate-in {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.futuristic-beauty-line {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #cdf2f6;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.portfolio-socials {
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+  z-index: 5;
+  display: flex;
+  gap: 16px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.portfolio-socials.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.social-link:hover {
+  transform: translateY(-2px);
+}
+
+/* Responsive Design for Black Block */
+@media (max-width: 1200px) {
+  .black-block {
+    max-width: 100%;
+    height: 510px;
+  }
+  
+  .portfolio-title {
+    font-size: 6.5rem;
+  }
+  
+  .portfolio-title-stroke {
+    font-size: 6.5rem;
+  }
+  
+  .portfolio-arrow {
+    top: 30px;
+    right: 30px;
+  }
+  
+  .portfolio-arrow svg {
+    width: 100px;
+    height: 18px;
+  }
+  
+  .futuristic-beauty {
+    top: 30px;
+    left: 30px;
+  }
+  
+  .portfolio-socials {
+    bottom: 30px;
+    right: 30px;
+    gap: 12px;
+  }
+  
+  .social-link {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .futuristic-beauty-line {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .black-block {
+    height: 500px;
+    transform: translateY(-160px);
+  }
+  
+  .portfolio-image {
+    top: 60%;
+  }
+  
+  .portfolio-title {
+    font-size: 3.5rem;
+    top: 80%;
+  }
+  
+  .portfolio-title-stroke {
+    font-size: 3.5rem;
+    -webkit-text-stroke: 1px #cdf2f6;
+    text-stroke: 1px #cdf2f6;
+    top: 80%;
+  }
+  
+  .portfolio-arrow {
+    top: 20px;
+    right: 20px;
+  }
+  
+  .portfolio-arrow svg {
+    width: 80px;
+    height: 15px;
+  }
+  
+  .futuristic-beauty {
+    top: 20px;
+    left: 20px;
+  }
+  
+  .portfolio-socials {
+    bottom: 20px;
+    right: 20px;
+    gap: 10px;
+  }
+  
+  .social-link {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .social-link svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .futuristic-beauty-line {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .black-block {
+    height: 350px;
+    transform: translateY(-160px);
+  }
+  
+  .portfolio-image {
+    top: 60%;
+  }
+  
+  .portfolio-title {
+    font-size: 2.2rem;
+    top: 80%;
+  }
+  
+  .portfolio-title-stroke {
+    font-size: 2.2rem;
+    -webkit-text-stroke: 1px #cdf2f6;
+    text-stroke: 1px #cdf2f6;
+    top: 80%;
+  }
+  
+  .portfolio-arrow {
+    top: 15px;
+    right: 15px;
+  }
+  
+  .portfolio-arrow svg {
+    width: 60px;
+    height: 12px;
+  }
+  
+  .futuristic-beauty {
+    top: 15px;
+    left: 15px;
+  }
+  
+  .portfolio-socials {
+    bottom: 15px;
+    right: 15px;
+    gap: 8px;
+  }
+  
+  .social-link {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .social-link svg {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .futuristic-beauty-line {
+    font-size: 0.8rem;
+  }
+}
+
 /* Featured Article Section */
 .featured-article-section {
-  padding: 120px 0;
+  padding: 0 0 120px 0;
   background: linear-gradient(90deg, #FFFFFF 0%, #E6D1FF 100%);
   min-height: 80vh;
   display: flex;
@@ -1150,7 +1597,7 @@ onMounted(() => {
 
 @media (max-width: 480px) {
   .featured-article-section {
-    padding: 80px 0;
+    padding: 0 0 80px 0;
   }
 
   .article-intro {
@@ -1272,6 +1719,8 @@ onMounted(() => {
 
 .search-icon {
   flex-shrink: 0;
+  width: 18px;
+  height: 18px;
 }
 
 .search-query {
@@ -1304,6 +1753,8 @@ onMounted(() => {
   flex-shrink: 0;
   cursor: pointer;
   transition: opacity 0.2s ease;
+  width: 20px;
+  height: 20px;
 }
 
 .mic-icon:hover,
@@ -1568,11 +2019,15 @@ onMounted(() => {
     font-size: 0.8rem;
   }
 
-  .search-icon,
+  .search-icon {
+    width: 16px;
+    height: 16px;
+  }
+  
   .mic-icon,
   .camera-icon {
-    width: 14px;
-    height: 14px;
+    width: 16px;
+    height: 16px;
   }
 
   .google-container .model-profiles {
@@ -1637,11 +2092,15 @@ onMounted(() => {
     font-size: 0.7rem;
   }
 
-  .search-icon,
+  .search-icon {
+    width: 14px;
+    height: 14px;
+  }
+  
   .mic-icon,
   .camera-icon {
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
   }
 
   .google-container .model-profiles {
@@ -1706,11 +2165,15 @@ onMounted(() => {
     font-size: 0.6rem;
   }
 
-  .search-icon,
+  .search-icon {
+    width: 12px;
+    height: 12px;
+  }
+  
   .mic-icon,
   .camera-icon {
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
   }
 
   .google-container .model-profiles {
