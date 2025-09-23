@@ -125,7 +125,7 @@
             <div ref="googleMockup" class="google-mockup" :class="{ 'animate-in': isGoogleMockupVisible }">
               <div class="google-container">
                 <div class="google-header">
-                  <img src="/src/assets/google.png" alt="Google" class="google-logo" />
+                  <img src="/google.png" alt="Google" class="google-logo" />
                 </div>
                 <div class="search-bar">
                   <svg class="search-icon" width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -165,19 +165,19 @@
                 <div class="search-result-label">Search result</div>
                 <div ref="modelProfiles" class="model-profiles" :class="{ 'animate-in': isModelProfilesVisible }">
                   <div class="model-profile active" :class="{ 'fade-in': isModelProfilesVisible }">
-                    <img src="/src/assets/colton.png" alt="Colton Haynes" class="model-photo" />
+                    <img src="/colton.png" alt="Colton Haynes" class="model-photo" />
                     <span class="model-name">Colton Haynes</span>
                   </div>
                   <div class="model-profile blurred" :class="{ 'fade-in': isModelProfilesVisible }">
-                    <img src="/src/assets/chase.png" alt="Chace Crawford" class="model-photo" />
+                    <img src="/chase.png" alt="Chace Crawford" class="model-photo" />
                     <span class="model-name">Chace Crawford</span>
                   </div>
                   <div class="model-profile blurred" :class="{ 'fade-in': isModelProfilesVisible }">
-                    <img src="/src/assets/dean geyers.png" alt="Dean Geyer" class="model-photo" />
+                    <img src="/dean geyers.png" alt="Dean Geyer" class="model-photo" />
                     <span class="model-name">Dean Geyer</span>
                   </div>
                   <div class="model-profile blurred mobile-hidden" :class="{ 'fade-in': isModelProfilesVisible }">
-                    <img src="/src/assets/zac.png" alt="Zac Efron" class="model-photo" />
+                    <img src="/zac.png" alt="Zac Efron" class="model-photo" />
                     <span class="model-name">Zac Efron</span>
                   </div>
                 </div>
@@ -568,13 +568,13 @@ const portfolioStages = [
   {
     title: 'PORTFOLIO',
     beautyText: 'FUTURISTIC BEAUTY',
-    image: '/src/assets/model-hero.png',
+    image: '/model-hero.png',
     background: 'radial-gradient(circle, #cdf2f6 0%, #768c9e 100%)'
   },
   {
     title: 'PORTFOLIO',
     beautyText: 'NATURAL BEAUTY',
-    image: '/src/assets/model2-hero.png',
+    image: '/model2-hero.png',
     background: 'radial-gradient(circle, #645543 0%, #b6b6b6 100%)'
   }
 ]
