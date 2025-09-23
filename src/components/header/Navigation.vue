@@ -416,7 +416,7 @@ const makePhoneCall = () => {
   flex-direction: row;
   gap: 15px;
   position: absolute;
-  bottom: 10px;
+  bottom: 40px;
   left: 50%;
   transform: translateX(-50%);
   justify-content: center;
@@ -429,15 +429,22 @@ const makePhoneCall = () => {
   text-decoration: none;
   color: inherit;
   transition: transform 0.2s ease;
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: fadeInSlide 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .mobile-social-link:hover {
-  transform: translateY(-2px);
+  transform: translateX(0) translateY(-2px);
 }
 
+.mobile-social-link:nth-child(1) { animation-delay: 0.8s; }
+.mobile-social-link:nth-child(2) { animation-delay: 0.9s; }
+.mobile-social-link:nth-child(3) { animation-delay: 1.0s; }
+
 .mobile-social-icon {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -474,8 +481,8 @@ const makePhoneCall = () => {
 }
 
 .mobile-social-icon svg {
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 22px;
 }
 
 /* Navigation overlay animation */
@@ -591,17 +598,17 @@ const makePhoneCall = () => {
   /* Mobile social media adjustments for smaller screens */
   .mobile-social-media {
     gap: 12px;
-    bottom: 8px;
+    bottom: 38px;
   }
 
   .mobile-social-icon {
-    width: 35px;
-    height: 35px;
+    width: 45px;
+    height: 45px;
   }
 
   .mobile-social-icon svg {
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
   }
 
   .social-text {
