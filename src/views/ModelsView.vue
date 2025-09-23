@@ -19,14 +19,14 @@
             <p class="hero-subtitle">Your website is your runway</p>
 
             <div class="hero-button">
-              <button class="btn btn-primary" @click="navigateToContact">BOOK A CALL</button>
+              <button class="btn btn-primary" @click="navigateToContact">Apply</button>
             </div>
           </div>
 
           <!-- Right Side - Hero SVG -->
           <div class="hero-visual">
             <img
-              src="/hero.svg"
+              src="/hero-img.png"
               alt="Hero illustration"
               class="hero-svg"
               loading="lazy"
@@ -195,7 +195,7 @@
               <p class="top-result-description" :class="{ 'fade-in': isTopResultTextVisible }">
                 So we can type 'the most attractive person in the world' and we will get <strong>YOU</strong>
               </p>
-              <button class="btn btn-primary" :class="{ 'fade-in': isTopResultTextVisible }" @click="navigateToContact">BOOK A CALL</button>
+              <button class="btn btn-primary" :class="{ 'fade-in': isTopResultTextVisible }" @click="navigateToContact">Apply</button>
             </div>
           </div>
         </Container>
@@ -612,6 +612,12 @@ const nextPortfolioStage = () => {
 const handleMouseMove = (event: MouseEvent) => {
   if (!portfolioSection.value) return
   
+  // Disable parallax on mobile devices (768px and below)
+  if (window.innerWidth <= 768) {
+    mouseParallax.value = { x: 0, y: 0 }
+    return
+  }
+  
   const rect = portfolioSection.value.getBoundingClientRect()
   const centerX = rect.left + rect.width / 2
   const centerY = rect.top + rect.height / 2
@@ -977,7 +983,7 @@ onMounted(() => {
   max-width: 600px;
   height: auto;
   object-fit: contain;
-  transform: scale(2.5) translateX(-50px);
+  transform: scale(1.8) translateX(20px) translateY(30px);
   transition: transform 0.3s ease;
 }
 
@@ -993,7 +999,7 @@ onMounted(() => {
 
   .hero-svg {
     max-width: 500px;
-    transform: scale(2.5) translateX(-50px);
+    transform: scale(1.8) translateX(20px) translateY(30px);
   }
 }
 
