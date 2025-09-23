@@ -422,59 +422,85 @@
 
           <!-- Admin/Your Side View -->
           <div v-if="selectedView === 'admin'" class="admin-banner">
-            <!-- Admin Dashboard Section -->
-            <div class="admin-dashboard">
-              <h3 class="dashboard-title">Your Bookings Dashboard</h3>
-              <div class="stats-grid">
-                <div class="stat-card">
-                  <div class="stat-number">12</div>
-                  <div class="stat-label">Total Bookings</div>
-                </div>
-                <div class="stat-card">
-                  <div class="stat-number">8</div>
-                  <div class="stat-label">Confirmed</div>
-                </div>
-                <div class="stat-card">
-                  <div class="stat-number">3</div>
-                  <div class="stat-label">Pending</div>
-                </div>
-                <div class="stat-card">
-                  <div class="stat-number">1</div>
-                  <div class="stat-label">Cancelled</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Recent Bookings Section -->
+            <!-- Bookings Management Section -->
             <div class="recent-bookings">
-              <h3 class="bookings-title">Recent Bookings</h3>
-              <div class="bookings-list">
-                <div class="booking-item">
-                  <div class="booking-info">
-                    <div class="booking-date">April 25, 2025</div>
-                    <div class="booking-client">Fashion Studio NYC</div>
-                  </div>
-                  <div class="booking-status confirmed">Confirmed</div>
-                </div>
-                <div class="booking-item">
-                  <div class="booking-info">
-                    <div class="booking-date">April 28, 2025</div>
-                    <div class="booking-client">Commercial Photoshoot</div>
-                  </div>
-                  <div class="booking-status pending">Pending</div>
-                </div>
-                <div class="booking-item">
-                  <div class="booking-info">
-                    <div class="booking-date">May 2, 2025</div>
-                    <div class="booking-client">Editorial Magazine</div>
-                  </div>
-                  <div class="booking-status confirmed">Confirmed</div>
+              <div class="bookings-header">
+                <h3 class="bookings-title">Upcoming Bookings</h3>
+                <div class="view-toggle">
+                  <button class="toggle-btn" :class="{ active: currentView === 'list' }" @click="switchBookingView('list')">List</button>
+                  <button class="toggle-btn" :class="{ active: currentView === 'calendar' }" @click="switchBookingView('calendar')">Calendar</button>
                 </div>
               </div>
               
-              <div class="admin-actions">
-                <button class="btn-view-all">View All Bookings</button>
-                <button class="btn-manage-availability">Manage Availability</button>
+              <!-- List View -->
+              <div v-if="currentView === 'list'" class="bookings-list">
+                <div v-for="booking in bookings" :key="booking.id" class="booking-item">
+                  <div class="booking-main">
+                    <div class="booking-info">
+                      <div class="booking-client">{{ booking.client }}</div>
+                      <div class="booking-details">
+                        <span class="booking-date">{{ booking.date }}</span>
+                        <span class="booking-time">{{ booking.time }}</span>
+                        <span class="booking-location">{{ booking.location }} <a href="#" class="maps-link">[On Maps]</a></span>
+                      </div>
+                    </div>
+                    <div class="booking-actions">
+                      <button v-if="booking.status === 'confirmed'" class="action-btn chat" title="Chat">💬</button>
+                      <button v-if="booking.status === 'pending'" class="action-btn confirm" @click="confirmBooking(booking.id)" title="Confirm">✓</button>
+                      <button class="action-btn cancel" @click="cancelBooking(booking.id)" :disabled="booking.status === 'cancelled'" :title="booking.status === 'confirmed' ? 'Cancel' : booking.status === 'pending' ? 'Cancel' : 'Already Cancelled'">×</button>
+                    </div>
+                  </div>
+                  <div class="booking-status" :class="booking.status">
+                    <span class="status-dot"></span>
+                    {{ booking.status === 'confirmed' ? 'Confirmed' : booking.status === 'pending' ? 'Pending Approval' : 'Cancelled' }}
+                  </div>
+                </div>
+              </div>
+
+              <!-- Calendar View -->
+              <div v-if="currentView === 'calendar'" class="calendar-view">
+                <div class="calendar-header">
+                  <button class="calendar-nav-btn" @click="previousMonth">←</button>
+                  <h3 class="calendar-month">{{ currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) }}</h3>
+                  <button class="calendar-nav-btn" @click="nextMonth">→</button>
+                </div>
+                
+                <div class="calendar-grid">
+                  <div class="calendar-day-header" v-for="day in ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']" :key="day">
+                    {{ day }}
+                  </div>
+                  
+                  <div 
+                    v-for="day in getCalendarDays()" 
+                    :key="day.toISOString()" 
+                    class="calendar-day"
+                    :class="{ 
+                      'other-month': !isCurrentMonth(day),
+                      'today': isToday(day),
+                      'has-confirmed': getBookingsForDate(day).some(booking => booking.status === 'confirmed'),
+                      'has-pending': getBookingsForDate(day).some(booking => booking.status === 'pending'),
+                      'has-cancelled': getBookingsForDate(day).some(booking => booking.status === 'cancelled')
+                    }"
+                  >
+                    <div class="day-number">{{ day.getDate() }}</div>
+                    <div class="day-bookings">
+                      <div 
+                        v-for="booking in getBookingsForDate(day)" 
+                        :key="booking.id"
+                        class="booking-dot"
+                        :class="booking.status"
+                        :title="`${booking.client} - ${booking.time}`"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Pagination (only for list view) -->
+              <div v-if="currentView === 'list'" class="pagination">
+                <button class="page-btn" @click="goToPreviousPage" :disabled="currentPage === 1">← Previous</button>
+                <span class="page-info">Page {{ currentPage }} of {{ totalPages }}</span>
+                <button class="page-btn" @click="goToNextPage" :disabled="currentPage === totalPages">Next →</button>
               </div>
             </div>
           </div>
@@ -563,6 +589,68 @@ const isTransitioning = ref(false)
 // Mouse parallax effect state
 const mouseParallax = ref({ x: 0, y: 0 })
 
+// Booking management state
+const currentPage = ref(1)
+const totalPages = ref(3)
+const currentView = ref('list') // 'list' or 'calendar'
+const currentMonth = ref(new Date())
+const bookings = ref([
+  // Page 1 bookings
+  {
+    id: 1,
+    client: 'Fashion Studio NYC',
+    date: 'Apr 25, 2025',
+    time: '10:00 AM - 2:00 PM',
+    location: '📍 Manhattan Studio',
+    status: 'confirmed'
+  },
+  {
+    id: 2,
+    client: 'Commercial Photoshoot',
+    date: 'Apr 28, 2025',
+    time: '9:00 AM - 5:00 PM',
+    location: '📍 Brooklyn Warehouse',
+    status: 'pending'
+  },
+  {
+    id: 3,
+    client: 'Editorial Magazine',
+    date: 'May 2, 2025',
+    time: '11:00 AM - 3:00 PM',
+    location: '📍 Chelsea Gallery',
+    status: 'confirmed'
+  },
+  {
+    id: 4,
+    client: 'Brand Campaign',
+    date: 'May 5, 2025',
+    time: '8:00 AM - 6:00 PM',
+    location: '📍 SoHo Studio',
+    status: 'pending'
+  }
+])
+
+// All bookings data for pagination
+const allBookings = ref([
+  // Page 1
+  { id: 1, client: 'Fashion Studio NYC', date: 'Apr 25, 2025', time: '10:00 AM - 2:00 PM', location: '📍 Manhattan Studio', status: 'confirmed' },
+  { id: 2, client: 'Commercial Photoshoot', date: 'Apr 28, 2025', time: '9:00 AM - 5:00 PM', location: '📍 Brooklyn Warehouse', status: 'pending' },
+  { id: 3, client: 'Editorial Magazine', date: 'May 2, 2025', time: '11:00 AM - 3:00 PM', location: '📍 Chelsea Gallery', status: 'confirmed' },
+  { id: 4, client: 'Brand Campaign', date: 'May 5, 2025', time: '8:00 AM - 6:00 PM', location: '📍 SoHo Studio', status: 'pending' },
+  // Page 2
+  { id: 5, client: 'Wedding Photography', date: 'May 8, 2025', time: '2:00 PM - 6:00 PM', location: '📍 Central Park', status: 'confirmed' },
+  { id: 6, client: 'Product Launch', date: 'May 12, 2025', time: '9:00 AM - 1:00 PM', location: '📍 Times Square', status: 'pending' },
+  { id: 7, client: 'Fashion Week', date: 'May 15, 2025', time: '7:00 PM - 11:00 PM', location: '📍 Lincoln Center', status: 'confirmed' },
+  { id: 8, client: 'Corporate Event', date: 'May 18, 2025', time: '6:00 PM - 10:00 PM', location: '📍 Grand Central', status: 'pending' },
+  // Page 3
+  { id: 9, client: 'Music Video', date: 'May 22, 2025', time: '12:00 PM - 8:00 PM', location: '📍 Brooklyn Bridge', status: 'confirmed' },
+  { id: 10, client: 'Art Exhibition', date: 'May 25, 2025', time: '3:00 PM - 7:00 PM', location: '📍 MoMA', status: 'pending' },
+  { id: 11, client: 'Charity Gala', date: 'May 28, 2025', time: '7:00 PM - 12:00 AM', location: '📍 Plaza Hotel', status: 'confirmed' },
+  { id: 12, client: 'Tech Conference', date: 'May 30, 2025', time: '8:00 AM - 5:00 PM', location: '📍 Javits Center', status: 'pending' }
+])
+
+const bookingsPerPage = 4
+
 // Portfolio stages data
 const portfolioStages = [
   {
@@ -636,6 +724,106 @@ const handleMouseMove = (event: MouseEvent) => {
 const handleMouseLeave = () => {
   // Reset to center when mouse leaves
   mouseParallax.value = { x: 0, y: 0 }
+}
+
+// Booking management functions
+const confirmBooking = (bookingId: number) => {
+  const booking = allBookings.value.find(b => b.id === bookingId)
+  if (booking) {
+    booking.status = 'confirmed'
+    updateCurrentPageBookings()
+  }
+}
+
+const cancelBooking = (bookingId: number) => {
+  const booking = allBookings.value.find(b => b.id === bookingId)
+  if (booking) {
+    booking.status = 'cancelled'
+    updateCurrentPageBookings()
+  }
+}
+
+const updateCurrentPageBookings = () => {
+  const startIndex = (currentPage.value - 1) * bookingsPerPage
+  const endIndex = startIndex + bookingsPerPage
+  bookings.value = allBookings.value.slice(startIndex, endIndex)
+}
+
+const goToPreviousPage = () => {
+  if (currentPage.value > 1) {
+    currentPage.value--
+    updateCurrentPageBookings()
+  }
+}
+
+const goToNextPage = () => {
+  if (currentPage.value < totalPages.value) {
+    currentPage.value++
+    updateCurrentPageBookings()
+  }
+}
+
+// Calendar functions
+const switchBookingView = (view: string) => {
+  currentView.value = view
+  // When switching to calendar view, set to April 2025
+  if (view === 'calendar') {
+    currentMonth.value = new Date(2025, 3) // April is month 3 (0-indexed)
+  }
+}
+
+const getCalendarDays = () => {
+  const year = currentMonth.value.getFullYear()
+  const month = currentMonth.value.getMonth()
+  
+  const firstDay = new Date(year, month, 1)
+  const lastDay = new Date(year, month + 1, 0)
+  const startDate = new Date(firstDay)
+  startDate.setDate(startDate.getDate() - firstDay.getDay())
+  
+  const days = []
+  const currentDate = new Date(startDate)
+  
+  for (let i = 0; i < 42; i++) {
+    days.push(new Date(currentDate))
+    currentDate.setDate(currentDate.getDate() + 1)
+  }
+  
+  return days
+}
+
+const getBookingsForDate = (date: Date) => {
+  const dateStr = date.toLocaleDateString('en-US', { 
+    month: 'short', 
+    day: 'numeric', 
+    year: 'numeric' 
+  })
+  
+  return allBookings.value.filter(booking => {
+    const bookingDate = new Date(booking.date)
+    return bookingDate.toLocaleDateString('en-US', { 
+      month: 'short', 
+      day: 'numeric', 
+      year: 'numeric' 
+    }) === dateStr
+  })
+}
+
+const isToday = (date: Date) => {
+  const today = new Date()
+  return date.toDateString() === today.toDateString()
+}
+
+const isCurrentMonth = (date: Date) => {
+  return date.getMonth() === currentMonth.value.getMonth()
+}
+
+const previousMonth = () => {
+  currentMonth.value = new Date(currentMonth.value.getFullYear(), currentMonth.value.getMonth() - 1)
+}
+
+const nextMonth = () => {
+  currentMonth.value = new Date(currentMonth.value.getFullYear(), currentMonth.value.getMonth() + 1)
 }
 
 const navigateToContact = () => {
@@ -804,6 +992,7 @@ onMounted(() => {
   // Setup intersection observer after DOM is ready
   nextTick(() => {
     setupIntersectionObserver()
+    updateCurrentPageBookings()
   })
 })
 </script>
@@ -3035,8 +3224,6 @@ onMounted(() => {
   overflow: hidden;
   max-width: 900px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
   min-height: 600px;
 }
 
@@ -3048,27 +3235,141 @@ onMounted(() => {
   background: linear-gradient(135deg, #f8f9ff 0%, #f0f4ff 100%);
 }
 
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
 .dashboard-title {
   font-size: 1.5rem;
   font-weight: 700;
   color: #2d3748;
-  margin-bottom: 32px;
+  margin: 0;
   font-family: 'Montserrat', sans-serif;
+}
+
+.dashboard-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-action {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-action.primary {
+  background: #7f00fd;
+  color: white;
+}
+
+.btn-action.primary:hover {
+  background: #6b00d4;
+}
+
+.btn-action.secondary {
+  background: #e2e8f0;
+  color: #4a5568;
+}
+
+.btn-action.secondary:hover {
+  background: #cbd5e0;
 }
 
 .stats-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
+  margin-bottom: 24px;
 }
 
 .stat-card {
   background: #ffffff;
   border-radius: 12px;
-  padding: 24px;
-  text-align: center;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(127, 0, 253, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+}
+
+.stat-card.total {
+  border-left: 4px solid #4299e1;
+}
+
+.stat-card.confirmed {
+  border-left: 4px solid #48bb78;
+}
+
+.stat-card.pending {
+  border-left: 4px solid #ed8936;
+}
+
+.stat-card.cancelled {
+  border-left: 4px solid #f56565;
+}
+
+.stat-icon {
+  font-size: 1.5rem;
+  opacity: 0.8;
+}
+
+.stat-content {
+  flex: 1;
+}
+
+.stat-number {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #718096;
+  font-weight: 500;
+}
+
+.quick-filters {
+  display: flex;
+  gap: 8px;
+}
+
+.filter-btn {
+  padding: 8px 16px;
+  border: 1px solid #e2e8f0;
+  background: white;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #4a5568;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+  border-color: #7f00fd;
+  color: #7f00fd;
+}
+
+.filter-btn.active {
+  background: #7f00fd;
+  border-color: #7f00fd;
+  color: white;
 }
 
 .stat-number {
@@ -3092,107 +3393,408 @@ onMounted(() => {
   flex-direction: column;
 }
 
+.bookings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
 .bookings-title {
   font-size: 1.5rem;
   font-weight: 700;
   color: #2d3748;
-  margin-bottom: 24px;
+  margin: 0;
   font-family: 'Montserrat', sans-serif;
+}
+
+.view-toggle {
+  display: flex;
+  background: #f7fafc;
+  border-radius: 8px;
+  padding: 4px;
+}
+
+.toggle-btn {
+  padding: 8px 16px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #4a5568;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.toggle-btn.active {
+  background: white;
+  color: #7f00fd;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .bookings-list {
   flex: 1;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 }
 
 .booking-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 0;
-  border-bottom: 1px solid #e2e8f0;
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
 }
 
-.booking-item:last-child {
-  border-bottom: none;
+.booking-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+.booking-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
 }
 
 .booking-info {
   flex: 1;
 }
 
-.booking-date {
-  font-size: 0.9rem;
+.booking-client {
+  font-size: 1.1rem;
   font-weight: 600;
   color: #2d3748;
-  margin-bottom: 4px;
+  margin-bottom: 8px;
 }
 
-.booking-client {
-  font-size: 0.85rem;
+.booking-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 0.9rem;
   color: #718096;
 }
 
+.booking-date {
+  font-weight: 500;
+  color: #4a5568;
+}
+
+.booking-time {
+  color: #718096;
+}
+
+.booking-location {
+  color: #718096;
+}
+
+.maps-link {
+  color: #7f00fd;
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: 4px;
+}
+
+.maps-link:hover {
+  text-decoration: underline;
+}
+
+.booking-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.action-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: #f7fafc;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.action-btn:hover {
+  background: #edf2f7;
+}
+
+.action-btn.edit:hover {
+  background: #e6fffa;
+  color: #38b2ac;
+}
+
+.action-btn.chat {
+  color: #4a5568;
+}
+
+.action-btn.chat:hover {
+  background: #e6f3ff;
+  color: #3182ce;
+}
+
+.action-btn.confirm {
+  color: #38a169;
+  background: #e6f7ed;
+  border: 1px solid #38a169;
+}
+
+.action-btn.confirm:hover {
+  background: #d4edda;
+  color: #2f855a;
+}
+
+.action-btn.cancel {
+  color: #e53e3e;
+  background: #f8d7da;
+  border: 1px solid #e53e3e;
+}
+
+.action-btn.cancel:hover:not(:disabled) {
+  background: #f5c6cb;
+  color: #c53030;
+}
+
+.action-btn.cancel:disabled {
+  background: #f7fafc;
+  color: #a0aec0;
+  border-color: #e2e8f0;
+  cursor: not-allowed;
+}
+
 .booking-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
   padding: 6px 12px;
   border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  width: fit-content;
 }
 
 .booking-status.confirmed {
-  background: rgba(34, 252, 176, 0.1);
-  color: #22FCB0;
+  background: #f0fff4;
+  color: #38a169;
 }
 
 .booking-status.pending {
-  background: rgba(255, 193, 7, 0.1);
-  color: #FFC107;
+  background: #fffaf0;
+  color: #dd6b20;
 }
 
-.admin-actions {
+.booking-status.cancelled {
+  background: #fed7d7;
+  color: #e53e3e;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.pagination {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+  border-top: 1px solid #e2e8f0;
 }
 
-.btn-view-all,
-.btn-manage-availability {
-  padding: 14px 24px;
+.page-btn {
+  padding: 8px 16px;
+  border: 1px solid #e2e8f0;
+  background: white;
   border-radius: 8px;
   font-size: 0.9rem;
-  font-weight: 600;
+  font-weight: 500;
+  color: #4a5568;
   cursor: pointer;
-  transition: all 0.3s ease;
-  border: none;
+  transition: all 0.2s ease;
   font-family: 'Montserrat', sans-serif;
 }
 
-.btn-view-all {
-  background: #7f00fd;
-  color: #ffffff;
+.page-btn:hover:not(:disabled) {
+  border-color: #7f00fd;
+  color: #7f00fd;
 }
 
-.btn-view-all:hover {
-  background: #6b00d1;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(127, 0, 253, 0.3);
+.page-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
-.btn-manage-availability {
-  background: #ffffff;
-  color: #2d3748;
+.page-info {
+  font-size: 0.9rem;
+  color: #718096;
+  font-weight: 500;
+}
+
+/* Booking Management Calendar View Styles - Scoped to admin section */
+.recent-bookings .calendar-view {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   border: 1px solid #e2e8f0;
+  margin-top: 16px;
 }
 
-.btn-manage-availability:hover {
+.recent-bookings .calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.recent-bookings .calendar-nav-btn {
   background: #f7fafc;
-  border-color: #cbd5e0;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #4a5568;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Montserrat', sans-serif;
+  min-width: 40px;
 }
 
-/* Responsive Design for Admin Banner */
+.recent-bookings .calendar-nav-btn:hover {
+  background: #edf2f7;
+  border-color: #7f00fd;
+  color: #7f00fd;
+}
+
+.recent-bookings .calendar-month {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  flex: 1;
+}
+
+.recent-bookings .calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  background: #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.recent-bookings .calendar-day-header {
+  background: #f7fafc;
+  padding: 12px 8px;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #4a5568;
+  font-family: 'Montserrat', sans-serif;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.recent-bookings .calendar-day {
+  background: white;
+  min-height: 80px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-right: 1px solid #f1f5f9;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.recent-bookings .calendar-day:hover {
+  background: #f7fafc;
+}
+
+.recent-bookings .calendar-day.other-month {
+  background: #f7fafc;
+  color: #a0aec0;
+}
+
+.recent-bookings .calendar-day.today {
+  background: #e6f3ff;
+  border: 2px solid #7f00fd;
+}
+
+.recent-bookings .calendar-day.has-confirmed {
+  background: #f0fff4;
+  border: 1px solid #38a169;
+}
+
+.recent-bookings .calendar-day.has-pending {
+  background: #fffaf0;
+  border: 1px solid #f6ad55;
+}
+
+.recent-bookings .calendar-day.has-cancelled {
+  background: #fed7d7;
+  border: 1px solid #e53e3e;
+}
+
+.recent-bookings .calendar-day.today .day-number {
+  background: #7f00fd;
+  color: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.recent-bookings .day-number {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 4px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.recent-bookings .day-bookings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+.recent-bookings .booking-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.recent-bookings .booking-dot.confirmed {
+  background: #38a169;
+}
+
+
+.recent-bookings .booking-dot.pending {
+  background: #f6ad55;
+}
+
+.recent-bookings .booking-dot.cancelled {
+  background: #e53e3e;
+}
+/* Responsive Design for Admin Dashboard */
 @media (max-width: 768px) {
   .admin-banner {
     grid-template-columns: 1fr;
@@ -3200,39 +3802,88 @@ onMounted(() => {
     margin: 0 20px;
   }
 
-  .admin-dashboard,
   .recent-bookings {
     padding: 30px 24px;
   }
 
-  .stats-grid {
-    grid-template-columns: 1fr;
+  .bookings-header {
+    flex-direction: column;
     gap: 16px;
+    align-items: flex-start;
   }
 
-  .stat-card {
-    padding: 20px;
-  }
-
-  .stat-number {
-    font-size: 1.5rem;
+  .view-toggle {
+    width: 100%;
+    justify-content: center;
   }
 
   .booking-item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
+    position: relative;
+    padding-bottom: 60px;
   }
 
   .booking-status {
-    align-self: flex-end;
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
   }
 
-  .btn-view-all,
-  .btn-manage-availability {
-    padding: 14px 20px;
+  .booking-main {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .booking-actions {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    margin-top: 0;
+    width: auto;
+    justify-content: flex-end;
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .booking-details {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  /* Calendar mobile styles - scoped to booking management */
+  .recent-bookings .calendar-view {
+    padding: 16px;
+  }
+
+  .recent-bookings .calendar-header {
+    margin-bottom: 16px;
+  }
+
+  .recent-bookings .calendar-nav-btn {
+    padding: 6px 10px;
     font-size: 0.9rem;
-    min-height: 48px;
+  }
+
+  .recent-bookings .calendar-month {
+    font-size: 1.1rem;
+  }
+
+  .recent-bookings .calendar-day {
+    min-height: 60px;
+    padding: 6px;
+  }
+
+  .recent-bookings .day-number {
+    font-size: 0.8rem;
+  }
+
+  .recent-bookings .booking-dot {
+    width: 4px;
+    height: 4px;
+  }
+
+  .pagination {
+    flex-direction: column;
+    gap: 16px;
   }
 }
 
@@ -3241,37 +3892,26 @@ onMounted(() => {
     margin: 0 16px;
   }
 
-  .admin-dashboard,
   .recent-bookings {
     padding: 24px 20px;
   }
 
-  .dashboard-title,
   .bookings-title {
     font-size: 1.3rem;
   }
 
-  .stat-card {
-    padding: 16px;
-  }
-
-  .stat-number {
-    font-size: 1.3rem;
-  }
-
-  .booking-date {
-    font-size: 0.85rem;
-  }
-
   .booking-client {
+    font-size: 1rem;
+  }
+
+  .booking-details {
     font-size: 0.8rem;
   }
 
-  .btn-view-all,
-  .btn-manage-availability {
-    padding: 16px 24px;
-    font-size: 0.95rem;
-    min-height: 52px;
+  .action-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 0.8rem;
   }
 }
 </style>
