@@ -202,7 +202,7 @@
       </section>
 
       <!-- Booking Management Section -->
-      <section class="booking-management-section white-bg">
+      <section class="booking-management-section white-bg" ref="bookingManagementSection" :class="{ 'animate-in': isBookingManagementVisible }">
         <Container>
           <div class="booking-content">
             <h2 class="booking-title">
@@ -230,7 +230,7 @@
           </div>
           
           <!-- Client View -->
-          <div v-if="selectedView === 'client'" class="client-banner">
+          <div v-if="selectedView === 'client'" class="client-banner" ref="clientBookingSection" :class="{ 'animate-in': selectedView === 'client' && !isViewTransitioning, 'transitioning': isViewTransitioning }">
             <!-- Model Profile Section -->
             <div class="client-model-profile">
               <div class="client-model-photo">
@@ -421,7 +421,7 @@
           </div>
 
           <!-- Admin/Your Side View -->
-          <div v-if="selectedView === 'admin'" class="admin-banner">
+          <div v-if="selectedView === 'admin'" class="admin-banner" ref="adminBookingSection" :class="{ 'animate-in': selectedView === 'admin' && !isViewTransitioning, 'transitioning': isViewTransitioning }">
             <!-- Bookings Management Section -->
             <div class="recent-bookings">
               <div class="bookings-header">
@@ -571,7 +571,16 @@ const portfolioTitleStroke = ref<HTMLElement | null>(null)
 const portfolioImage = ref<HTMLElement | null>(null)
 const futuristicBeauty = ref<HTMLElement | null>(null)
 const portfolioArrow = ref<HTMLElement | null>(null)
-const portfolioSocials = ref<HTMLElement | null>(null)
+// Booking management section animation refs
+const bookingManagementSection = ref<HTMLElement | null>(null)
+const isBookingManagementVisible = ref(false)
+
+// Admin booking section animation refs
+const adminBookingSection = ref<HTMLElement | null>(null)
+const isAdminBookingVisible = ref(false)
+
+// Switch animation state
+const isViewTransitioning = ref(false)
 
 // Portfolio section animation states
 const isPortfolioVisible = ref(false)
@@ -836,7 +845,19 @@ const navigateToArticle = () => {
 }
 
 const switchView = (view: 'client' | 'admin') => {
-  selectedView.value = view
+  if (selectedView.value === view || isViewTransitioning.value) return
+  
+  isViewTransitioning.value = true
+  
+  // Fade out current view
+  setTimeout(() => {
+    selectedView.value = view
+    
+    // Fade in new view
+    setTimeout(() => {
+      isViewTransitioning.value = false
+    }, 100) // Small delay to ensure smooth transition
+  }, 200) // Half of the CSS transition duration
 }
 
 // Calendar functions
@@ -961,6 +982,14 @@ const setupIntersectionObserver = () => {
               isPortfolioSocialsVisible.value = true
             }, 1200)
           }
+          
+          if (target === adminBookingSection.value) {
+            isAdminBookingVisible.value = true
+          }
+          
+          if (target === bookingManagementSection.value) {
+            isBookingManagementVisible.value = true
+          }
         }
       })
     },
@@ -980,6 +1009,14 @@ const setupIntersectionObserver = () => {
   
   if (portfolioSection.value) {
     observer.observe(portfolioSection.value)
+  }
+  
+  if (adminBookingSection.value) {
+    observer.observe(adminBookingSection.value)
+  }
+  
+  if (bookingManagementSection.value) {
+    observer.observe(bookingManagementSection.value)
   }
 
   return observer
@@ -2508,6 +2545,14 @@ onMounted(() => {
   min-height: 100vh;
   display: flex;
   align-items: center;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.booking-management-section.animate-in {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .booking-management-section.white-bg {
@@ -2627,6 +2672,20 @@ onMounted(() => {
   display: grid;
   grid-template-columns: 1fr 1fr;
   min-height: 500px;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.client-banner.transitioning {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.2s ease-out;
+}
+
+.client-banner.animate-in {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Client Model Profile Section */
@@ -3225,6 +3284,20 @@ onMounted(() => {
   max-width: 900px;
   margin: 0 auto;
   min-height: 600px;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.admin-banner.transitioning {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.2s ease-out;
+}
+
+.admin-banner.animate-in {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Admin Dashboard Section */
@@ -3834,11 +3907,8 @@ onMounted(() => {
   }
 
   .booking-actions {
-    position: absolute;
-    bottom: 12px;
-    right: 12px;
-    margin-top: 0;
-    width: auto;
+    margin-top: 8px;
+    width: 100%;
     justify-content: flex-end;
     flex-direction: row;
     gap: 8px;
