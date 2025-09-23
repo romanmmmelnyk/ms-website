@@ -6,7 +6,6 @@
           <nav class="nav-list">
             <ul>
               <li><a @click="navigateTo('/about')">ABOUT US</a></li>
-              <li><a @click="navigateTo('/models')">MODELS</a></li>
               <li><a @click="navigateTo('/portfolio')">PORTFOLIO</a></li>
               <li><a @click="navigateTo('/careers')">CAREERS</a></li>
               <li><a @click="navigateTo('/cost-calculator')">COST CALCULATOR</a></li>
@@ -151,7 +150,6 @@ const makePhoneCall = () => {
 .nav-list li:nth-child(5) { animation-delay: 0.5s; }
 .nav-list li:nth-child(6) { animation-delay: 0.6s; }
 .nav-list li:nth-child(7) { animation-delay: 0.7s; }
-.nav-list li:nth-child(8) { animation-delay: 0.8s; }
 
 @keyframes fadeInSlide {
   to {

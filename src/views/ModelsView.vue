@@ -63,8 +63,17 @@
                   <div class="article-date">April 25, 2025</div>
                 </div>
                 
-                <h3 class="article-card-title">How the website gives a model <span class="highlight-text">an image</span>.</h3>
+                <h3 class="article-card-title">How the website gives a model an image.</h3>
                 <p class="article-excerpt">In today's fashion world, first impressions happen online. A personal website is not just photos — it's the image that defines how agencies and clients see you</p>
+                
+                <div class="article-card-footer">
+                  <a href="#" class="read-article-link" @click="navigateToArticle">
+                    Read the article
+                    <svg class="arrow-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                      <path d="M4.5 3L8.5 6L4.5 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -146,7 +155,11 @@
                         <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                       </svg>
                     </button>
-                    <span class="month-year">{{ getMonthYear() }}</span>
+                    <div class="month-year-container">
+                      <Transition name="month-slide" mode="out-in">
+                        <span :key="currentDate.getMonth() + currentDate.getFullYear()" class="month-year">{{ getMonthYear() }}</span>
+                      </Transition>
+                    </div>
                     <button class="nav-arrow" @click="navigateMonth('next')">
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                         <path d="M6 4L10 8L6 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -164,19 +177,23 @@
                     <div class="day-header">SAT</div>
                   </div>
 
-                  <div class="calendar-grid">
-                    <div 
-                      v-for="date in 30" 
-                      :key="date"
-                      class="calendar-date"
-                      :class="{ 
-                        selected: selectedDate === date,
-                        unavailable: [3, 7, 11, 15, 19, 23, 27].includes(date)
-                      }"
-                      @click="selectDate(date)"
-                    >
-                      {{ date }}
-                    </div>
+                  <div class="calendar-grid-container">
+                    <Transition name="calendar-slide" mode="out-in">
+                      <div :key="currentDate.getMonth() + currentDate.getFullYear()" class="calendar-grid">
+                        <div 
+                          v-for="date in 30" 
+                          :key="date"
+                          class="calendar-date"
+                          :class="{ 
+                            selected: selectedDate === date,
+                            unavailable: [3, 7, 11, 15, 19, 23, 27].includes(date)
+                          }"
+                          @click="selectDate(date)"
+                        >
+                          {{ date }}
+                        </div>
+                      </div>
+                    </Transition>
                   </div>
 
                   <div class="booking-actions">
@@ -517,6 +534,8 @@ onMounted(() => {
   margin-bottom: 20px;
   position: relative;
   animation: fadeInUp 1s ease-out 0.3s both;
+  overflow: visible;
+  padding: 10px 0;
 }
 
 .highlight {
@@ -526,6 +545,10 @@ onMounted(() => {
   background-clip: text;
   position: relative;
   display: inline-block;
+  font-style: italic;
+  overflow: visible;
+  padding: 5px 8px;
+  margin: -5px -8px;
 }
 
 .highlight::after {
@@ -711,6 +734,8 @@ onMounted(() => {
   color: var(--color-black);
   margin-bottom: 24px;
   line-height: 1.1;
+  overflow: visible;
+  padding: 10px 0;
 }
 
 .article-intro-subtitle {
@@ -779,6 +804,10 @@ onMounted(() => {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   font-weight: 700;
+  font-style: italic;
+  overflow: visible;
+  padding: 5px 8px;
+  margin: -5px -8px;
 }
 
 .article-card-content {
@@ -829,7 +858,38 @@ onMounted(() => {
   font-size: 1rem;
   color: var(--color-dark-gray);
   line-height: 1.6;
-  margin: 0;
+  margin: 0 0 20px 0;
+}
+
+.article-card-footer {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.read-article-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #7f00fd;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.read-article-link:hover {
+  color: #6b00d1;
+  transform: translateX(2px);
+}
+
+.arrow-icon {
+  transition: transform 0.3s ease;
+}
+
+.read-article-link:hover .arrow-icon {
+  transform: translateX(2px);
 }
 
 /* Responsive Design for Article Section */
@@ -946,6 +1006,8 @@ onMounted(() => {
   margin-bottom: 60px;
   line-height: 1.1;
   font-family: 'Montserrat', sans-serif;
+  overflow: visible;
+  padding: 10px 0;
 }
 
 .booking-options {
@@ -1166,17 +1228,72 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-arrow::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(127, 0, 253, 0.1);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  transform: translate(-50%, -50%);
 }
 
 .nav-arrow:hover {
   background: #f7fafc;
-  color: #4a5568;
+  color: #7f00fd;
+  transform: scale(1.1);
+}
+
+.nav-arrow:hover::before {
+  width: 100%;
+  height: 100%;
+}
+
+.nav-arrow:active {
+  transform: scale(0.95);
+}
+
+.month-year-container {
+  position: relative;
+  overflow: hidden;
+  min-width: 120px;
+  text-align: center;
 }
 
 .month-year {
   font-size: 1.1rem;
   font-weight: 600;
   color: #2d3748;
+  display: inline-block;
+}
+
+/* Month slide animation */
+.month-slide-enter-active,
+.month-slide-leave-active {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.month-slide-enter-from {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+.month-slide-leave-to {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+
+.month-slide-enter-to,
+.month-slide-leave-from {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .calendar-days {
@@ -1196,11 +1313,38 @@ onMounted(() => {
   letter-spacing: 0.5px;
 }
 
+.calendar-grid-container {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 4px;
-  margin-bottom: 32px;
+}
+
+/* Calendar slide animation */
+.calendar-slide-enter-active,
+.calendar-slide-leave-active {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.calendar-slide-enter-from {
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+}
+
+.calendar-slide-leave-to {
+  opacity: 0;
+  transform: translateY(-20px) scale(1.05);
+}
+
+.calendar-slide-enter-to,
+.calendar-slide-leave-from {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
 .calendar-date {
@@ -1217,6 +1361,18 @@ onMounted(() => {
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
+  animation: dateFadeIn 0.6s ease-out;
+}
+
+@keyframes dateFadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .calendar-date:hover {
