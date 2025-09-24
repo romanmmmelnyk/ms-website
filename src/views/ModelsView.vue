@@ -101,7 +101,7 @@
                 </div>
                 
                 <h3 ref="articleTitle" class="article-card-title" :class="{ 'animate-in': isCardVisible }">How the website gives a model an image.</h3>
-                <p ref="articleExcerpt" class="article-excerpt" :class="{ 'animate-in': isCardVisible }">In today's fashion world, first impressions happen online. A personal website is not just photos — it's the image that defines how agencies and clients see you</p>
+                <p ref="articleExcerpt" class="article-excerpt" :class="{ 'animate-in': isCardVisible }">In today's fashion world, first impressions happen online. A personal website is not just photos - it's the image that defines how agencies and clients see you</p>
                 
                 <div ref="articleFooter" class="article-card-footer" :class="{ 'animate-in': isCardVisible }">
                   <a href="#" class="read-article-link" @click="navigateToArticle">
@@ -836,7 +836,7 @@ const nextMonth = () => {
 }
 
 const navigateToContact = () => {
-  router.push('/contact')
+  router.push('/apply-model')
 }
 
 const navigateToArticle = () => {
@@ -1985,6 +1985,8 @@ onMounted(() => {
   opacity: 0;
   transform: translateY(50px);
   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-x: hidden;
+  width: 100%;
 }
 
 .top-result-section.animate-in {
@@ -2196,8 +2198,11 @@ onMounted(() => {
   padding-left: 80px;
   padding-right: 40px;
   opacity: 0;
-  transform: translateX(50px);
+  transform: translateX(30px);
   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .top-result-text.animate-in {
@@ -3921,39 +3926,65 @@ onMounted(() => {
 
   /* Calendar mobile styles - scoped to booking management */
   .recent-bookings .calendar-view {
-    padding: 16px;
+    padding: 12px;
+    margin-top: 12px;
   }
 
   .recent-bookings .calendar-header {
-    margin-bottom: 16px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
   }
 
   .recent-bookings .calendar-nav-btn {
-    padding: 6px 10px;
-    font-size: 0.9rem;
+    padding: 6px 8px;
+    font-size: 0.85rem;
+    min-width: 32px;
   }
 
   .recent-bookings .calendar-month {
-    font-size: 1.1rem;
+    font-size: 1rem;
+  }
+
+  .recent-bookings .calendar-day-header {
+    padding: 8px 4px;
+    font-size: 0.75rem;
   }
 
   .recent-bookings .calendar-day {
-    min-height: 60px;
-    padding: 6px;
+    min-height: 50px;
+    padding: 4px;
   }
 
   .recent-bookings .day-number {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
+    margin-bottom: 2px;
   }
 
   .recent-bookings .booking-dot {
-    width: 4px;
-    height: 4px;
+    width: 3px;
+    height: 3px;
   }
 
   .pagination {
-    flex-direction: column;
-    gap: 16px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .page-info {
+    order: 2;
+    flex: 1;
+    text-align: center;
+    font-size: 0.85rem;
+  }
+
+  .page-btn:first-child {
+    order: 1;
+  }
+
+  .page-btn:last-child {
+    order: 3;
   }
 }
 
@@ -3981,6 +4012,56 @@ onMounted(() => {
   .action-btn {
     width: 28px;
     height: 28px;
+    font-size: 0.8rem;
+  }
+
+  /* Calendar styles for small mobile */
+  .recent-bookings .calendar-view {
+    padding: 8px;
+    margin-top: 8px;
+  }
+
+  .recent-bookings .calendar-header {
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+  }
+
+  .recent-bookings .calendar-nav-btn {
+    padding: 4px 6px;
+    font-size: 0.8rem;
+    min-width: 28px;
+  }
+
+  .recent-bookings .calendar-month {
+    font-size: 0.9rem;
+  }
+
+  .recent-bookings .calendar-day-header {
+    padding: 6px 2px;
+    font-size: 0.7rem;
+  }
+
+  .recent-bookings .calendar-day {
+    min-height: 40px;
+    padding: 2px;
+  }
+
+  .recent-bookings .day-number {
+    font-size: 0.7rem;
+    margin-bottom: 1px;
+  }
+
+  /* Pagination styles for small mobile */
+  .pagination {
+    gap: 4px;
+  }
+
+  .page-info {
+    font-size: 0.8rem;
+  }
+
+  .page-btn {
+    padding: 6px 12px;
     font-size: 0.8rem;
   }
 }

@@ -416,7 +416,7 @@ const makePhoneCall = () => {
   flex-direction: row;
   gap: 15px;
   position: absolute;
-  bottom: 40px;
+  bottom: 50px;
   left: 50%;
   transform: translateX(-50%);
   justify-content: center;
@@ -598,7 +598,7 @@ const makePhoneCall = () => {
   /* Mobile social media adjustments for smaller screens */
   .mobile-social-media {
     gap: 12px;
-    bottom: 38px;
+    bottom: 48px;
   }
 
   .mobile-social-icon {
