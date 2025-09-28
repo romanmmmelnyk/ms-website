@@ -96,7 +96,7 @@
                 
                 <!-- Website Preview Section -->
                 <div class="website-preview" :class="{ 'animate-in': showWebsitePreview }">
-                  <img src="/bride website.png" alt="Wedding Model Website Preview" class="website-preview-image" />
+                  <img src="/bride-website.png" alt="Wedding Model Website Preview" class="website-preview-image" />
                 </div>
               </div>
               
@@ -139,7 +139,7 @@
                   <div class="card-content">
                     <h4>Rapid Portfolio</h4>
                     <div class="card-price">
-                      <span class="price-text">249£<br>or 25£/mo.</span>
+                      <span class="price-text">From 249£<br>or 25£/mo.</span>
                     </div>
                   </div>
                 <div v-if="selectedOption === 'rapid-portfolio'" class="card-description">
@@ -155,7 +155,7 @@
                   <div class="card-content">
                     <h4>Licensed Layouts</h4>
                     <div class="card-price">
-                      <span class="price-text">599£<br>or 45£/mo.</span>
+                      <span class="price-text">From 599£<br>or 45£/mo.</span>
                     </div>
                   </div>
                 <div v-if="selectedOption === 'licensed-layouts'" class="card-description">
