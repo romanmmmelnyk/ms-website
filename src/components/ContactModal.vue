@@ -563,7 +563,7 @@ const getParticleStyle = (index: number) => {
   border-radius: 12px;
   padding: 16px 20px;
   color: var(--color-text-primary);
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 1rem;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
@@ -721,7 +721,7 @@ const getParticleStyle = (index: number) => {
   width: 100%;
   padding: 18px 32px;
   border-radius: 12px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 1.1rem;
   font-weight: 600;
   text-decoration: none;

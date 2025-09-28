@@ -2,13 +2,7 @@
     <div class="contact-orbit">
       <!-- Сфера -->
       <div class="sphere">
-        <img 
-          src="/src/assets/hero-sphere.png" 
-          alt="Interactive sphere with contact information" 
-          class="sphere-bg" 
-          loading="lazy"
-          decoding="async"
-        />
+        <div class="sphere-bg"></div>
         <div class="sphere-overlay"></div>
         <h2 class="sphere-text">GET<br />IN<br />TOUCH</h2>
         <div class="sphere-arc"></div>
@@ -58,7 +52,8 @@
     position: absolute;
     width: 120%;
     height: 120%;
-    object-fit: contain;
+    background: radial-gradient(circle at center, rgba(161, 75, 255, 0.3) 0%, rgba(161, 75, 255, 0.1) 50%, transparent 100%);
+    border-radius: 50%;
     z-index: 1;
     top: -10%;
     left: -10%;

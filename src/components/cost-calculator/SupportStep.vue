@@ -231,7 +231,7 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { supportPlans, type Questionnaire } from '@/utils/cost_calculation.algorythm'
+import { supportPlans, type Questionnaire } from '@/utils/cost-calculation-algorithm'
 
 interface Props {
   modelValue: Questionnaire

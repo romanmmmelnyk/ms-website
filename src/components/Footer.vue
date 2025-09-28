@@ -151,7 +151,7 @@ const {
   background: #0a0a0f;
   color: #d1d5db;
   padding: 3rem 2rem 2rem;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .footer-logo {

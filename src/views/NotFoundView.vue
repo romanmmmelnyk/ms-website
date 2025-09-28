@@ -408,7 +408,7 @@ const goBack = () => {
   align-items: center;
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-weight: 700;
   font-size: 1rem;
   letter-spacing: 0.5px;

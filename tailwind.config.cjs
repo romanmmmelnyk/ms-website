@@ -12,7 +12,7 @@ module.exports = {
           ink: "#0F0F14",
         },
         fontFamily: {
-          sans: ["Montserrat", "ui-sans-serif", "system-ui"],
+          sans: ["Open Sans", "ui-sans-serif", "system-ui"],
         },
         container: {
           center: true,

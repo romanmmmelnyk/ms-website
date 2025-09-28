@@ -4,7 +4,7 @@
       <div class="black-block" :style="{ background: currentStage.background }" :class="{ 'transitioning': isTransitioning }" @click="toggleFullscreen">
         <img :src="currentStage.image" :alt="currentStage.title" class="portfolio-image" ref="portfolioImage" :class="{ 'animate-in': isPortfolioImageVisible, 'transitioning': isTransitioning }" :style="{ transform: `translate(-50%, -50%) translate(${mouseParallax.x * 0.3}px, ${mouseParallax.y * 0.3}px)` }" />
         <h2 class="portfolio-title" ref="portfolioTitle" :class="{ 'animate-in': isPortfolioTitleVisible, 'transitioning': isTransitioning }" :style="{ color: textColor, transform: `translate(-50%, -50%) scaleY(2) translate(${mouseParallax.x * 0.2}px, ${mouseParallax.y * 0.2}px)` }">{{ currentStage.title }}</h2>
-        <h2 class="portfolio-title-stroke" ref="portfolioTitleStroke" :class="{ 'animate-in': isPortfolioTitleStrokeVisible, 'transitioning': isTransitioning }" :style="{ '-webkit-text-stroke': `2px ${strokeColor}`, 'text-stroke': `2px ${strokeColor}`, transform: `translate(-50%, -50%) scaleY(2) translate(${mouseParallax.x * 0.2}px, ${mouseParallax.y * 0.2}px)` }">{{ currentStage.title }}</h2>
+        <h2 class="portfolio-title-stroke" ref="portfolioTitleStroke" :class="{ 'animate-in': isPortfolioTitleStrokeVisible, 'transitioning': isTransitioning }" :style="{ '-webkit-text-stroke': `2px ${strokeColor}`, transform: `translate(-50%, -50%) scaleY(2) translate(${mouseParallax.x * 0.2}px, ${mouseParallax.y * 0.2}px)` }">{{ currentStage.title }}</h2>
         <div class="futuristic-beauty" ref="futuristicBeauty" :class="{ 'animate-in': isFuturisticBeautyVisible, 'transitioning': isTransitioning }" :style="{ transform: `translate(${mouseParallax.x * 0.4}px, ${mouseParallax.y * 0.4}px)` }">
           <span class="futuristic-beauty-line" :style="{ color: textColor }">{{ currentStage.beautyText.split(' ')[0] }}</span>
           <span class="futuristic-beauty-line" :style="{ color: textColor }">{{ currentStage.beautyText.split(' ')[1] }}</span>
@@ -320,7 +320,7 @@ onUnmounted(() => {
   color: #cdf2f6;
   text-align: center;
   margin: 0;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   letter-spacing: 0.1em;
   transform: scaleY(2);
   line-height: 0.7;
@@ -349,10 +349,9 @@ onUnmounted(() => {
   font-weight: 900;
   color: transparent;
   -webkit-text-stroke: 2px #cdf2f6;
-  text-stroke: 2px #cdf2f6;
   text-align: center;
   margin: 0;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   letter-spacing: 0.1em;
   transform: translate(-50%, -50%) scaleY(2);
   line-height: 0.7;
@@ -425,7 +424,7 @@ onUnmounted(() => {
   font-size: 1.2rem;
   font-weight: 700;
   color: #cdf2f6;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   line-height: 1;
@@ -526,7 +525,6 @@ onUnmounted(() => {
   .portfolio-title-stroke {
     font-size: 3.5rem;
     -webkit-text-stroke: 1px #cdf2f6;
-    text-stroke: 1px #cdf2f6;
     top: 80%;
   }
   
@@ -584,7 +582,6 @@ onUnmounted(() => {
   .portfolio-title-stroke {
     font-size: 2.2rem;
     -webkit-text-stroke: 1px #cdf2f6;
-    text-stroke: 1px #cdf2f6;
     top: 80%;
   }
   
@@ -675,7 +672,6 @@ onUnmounted(() => {
 .black-block-section.fullscreen .portfolio-title-stroke {
   font-size: 12rem;
   -webkit-text-stroke: 3px #cdf2f6;
-  text-stroke: 3px #cdf2f6;
 }
 
 .black-block-section.fullscreen .futuristic-beauty-line {
@@ -744,7 +740,6 @@ onUnmounted(() => {
   .black-block-section.fullscreen .portfolio-title-stroke {
     font-size: 6rem;
     -webkit-text-stroke: 2px #cdf2f6;
-    text-stroke: 2px #cdf2f6;
   }
   
   .black-block-section.fullscreen .futuristic-beauty-line {
@@ -793,7 +788,6 @@ onUnmounted(() => {
   .black-block-section.fullscreen .portfolio-title-stroke {
     font-size: 4rem;
     -webkit-text-stroke: 1px #cdf2f6;
-    text-stroke: 1px #cdf2f6;
   }
   
   .black-block-section.fullscreen .futuristic-beauty-line {

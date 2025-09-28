@@ -284,7 +284,7 @@ onMounted(() => {
 <style scoped>
 .home {
   min-height: 100vh;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 

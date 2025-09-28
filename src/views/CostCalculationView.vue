@@ -245,7 +245,7 @@ import {
   supportPlans,
   type Questionnaire,
   type QuoteResult
-} from '@/utils/cost_calculation.algorythm'
+} from '@/utils/cost-calculation-algorithm'
 
 // Import step components
 import ProjectTypeStep from '@/components/cost-calculator/ProjectTypeStep.vue'

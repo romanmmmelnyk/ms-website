@@ -183,7 +183,7 @@ onUnmounted(() => {
 .btn {
   padding: 16px 32px;
   border-radius: 8px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 1rem;
   font-weight: 600;
   text-decoration: none;

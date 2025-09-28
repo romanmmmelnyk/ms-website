@@ -187,7 +187,7 @@ const makePhoneCall = () => {
 .nav-list a {
   color: var(--color-text-primary);
   text-decoration: none;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 1.5rem;
   font-weight: 500;
   text-transform: uppercase;
@@ -233,7 +233,7 @@ const makePhoneCall = () => {
   justify-content: space-between;
   padding: 60px;
   color: var(--color-text-primary);
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   position: relative;
 }
 

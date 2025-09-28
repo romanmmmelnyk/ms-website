@@ -209,7 +209,7 @@ const initializeCookies = () => {
   line-height: 1.5;
   margin: 0;
   color: #374151;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .cookie-link {
@@ -233,7 +233,7 @@ const initializeCookies = () => {
   align-items: center;
   padding: 8px 16px;
   border-radius: 8px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 0.85rem;
   font-weight: 500;
   border: none;
@@ -313,7 +313,7 @@ const initializeCookies = () => {
   font-weight: 600;
   margin: 0;
   color: #111827;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .close-btn {
@@ -364,7 +364,7 @@ const initializeCookies = () => {
   font-weight: 600;
   margin: 0 0 4px 0;
   color: #111827;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .category-description {
@@ -372,7 +372,7 @@ const initializeCookies = () => {
   line-height: 1.5;
   margin: 0;
   color: #6b7280;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .cookie-toggle {

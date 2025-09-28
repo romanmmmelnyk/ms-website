@@ -30,7 +30,7 @@ import Container from '../components/Container.vue'
 <style scoped>
 .portfolio {
   min-height: 100vh;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .section {

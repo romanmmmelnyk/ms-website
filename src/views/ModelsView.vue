@@ -878,7 +878,7 @@ onMounted(() => {
 <style scoped>
 .models-page {
   min-height: 100vh;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .hero-section {
@@ -1016,7 +1016,7 @@ onMounted(() => {
 .btn {
   padding: 18px 36px;
   border-radius: 8px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 1rem;
   font-weight: 600;
   text-decoration: none;
@@ -1218,7 +1218,7 @@ onMounted(() => {
   color: var(--color-text-primary);
   padding: 18px 36px;
   border-radius: 8px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 1rem;
   font-weight: 600;
   text-decoration: none;
@@ -1689,7 +1689,7 @@ onMounted(() => {
   color: var(--color-black);
   margin-bottom: 32px;
   line-height: 1.1;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   overflow: visible;
   padding: 10px 0;
   opacity: 0;
@@ -1706,7 +1706,7 @@ onMounted(() => {
   color: var(--color-dark-gray);
   margin-bottom: 20px;
   line-height: 1.6;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   opacity: 0;
   transform: translateY(20px);
   animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
@@ -2049,7 +2049,7 @@ onMounted(() => {
   color: var(--color-black);
   margin-bottom: 60px;
   line-height: 1.1;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   overflow: visible;
   padding: 10px 0;
 }
@@ -2200,7 +2200,7 @@ onMounted(() => {
   font-weight: 700;
   color: #2d3748;
   margin-bottom: 24px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .model-measurements {
@@ -2265,7 +2265,7 @@ onMounted(() => {
   font-weight: 700;
   color: #2d3748;
   margin-bottom: 32px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .calendar-header {
@@ -2476,7 +2476,7 @@ onMounted(() => {
   cursor: pointer;
   transition: all 0.3s ease;
   border: none;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .btn-cancel {
@@ -2589,7 +2589,7 @@ onMounted(() => {
   font-size: 0.9rem;
   transition: all 0.3s ease;
   background: #ffffff;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .form-group input:focus {
@@ -2649,7 +2649,7 @@ onMounted(() => {
   font-weight: 700;
   color: #374151;
   margin-bottom: 16px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .success-message {
@@ -2798,7 +2798,7 @@ onMounted(() => {
   font-weight: 700;
   color: #2d3748;
   margin: 0;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .dashboard-actions {
@@ -2928,7 +2928,7 @@ onMounted(() => {
   font-weight: 700;
   color: #7f00fd;
   margin-bottom: 8px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .stat-label {
@@ -2956,7 +2956,7 @@ onMounted(() => {
   font-weight: 700;
   color: #2d3748;
   margin: 0;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .view-toggle {
@@ -2976,7 +2976,7 @@ onMounted(() => {
   color: #4a5568;
   cursor: pointer;
   transition: all 0.2s ease;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .toggle-btn.active {
@@ -3172,7 +3172,7 @@ onMounted(() => {
   color: #4a5568;
   cursor: pointer;
   transition: all 0.2s ease;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .page-btn:hover:not(:disabled) {
@@ -3220,7 +3220,7 @@ onMounted(() => {
   color: #4a5568;
   cursor: pointer;
   transition: all 0.2s ease;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   min-width: 40px;
 }
 
@@ -3235,7 +3235,7 @@ onMounted(() => {
   font-weight: 600;
   color: #2d3748;
   margin: 0;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   text-align: center;
   flex: 1;
 }
@@ -3256,7 +3256,7 @@ onMounted(() => {
   font-size: 0.85rem;
   font-weight: 600;
   color: #4a5568;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   border-bottom: 2px solid #e2e8f0;
 }
 
@@ -3317,7 +3317,7 @@ onMounted(() => {
   font-size: 0.9rem;
   font-weight: 500;
   margin-bottom: 4px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .recent-bookings .day-bookings {
