@@ -104,13 +104,14 @@
               <InteractiveShowcase 
                 v-else
                 width="100%" 
-                innerColor="#E8E7E7"
-                outerColor="#E8E7E7"
+                :innerColor="showcaseColors.innerColor"
+                :outerColor="showcaseColors.outerColor"
                 :format="showcaseFormat"
                 title="PORTFOLIO"
-                pic="/models/model male 1.png"
-                modelName="John Doe"
-                location="New York"
+                :pic="showcaseImages.pic"
+                :additionalImages="showcaseImages.additionalImages"
+                :modelName="showcaseModelName"
+                :location="showcaseCity"
                 :modelSpecs="{
                   height: '6ft 2in',
                   weight: '180lbs',
@@ -121,7 +122,7 @@
                   hair: 'Brown',
                   shoe: '11'
                 }"
-                class="showcase-animation showcase-transition"
+                :class="['showcase-animation', 'showcase-transition', showcaseFontClass]"
               />
             </div>
           </div>
@@ -129,41 +130,57 @@
           <!-- Right Side: Options (2/6) -->
           <div class="options-section">
             <div class="options-container options-animation">
-              <h3 class="structure-title">STRUCTURE. <span class="subtitle">Choose your best</span></h3>
+              <!-- Back Button -->
+              <button v-if="currentStep > 1 || showAtmosphereOptions" class="back-btn back-btn-above-title" @click="handleBackStep">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19 12H5M12 19L5 12L12 5"/>
+                </svg>
+                Back
+              </button>
               
+              <!-- Structure Title -->
+              <h3 v-show="!showAtmosphereOptions" class="structure-title">STRUCTURE. <span class="subtitle">Choose your best</span></h3>
+              
+              <!-- Atmosphere Title -->
+              <h3 v-show="showAtmosphereOptions && selectedOption === 'rapid-portfolio'" class="structure-title">ATMOSPHERE. <span class="subtitle">How the website feels</span></h3>
+              
+              <!-- Structure Options -->
               <button 
+                v-show="!showAtmosphereOptions"
                 class="option-card"
                 :class="{ selected: selectedOption === 'rapid-portfolio' }"
                 @click="handleOptionSelect('rapid-portfolio')"
               >
-                  <div class="card-content">
-                    <h4>Rapid Portfolio</h4>
-                    <div class="card-price">
-                      <span class="price-text">From 249£<br>or 25£/mo.</span>
-                    </div>
+                <div class="card-content">
+                  <h4>Rapid Portfolio</h4>
+                  <div class="card-price">
+                    <span class="price-text">From 249£<br>or 25£/mo.</span>
                   </div>
+                </div>
                 <div v-if="selectedOption === 'rapid-portfolio'" class="card-description">
                   <p>Quick and efficient portfolio setup with pre-designed templates. Perfect for getting your work online fast with minimal customization needed.</p>
                 </div>
               </button>
               
               <button 
+                v-show="!showAtmosphereOptions"
                 class="option-card"
                 :class="{ selected: selectedOption === 'licensed-layouts' }"
                 @click="handleOptionSelect('licensed-layouts')"
               >
-                  <div class="card-content">
-                    <h4>Licensed Layouts</h4>
-                    <div class="card-price">
-                      <span class="price-text">From 599£<br>or 45£/mo.</span>
-                    </div>
+                <div class="card-content">
+                  <h4>Licensed Layouts</h4>
+                  <div class="card-price">
+                    <span class="price-text">From 599£<br>or 45£/mo.</span>
                   </div>
+                </div>
                 <div v-if="selectedOption === 'licensed-layouts'" class="card-description">
                   <p>Build your website from professionally validated Moth Solutions components and unlock the full potential of your product.</p>
                 </div>
               </button>
               
               <button 
+                v-show="!showAtmosphereOptions"
                 class="option-card"
                 :class="{ selected: selectedOption === 'custom' }"
                 @click="handleOptionSelect('custom')"
@@ -179,12 +196,154 @@
                 </div>
               </button>
               
+              <!-- Atmosphere Options -->
+              <button 
+                v-show="showAtmosphereOptions && selectedOption === 'rapid-portfolio'"
+                class="option-card"
+                :class="{ selected: selectedAtmosphere === 'elegant-classic' }"
+                @click="handleAtmosphereSelect('elegant-classic')"
+              >
+                <div class="card-content">
+                  <h4>Elegant Classic</h4>
+                  <div class="card-icon">
+                    <div class="color-circle">
+                      <div class="circle-half circle-white"></div>
+                      <div class="circle-half circle-grey"></div>
+                    </div>
+                  </div>
+                </div>
+                <div v-if="selectedAtmosphere === 'elegant-classic'" class="card-description">
+                  <p>Timeless elegance with classic white and grey tones. Clean Inter typography and refined spacing.</p>
+                </div>
+              </button>
+              
+              <button 
+                v-show="showAtmosphereOptions && selectedOption === 'rapid-portfolio'"
+                class="option-card"
+                :class="{ selected: selectedAtmosphere === 'traditional' }"
+                @click="handleAtmosphereSelect('traditional')"
+              >
+                <div class="card-content">
+                  <h4>Traditional</h4>
+                  <div class="card-icon">
+                    <div class="color-circle">
+                      <div class="circle-half circle-tan"></div>
+                      <div class="circle-half circle-brown"></div>
+                    </div>
+                  </div>
+                </div>
+                <div v-if="selectedAtmosphere === 'traditional'" class="card-description">
+                  <p>Classic heritage feel with rich brown and tan tones. Traditional serif fonts for timeless appeal.</p>
+                </div>
+              </button>
+              
+              <button 
+                v-show="showAtmosphereOptions && selectedOption === 'rapid-portfolio'"
+                class="option-card"
+                :class="{ selected: selectedAtmosphere === 'summer' }"
+                @click="handleAtmosphereSelect('summer')"
+              >
+                <div class="card-content">
+                  <h4>Summer</h4>
+                  <div class="card-icon">
+                    <div class="color-circle">
+                      <div class="circle-half circle-coral"></div>
+                      <div class="circle-half circle-peach"></div>
+                    </div>
+                  </div>
+                </div>
+                <div v-if="selectedAtmosphere === 'summer'" class="card-description">
+                  <p>Bright and vibrant with coral and peach tones. Playful rounded fonts for fresh, energetic vibes.</p>
+                </div>
+              </button>
+              
+              <button 
+                v-show="showAtmosphereOptions && selectedOption === 'rapid-portfolio'"
+                class="option-card"
+                :class="{ selected: selectedAtmosphere === 'futuristic' }"
+                @click="handleAtmosphereSelect('futuristic')"
+              >
+                <div class="card-content">
+                  <h4>Futuristic</h4>
+                  <div class="card-icon">
+                    <div class="color-circle">
+                      <div class="circle-half circle-blue"></div>
+                      <div class="circle-half circle-cyan"></div>
+                    </div>
+                  </div>
+                </div>
+                <div v-if="selectedAtmosphere === 'futuristic'" class="card-description">
+                  <p>Modern sci-fi aesthetic with blue and cyan tones. Sharp Montserrat typography for cutting-edge appeal.</p>
+                </div>
+              </button>
+              
+              <button 
+                v-show="showAtmosphereOptions && selectedOption === 'rapid-portfolio'"
+                class="option-card"
+                :class="{ selected: selectedAtmosphere === 'cinematic' }"
+                @click="handleAtmosphereSelect('cinematic')"
+              >
+                <div class="card-content">
+                  <h4>Cinematic</h4>
+                  <div class="card-icon">
+                    <div class="color-circle">
+                      <div class="circle-half circle-silver"></div>
+                      <div class="circle-half circle-black"></div>
+                    </div>
+                  </div>
+                </div>
+                <div v-if="selectedAtmosphere === 'cinematic'" class="card-description">
+                  <p>Dramatic film-inspired design with black and silver tones. Bold condensed fonts for maximum impact.</p>
+                </div>
+              </button>
+              
+              <button 
+                v-show="showAtmosphereOptions && selectedOption === 'rapid-portfolio'"
+                class="option-card"
+                :class="{ selected: selectedAtmosphere === 'exotic' }"
+                @click="handleAtmosphereSelect('exotic')"
+              >
+                <div class="card-content">
+                  <h4>Exotic</h4>
+                  <div class="card-icon">
+                    <div class="color-circle">
+                      <div class="circle-half circle-emerald"></div>
+                      <div class="circle-half circle-jungle"></div>
+                    </div>
+                  </div>
+                </div>
+                <div v-if="selectedAtmosphere === 'exotic'" class="card-description">
+                  <p>Tropical paradise with emerald and jungle green tones. Organic flowing fonts for natural beauty.</p>
+                </div>
+              </button>
+              
+              <button 
+                v-show="showAtmosphereOptions && selectedOption === 'rapid-portfolio'"
+                class="option-card"
+                :class="{ selected: selectedAtmosphere === 'love' }"
+                @click="handleAtmosphereSelect('love')"
+              >
+                <div class="card-content">
+                  <h4>Love</h4>
+                  <div class="card-icon">
+                    <div class="color-circle">
+                      <div class="circle-half circle-rose"></div>
+                      <div class="circle-half circle-blush"></div>
+                    </div>
+                  </div>
+                </div>
+                <div v-if="selectedAtmosphere === 'love'" class="card-description">
+                  <p>Romantic and passionate with rose and blush pink tones. Elegant script fonts for heartfelt emotion.</p>
+                </div>
+              </button>
+              
               <button class="next-btn" @click="handleNextStep">
                 Next
               </button>
             </div>
           </div>
         </div>
+
       </div>
     </Container>
   </div>
@@ -199,6 +358,8 @@ import InteractiveShowcase from '@/components/InteractiveShowcase.vue'
 const currentStep = ref(1)
 const agreedToTerms = ref(false)
 const selectedOption = ref('licensed-layouts')
+const selectedAtmosphere = ref('elegant-classic')
+const showAtmosphereOptions = ref(false)
 
 // Chat animation states
 const showClientMessage = ref(false)
@@ -219,6 +380,181 @@ const showcaseFormat = computed(() => {
       return 1
   }
 })
+
+// Computed showcase colors based on atmosphere
+const showcaseColors = computed(() => {
+  if (selectedOption.value === 'rapid-portfolio' && showAtmosphereOptions.value) {
+    switch (selectedAtmosphere.value) {
+      case 'elegant-classic':
+        return {
+          innerColor: "#f3f4f6",
+          outerColor: "#ffffff"
+        }
+      case 'traditional':
+        return {
+          innerColor: "#D2B48C",
+          outerColor: "#8B4513"
+        }
+      case 'summer':
+        return {
+          innerColor: "#FFCCCB",
+          outerColor: "#FF7F7F"
+        }
+      case 'futuristic':
+        return {
+          innerColor: "#67E8F9",
+          outerColor: "#0EA5E9"
+        }
+      case 'cinematic':
+        return {
+          innerColor: "#1a1a1a",
+          outerColor: "#000000"
+        }
+      case 'exotic':
+        return {
+          innerColor: "#34D399",
+          outerColor: "#10B981"
+        }
+      case 'love':
+        return {
+          innerColor: "#FCA5A5",
+          outerColor: "#F43F5E"
+        }
+      default:
+        return {
+          innerColor: "#E8E7E7",
+          outerColor: "#E8E7E7"
+        }
+    }
+  }
+  
+  return {
+    innerColor: "#E8E7E7",
+    outerColor: "#E8E7E7"
+  }
+})
+
+// Computed font class based on atmosphere
+const showcaseFontClass = computed(() => {
+  if (selectedOption.value === 'rapid-portfolio' && showAtmosphereOptions.value) {
+    switch (selectedAtmosphere.value) {
+      case 'elegant-classic':
+        return 'font-elegant-classic'
+      case 'traditional':
+        return 'font-traditional'
+      case 'summer':
+        return 'font-summer'
+      case 'futuristic':
+        return 'font-futuristic'
+      case 'cinematic':
+        return 'font-cinematic'
+      case 'exotic':
+        return 'font-exotic'
+      case 'love':
+        return 'font-love'
+      default:
+        return ''
+    }
+  }
+  return ''
+})
+
+// Computed city based on atmosphere
+const showcaseCity = computed(() => {
+  if (selectedOption.value === 'rapid-portfolio' && showAtmosphereOptions.value) {
+    switch (selectedAtmosphere.value) {
+      case 'elegant-classic':
+        return 'London'
+      case 'traditional':
+        return 'Boston'
+      case 'summer':
+        return 'Miami'
+      case 'futuristic':
+        return 'Tokyo'
+      case 'cinematic':
+        return 'Los Angeles'
+      case 'exotic':
+        return 'Bali'
+      case 'love':
+        return 'Paris'
+      default:
+        return 'New York'
+    }
+  }
+  return 'New York'
+})
+
+// Computed showcase model name based on atmosphere
+const showcaseModelName = computed(() => {
+  if (selectedOption.value === 'rapid-portfolio' && showAtmosphereOptions.value) {
+    switch (selectedAtmosphere.value) {
+      case 'elegant-classic':
+        return 'ALEXANDER KENT'
+      case 'traditional':
+        return 'BENJAMIN STONE'
+      case 'summer':
+        return 'LUNA COSTA'
+      case 'futuristic':
+        return 'VIOLET STORM'
+      case 'cinematic':
+        return 'DAMIAN NOIR'
+      case 'exotic':
+        return 'JASMINE AZURE'
+      case 'love':
+        return 'AMOUR BELLE'
+      default:
+        return 'JOHN DOE'
+    }
+  }
+  return 'JOHN DOE'
+})
+
+// Computed showcase images based on atmosphere
+    const showcaseImages = computed(() => {
+      if (selectedOption.value === 'rapid-portfolio' && showAtmosphereOptions.value) {
+        switch (selectedAtmosphere.value) {
+          case 'traditional':
+            return {
+              pic: "/traditional/trad-1.jpeg",
+              additionalImages: ["/traditional/trad-2.jpeg", "/traditional/trad-3.jpg"]
+            }
+          case 'summer':
+            return {
+              pic: "/summer/summer-1.jpg",
+              additionalImages: ["/summer/summer-2.jpg", "/summer/summer-3.jpg"]
+            }
+          case 'futuristic':
+            return {
+              pic: "/futuristic/fut-1.jpg",
+              additionalImages: ["/futuristic/fut-2.jpg", "/futuristic/fut-3.jpg"]
+            }
+          case 'cinematic':
+            return {
+              pic: "/cinematic/cin-1.jpg",
+              additionalImages: ["/cinematic/cin-2.jpg", "/cinematic/cin-3.jpg"]
+            }
+          case 'exotic':
+            return {
+              pic: "/exotic/ex-1.jpg",
+              additionalImages: ["/exotic/ex-2.jpg", "/exotic/ex-3.jpg"]
+            }
+          case 'love':
+            return {
+              pic: "/love/love-1.jpg",
+              additionalImages: ["/love/love-2.jpg", "/love/love-3.jpg"]
+            }
+          default:
+            return {
+              pic: "/models/model shoot 1.jpg",
+              additionalImages: ["/models/model shoot 2.jpg", "/models/model shoot 3.jpg"]
+            }
+        }
+      }
+      return {
+        pic: "/models/model shoot 1.jpg",
+        additionalImages: ["/models/model shoot 2.jpg", "/models/model shoot 3.jpg"]
+      }
+    })
 
 // Store original overflow values
 let originalBodyOverflow = ''
@@ -247,6 +583,7 @@ const nextStep = () => {
 
 const handleOptionSelect = (option: string) => {
   selectedOption.value = option
+  showAtmosphereOptions.value = false // Reset atmosphere view when changing options
   console.log('Selected option:', option)
   
   // Trigger chat animations for custom option
@@ -281,7 +618,36 @@ const handleOptionSelect = (option: string) => {
 }
 
 const handleNextStep = () => {
-  currentStep.value++
+  if (currentStep.value === 2 && selectedOption.value === 'rapid-portfolio' && !showAtmosphereOptions.value) {
+    // For rapid portfolio, show atmosphere options in same step
+    showAtmosphereOptions.value = true
+  } else {
+    currentStep.value++
+  }
+}
+
+const handleAtmosphereSelect = (atmosphere: string) => {
+  selectedAtmosphere.value = atmosphere
+  console.log('Selected atmosphere:', atmosphere)
+  console.log('Showcase images will be:', showcaseImages.value)
+  
+  // Add a subtle animation class to showcase for visual feedback
+  const showcase = document.querySelector('.interactive-showcase')
+  if (showcase) {
+    showcase.classList.add('atmosphere-transition')
+    setTimeout(() => {
+      showcase.classList.remove('atmosphere-transition')
+    }, 600)
+  }
+}
+
+const handleBackStep = () => {
+  if (showAtmosphereOptions.value && selectedOption.value === 'rapid-portfolio') {
+    // From atmosphere options back to structure options in same step
+    showAtmosphereOptions.value = false
+  } else if (currentStep.value > 1) {
+    currentStep.value--
+  }
 }
 </script>
 
@@ -426,6 +792,165 @@ const handleNextStep = () => {
 
 .showcase-transition * {
   transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Atmosphere transition animation */
+.atmosphere-transition {
+  transform: scale(0.98);
+  opacity: 0.8;
+  transition: all 0.3s ease-out;
+}
+
+.atmosphere-transition * {
+  transition: all 0.3s ease-out;
+}
+
+/* Smooth showcase transitions */
+.showcase-animation {
+  transition: all 0.5s ease-in-out;
+}
+
+.showcase-transition {
+  transition: all 0.5s ease-in-out;
+}
+
+/* Smooth option transitions */
+.option-card {
+  transition: all 0.3s ease-in-out;
+}
+
+.option-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Font styles for different atmospheres */
+.font-elegant-classic {
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif !important;
+}
+
+.font-elegant-classic *,
+.font-elegant-classic h1,
+.font-elegant-classic h2,
+.font-elegant-classic h3,
+.font-elegant-classic h4,
+.font-elegant-classic p,
+.font-elegant-classic span,
+.font-elegant-classic div {
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.02em !important;
+}
+
+.font-traditional {
+  font-family: 'Times New Roman', 'Georgia', serif !important;
+}
+
+.font-traditional *,
+.font-traditional h1,
+.font-traditional h2,
+.font-traditional h3,
+.font-traditional h4,
+.font-traditional p,
+.font-traditional span,
+.font-traditional div {
+  font-family: 'Times New Roman', 'Georgia', serif !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.01em !important;
+}
+
+.font-summer {
+  font-family: 'Nunito', 'Poppins', sans-serif !important;
+}
+
+.font-summer *,
+.font-summer h1,
+.font-summer h2,
+.font-summer h3,
+.font-summer h4,
+.font-summer p,
+.font-summer span,
+.font-summer div {
+  font-family: 'Nunito', 'Poppins', sans-serif !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em !important;
+}
+
+.font-futuristic {
+  font-family: 'Montserrat', 'Arial', sans-serif !important;
+}
+
+.font-futuristic *,
+.font-futuristic h1,
+.font-futuristic h2,
+.font-futuristic h3,
+.font-futuristic h4,
+.font-futuristic p,
+.font-futuristic span,
+.font-futuristic div {
+  font-family: 'Montserrat', 'Arial', sans-serif !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+}
+
+.font-cinematic {
+  font-family: 'Oswald', 'Arial Black', sans-serif !important;
+}
+
+.font-cinematic *,
+.font-cinematic h1,
+.font-cinematic h2,
+.font-cinematic h3,
+.font-cinematic h4,
+.font-cinematic p,
+.font-cinematic span,
+.font-cinematic div {
+  font-family: 'Oswald', 'Arial Black', sans-serif !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.02em !important;
+  text-transform: uppercase !important;
+  font-stretch: condensed !important;
+}
+
+.font-exotic {
+  font-family: 'Comfortaa', 'Trebuchet MS', sans-serif !important;
+}
+
+.font-exotic *,
+.font-exotic h1,
+.font-exotic h2,
+.font-exotic h3,
+.font-exotic h4,
+.font-exotic p,
+.font-exotic span,
+.font-exotic div {
+  font-family: 'Comfortaa', 'Trebuchet MS', sans-serif !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.01em !important;
+}
+
+.font-love {
+  font-family: 'Great Vibes', 'Pacifico', cursive !important;
+}
+
+.font-love *,
+.font-love h1,
+.font-love h2,
+.font-love h3,
+.font-love h4,
+.font-love p,
+.font-love span,
+.font-love div {
+  font-family: 'Great Vibes', 'Pacifico', cursive !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.03em !important;
+}
+
+/* Cinematic text style - white name only */
+.font-cinematic .rapid-1-model-name,
+.font-cinematic h1 {
+  color: #ffffff !important;
 }
 
 /* Right Side: Options (2/6) */
@@ -750,14 +1275,14 @@ p {
 .options-section .options-container {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.5rem;
   width: 100%;
 }
 
 .structure-title {
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   color: white;
   text-align: left;
   line-height: 1.2;
@@ -765,7 +1290,7 @@ p {
 
 .structure-title .subtitle {
   font-weight: 400;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
 }
 
 /* Step 1 Options Container (original) */
@@ -811,14 +1336,109 @@ p {
 }
 
 .card-content {
-  padding: 1.5rem;
+  padding: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
+.card-icon {
+  font-size: 1.5rem;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.option-card.selected .card-icon {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Color Circle Icons */
+.color-circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.circle-half {
+  width: 50%;
+  height: 100%;
+  position: relative;
+}
+
+.circle-half:first-child {
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+
+.circle-half:last-child {
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+
+/* Color variations */
+.circle-white {
+  background: #ffffff;
+}
+
+.circle-grey {
+  background: #6b7280;
+}
+
+.circle-brown {
+  background: #8B4513;
+}
+
+.circle-tan {
+  background: #D2B48C;
+}
+
+.circle-coral {
+  background: #FF7F7F;
+}
+
+.circle-peach {
+  background: #FFCCCB;
+}
+
+.circle-blue {
+  background: #0EA5E9;
+}
+
+.circle-cyan {
+  background: #67E8F9;
+}
+
+.circle-black {
+  background: #000000;
+}
+
+.circle-silver {
+  background: #C0C0C0;
+}
+
+.circle-emerald {
+  background: #10B981;
+}
+
+.circle-jungle {
+  background: #34D399;
+}
+
+.circle-rose {
+  background: #F43F5E;
+}
+
+.circle-blush {
+  background: #FCA5A5;
+}
+
 .card-description {
-  padding: 0 1.5rem 2rem 1.5rem;
+  padding: 0 1rem 1rem 1rem;
   border-top: none;
   background: transparent;
   animation: slideDown 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -857,9 +1477,9 @@ p {
 }
 
 .card-description p {
-  margin: 1rem 0 0 0;
-  font-size: 0.9rem;
-  line-height: 1.4;
+  margin: 0.5rem 0 0 0;
+  font-size: 0.8rem;
+  line-height: 1.3;
   color: rgba(255, 255, 255, 0.8);
 }
 
@@ -898,7 +1518,7 @@ p {
 }
 
 .option-card h4 {
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 600;
   margin: 0;
   color: white;
@@ -908,19 +1528,74 @@ p {
   background: #8B5CF6;
   color: white;
   border: none;
-  padding: 1rem 2rem;
-  font-size: 1.1rem;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
   font-weight: 600;
   border-radius: 12px;
   cursor: pointer;
   width: 100%;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   transition: all 0.3s ease;
 }
 
 .next-btn:hover {
   background: #7C3AED;
   transform: translateY(-1px);
+}
+
+/* Back Button Styling */
+.back-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+}
+
+/* Back Button Above Title */
+.back-btn-above-title {
+  position: static;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+  align-self: flex-start;
+  backdrop-filter: blur(5px);
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 1);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.back-btn-above-title:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.back-btn svg {
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .option-card p {
@@ -981,13 +1656,27 @@ p {
   }
   
   .structure-title {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     margin-top: 7rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
   }
   
   .next-btn {
     margin-bottom: 40px;
+  }
+  
+  /* Mobile back button */
+  .back-btn {
+    top: 10px;
+    left: 10px;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+  
+  .back-btn-above-title {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.8rem;
+    margin-bottom: 0.8rem;
   }
 }
 

@@ -109,14 +109,14 @@
         <div class="rapid-1-gallery">
           <div class="gallery-images">
             <div class="gallery-main-image">
-              <img src="/models/model shoot 1.jpg" alt="Model shoot 1" />
+              <img :src="pic || '/models/model shoot 1.jpg'" alt="Model main image" class="gallery-image-transition" />
             </div>
             <div class="gallery-side-images">
               <div class="gallery-small-image">
-                <img src="/models/model shoot 2.jpg" alt="Model shoot 2" />
+                <img :src="additionalImages?.[0] || '/models/model shoot 2.jpg'" alt="Model shoot 2" class="gallery-image-transition" />
               </div>
               <div class="gallery-small-image">
-                <img src="/models/model shoot 3.jpg" alt="Model shoot 3" />
+                <img :src="additionalImages?.[1] || '/models/model shoot 3.jpg'" alt="Model shoot 3" class="gallery-image-transition" />
               </div>
             </div>
           </div>
@@ -155,6 +155,7 @@ interface Props {
   pic?: string
   title?: string
   additionalItems?: string[]
+  additionalImages?: string[]
   innerColor?: string
   outerColor?: string
   format?: number | string
@@ -625,12 +626,16 @@ const backgroundGradient = computed(() => {
   height: 100%;
   overflow: hidden;
   border-radius: 1cqh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .gallery-main-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   transition: transform 0.3s ease;
 }
 
@@ -650,12 +655,16 @@ const backgroundGradient = computed(() => {
   flex: 1;
   overflow: hidden;
   border-radius: 1cqh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .gallery-small-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   transition: transform 0.3s ease;
 }
 
@@ -825,5 +834,37 @@ const backgroundGradient = computed(() => {
     padding: 0;
     gap: 0.8rem;
   }
+}
+
+/* Smooth image transitions */
+.gallery-image-transition {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.gallery-image-transition:hover {
+  opacity: 0.9;
+}
+
+/* Smooth atmosphere transitions */
+.interactive-showcase {
+  transition: background 0.5s ease-in-out;
+}
+
+.showcase-transition {
+  transition: all 0.5s ease-in-out;
+}
+
+.showcase-transition * {
+  transition: color 0.4s ease-in-out, font-family 0.4s ease-in-out;
+}
+
+/* Smooth text transitions */
+.rapid-1-model-name {
+  transition: color 0.4s ease-in-out, font-family 0.4s ease-in-out;
+}
+
+.rapid-1-intro-text,
+.rapid-1-location-text {
+  transition: color 0.4s ease-in-out, font-family 0.4s ease-in-out;
 }
 </style>
