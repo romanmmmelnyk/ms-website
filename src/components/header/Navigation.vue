@@ -9,7 +9,7 @@
               <li><a @click="navigateTo('/portfolio')">PORTFOLIO</a></li>
               <li><a @click="navigateTo('/careers')">CAREERS</a></li>
               <li><a @click="navigateTo('/cost-calculator')">COST CALCULATOR</a></li>
-              <li><a @click="navigateTo('/apply')">APPLY</a></li>
+              <li><a @click="showContactOptions">APPLY</a></li>
               <li><a @click="navigateTo('/contact')">CONTACT US</a></li>
               <li><a class="highlighted-for-models" @click="navigateTo('/models')">FOR MODELS</a></li>
             </ul>
@@ -89,11 +89,44 @@
           </div>
         </div>
       </div>
+
+      <!-- Contact Modal -->
+      <div v-if="showContactModal" class="contact-modal-overlay" @click="closeContactModal">
+        <div class="contact-modal" @click.stop>
+          <button class="modal-close" @click="closeContactModal">&times;</button>
+          <h2>Contact Us</h2>
+          <p>Choose your preferred way to get in touch:</p>
+          <div class="contact-options">
+            <a href="https://wa.me/1234567890" target="_blank" class="contact-option whatsapp">
+              <div class="contact-icon">📱</div>
+              <div class="contact-info">
+                <h3>WhatsApp</h3>
+                <p>Quick messaging</p>
+              </div>
+            </a>
+            <a href="https://t.me/yourusername" target="_blank" class="contact-option telegram">
+              <div class="contact-icon">✈️</div>
+              <div class="contact-info">
+                <h3>Telegram</h3>
+                <p>Secure messaging</p>
+              </div>
+            </a>
+            <a href="https://instagram.com/yourusername" target="_blank" class="contact-option instagram">
+              <div class="contact-icon">📸</div>
+              <div class="contact-info">
+                <h3>Instagram</h3>
+                <p>Follow our work</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
   </Transition>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useSiteConfig } from '@/composables/useSiteConfig'
 
@@ -109,9 +142,21 @@ const emit = defineEmits<{
 const router = useRouter()
 const { phone, getPhoneLink, socialLinks } = useSiteConfig()
 
+// Contact modal state
+const showContactModal = ref(false)
+
 const navigateTo = (path: string) => {
   router.push(path)
   emit('close')
+}
+
+const showContactOptions = () => {
+  showContactModal.value = true
+  emit('close')
+}
+
+const closeContactModal = () => {
+  showContactModal.value = false
 }
 
 const makePhoneCall = () => {
@@ -624,6 +669,155 @@ const makePhoneCall = () => {
   .navigation-menu {
     width: 100%;
     padding: 0 40px;
+  }
+}
+
+/* Contact Modal Styles */
+.contact-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.contact-modal {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #666;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.contact-modal h2 {
+  margin: 0 0 1rem 0;
+  font-size: 2rem;
+  color: #333;
+  text-align: center;
+}
+
+.contact-modal p {
+  text-align: center;
+  color: #666;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+.contact-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-option {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem;
+  border-radius: 15px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.contact-option:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.contact-option.whatsapp {
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: white;
+}
+
+.contact-option.telegram {
+  background: linear-gradient(135deg, #0088cc, #006699);
+  color: white;
+}
+
+.contact-option.instagram {
+  background: linear-gradient(135deg, #E4405F, #C13584, #833AB4);
+  color: white;
+}
+
+.contact-icon {
+  font-size: 2rem;
+  margin-right: 1rem;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+}
+
+.contact-info h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.contact-info p {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .contact-modal {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+  
+  .contact-modal h2 {
+    font-size: 1.5rem;
+  }
+  
+  .contact-option {
+    padding: 1rem;
+  }
+  
+  .contact-icon {
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+  }
+  
+  .contact-info h3 {
+    font-size: 1.1rem;
   }
 }
 </style>

@@ -123,6 +123,7 @@
                   shoe: '11'
                 }"
                 :class="['showcase-animation', 'showcase-transition', showcaseFontClass]"
+                :style="customTextStyle"
               />
             </div>
           </div>
@@ -337,6 +338,82 @@
                 </div>
               </button>
               
+              <button 
+                v-show="showAtmosphereOptions && selectedOption === 'rapid-portfolio'"
+                class="option-card custom-atmosphere"
+                :class="{ selected: selectedAtmosphere === 'custom' }"
+                @click="handleAtmosphereSelect('custom')"
+              >
+                <div class="card-content">
+                  <h4>Custom</h4>
+                  <div class="card-icon">
+                    <div class="color-circle custom-circle">
+                      <div class="circle-half" :style="{ background: customSettings.innerColor }"></div>
+                      <div class="circle-half" :style="{ background: customSettings.outerColor }"></div>
+                    </div>
+                  </div>
+                </div>
+                <div v-if="selectedAtmosphere === 'custom'" class="card-description">
+                  <p>Build your own unique atmosphere with custom colors, fonts, and styling. Complete creative freedom for your vision.</p>
+                </div>
+              </button>
+              
+              <!-- Custom Atmosphere Builder -->
+              <div v-if="selectedAtmosphere === 'custom' && showAtmosphereOptions && selectedOption === 'rapid-portfolio'" class="custom-builder">
+                <h4 class="builder-title">Customize Your Atmosphere</h4>
+                
+                <!-- Color Palette Section -->
+                <div class="builder-section">
+                  <label class="builder-label">Color Palette</label>
+                  <div class="color-picker-grid">
+                    <div class="color-option">
+                      <label>Inner Color</label>
+                      <input 
+                        type="color" 
+                        v-model="customSettings.innerColor"
+                        class="color-input"
+                      >
+                    </div>
+                    <div class="color-option">
+                      <label>Outer Color</label>
+                      <input 
+                        type="color" 
+                        v-model="customSettings.outerColor"
+                        class="color-input"
+                      >
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Font Selection -->
+                <div class="builder-section">
+                  <label class="builder-label">Typography</label>
+                  <select v-model="customSettings.fontFamily" class="font-select">
+                    <option value="Space Grotesk">Space Grotesk (Modern)</option>
+                    <option value="Inter">Inter (Clean)</option>
+                    <option value="Montserrat">Montserrat (Versatile)</option>
+                    <option value="Playfair Display">Playfair Display (Elegant)</option>
+                    <option value="Roboto">Roboto (Friendly)</option>
+                    <option value="Open Sans">Open Sans (Readable)</option>
+                  </select>
+                </div>
+                
+                <!-- Text Color -->
+                <div class="builder-section">
+                  <label class="builder-label">Text Color</label>
+                  <div class="color-option">
+                    <input 
+                      type="color" 
+                      v-model="customSettings.textColor"
+                      class="color-input"
+                    >
+                    <div class="color-preview" :style="{ color: customSettings.textColor }">
+                      Preview: {{ customSettings.textColor }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
               <button class="next-btn" @click="handleNextStep">
                 Next
               </button>
@@ -350,7 +427,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import Container from '@/components/Container.vue'
 import InteractiveShowcase from '@/components/InteractiveShowcase.vue'
 
@@ -360,6 +437,15 @@ const agreedToTerms = ref(false)
 const selectedOption = ref('licensed-layouts')
 const selectedAtmosphere = ref('elegant-classic')
 const showAtmosphereOptions = ref(false)
+
+// Custom atmosphere settings
+const customSettings = ref({
+  innerColor: '#6366F1',
+  outerColor: '#8B5CF6',
+  fontFamily: 'Space Grotesk',
+  textColor: '#ffffff'
+})
+
 
 // Chat animation states
 const showClientMessage = ref(false)
@@ -420,6 +506,11 @@ const showcaseColors = computed(() => {
           innerColor: "#FCA5A5",
           outerColor: "#F43F5E"
         }
+      case 'custom':
+        return {
+          innerColor: customSettings.value.innerColor,
+          outerColor: customSettings.value.outerColor
+        }
       default:
         return {
           innerColor: "#E8E7E7",
@@ -452,6 +543,9 @@ const showcaseFontClass = computed(() => {
         return 'font-exotic'
       case 'love':
         return 'font-love'
+      case 'custom':
+        const fontName = customSettings.value.fontFamily.toLowerCase().replace(/\s+/g, '-')
+        return `font-custom-${fontName} custom-text-color`
       default:
         return ''
     }
@@ -477,11 +571,32 @@ const showcaseCity = computed(() => {
         return 'Bali'
       case 'love':
         return 'Paris'
+      case 'custom':
+        return 'Studio'
       default:
         return 'New York'
     }
   }
   return 'New York'
+})
+
+// Computed showcase text color based on atmosphere
+const showcaseTextColor = computed(() => {
+  if (selectedOption.value === 'rapid-portfolio' && showAtmosphereOptions.value && selectedAtmosphere.value === 'custom') {
+    return customSettings.value.textColor
+  }
+  return 'transparent' // Use transparent for other atmospheres so it doesn't affect them
+})
+
+// Computed style object for custom text color
+const customTextStyle = computed(() => {
+  if (selectedOption.value === 'rapid-portfolio' && showAtmosphereOptions.value && selectedAtmosphere.value === 'custom') {
+    return {
+      '--custom-text-color': customSettings.value.textColor,
+      color: customSettings.value.textColor // Direct color application
+    }
+  }
+  return {}
 })
 
 // Computed showcase model name based on atmosphere
@@ -502,6 +617,8 @@ const showcaseModelName = computed(() => {
         return 'JASMINE AZURE'
       case 'love':
         return 'AMOUR BELLE'
+      case 'custom':
+        return 'CREATIVE SPIRIT'
       default:
         return 'JOHN DOE'
     }
@@ -542,6 +659,11 @@ const showcaseModelName = computed(() => {
             return {
               pic: "/love/love-1.jpg",
               additionalImages: ["/love/love-2.jpg", "/love/love-3.jpg"]
+            }
+          case 'custom':
+            return {
+              pic: "/models/model shoot 1.jpg",
+              additionalImages: ["/models/model shoot 2.jpg", "/models/model shoot 3.jpg"]
             }
           default:
             return {
@@ -824,6 +946,129 @@ const handleBackStep = () => {
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
+/* Custom Builder Interface */
+.custom-builder {
+  background: #1a1a1a;
+  border-radius: 16px;
+  padding: 2rem;
+  margin-top: 1.5rem;
+  border: 1px solid #333;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  animation: slideDown 0.4s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.builder-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 2rem 0;
+  text-align: left;
+  letter-spacing: -0.02em;
+}
+
+.builder-section {
+  margin-bottom: 2rem;
+}
+
+.builder-section:last-child {
+  margin-bottom: 0;
+}
+
+.builder-label {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
+}
+
+.color-picker-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.color-option {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.color-option label {
+  font-size: 0.85rem;
+  color: #a1a1aa;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.color-input {
+  width: 100%;
+  height: 48px;
+  border: 2px solid #374151;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #2a2a2a;
+}
+
+.color-input:hover {
+  border-color: #6366f1;
+  transform: scale(1.02);
+}
+
+.font-select,
+.text-input {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #374151;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  background: #2a2a2a;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.font-select:focus,
+.text-input:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+  transform: scale(1.01);
+}
+
+.font-select {
+  cursor: pointer;
+}
+
+.color-preview {
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.font-select option {
+  background: #2a2a2a;
+  color: #ffffff;
+  padding: 0.5rem;
+}
+
 /* Font styles for different atmospheres */
 .font-elegant-classic {
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif !important;
@@ -953,6 +1198,129 @@ const handleBackStep = () => {
   color: #ffffff !important;
 }
 
+/* Custom font styles - dynamic based on selection */
+.font-custom-space-grotesk {
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+.font-custom-inter {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+.font-custom-montserrat {
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+.font-custom-playfair-display {
+  font-family: 'Playfair Display', Georgia, serif !important;
+}
+
+.font-custom-roboto {
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+.font-custom-open-sans {
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+/* Apply font styles to all elements with higher specificity */
+.interactive-showcase.font-custom-space-grotesk *,
+.interactive-showcase.font-custom-inter *,
+.interactive-showcase.font-custom-montserrat *,
+.interactive-showcase.font-custom-playfair-display *,
+.interactive-showcase.font-custom-roboto *,
+.interactive-showcase.font-custom-open-sans * {
+  font-family: inherit !important;
+}
+
+/* Custom text color for showcase - direct color binding */
+.custom-text-color {
+  --custom-text-color: v-bind(showcaseTextColor);
+}
+
+/* Override gradient background for model name when custom color is used */
+.interactive-showcase.custom-text-color .rapid-1-model-name {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: unset !important;
+  background-clip: unset !important;
+  color: v-bind(showcaseTextColor) !important;
+}
+
+/* Target all showcase text elements specifically with direct binding */
+.interactive-showcase.custom-text-color .rapid-1-intro-text,
+.interactive-showcase.custom-text-color .rapid-1-location-text,
+.interactive-showcase.custom-text-color .spec-item,
+.interactive-showcase.custom-text-color .spec-value,
+.interactive-showcase.custom-text-color * {
+  color: v-bind(showcaseTextColor) !important;
+}
+
+/* Ultra-aggressive override for model name */
+.interactive-showcase[style*="--custom-text-color"] .rapid-1-model-name {
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: unset !important;
+  background-clip: unset !important;
+  color: var(--custom-text-color) !important;
+}
+
+.interactive-showcase[style*="--custom-text-color"] * {
+  color: var(--custom-text-color) !important;
+}
+
+.font-custom-space-grotesk *,
+.font-custom-inter *,
+.font-custom-montserrat *,
+.font-custom-playfair-display *,
+.font-custom-roboto *,
+.font-custom-open-sans *,
+.font-custom-space-grotesk h1,
+.font-custom-inter h1,
+.font-custom-montserrat h1,
+.font-custom-playfair-display h1,
+.font-custom-roboto h1,
+.font-custom-open-sans h1,
+.font-custom-space-grotesk h2,
+.font-custom-inter h2,
+.font-custom-montserrat h2,
+.font-custom-playfair-display h2,
+.font-custom-roboto h2,
+.font-custom-open-sans h2,
+.font-custom-space-grotesk h3,
+.font-custom-inter h3,
+.font-custom-montserrat h3,
+.font-custom-playfair-display h3,
+.font-custom-roboto h3,
+.font-custom-open-sans h3,
+.font-custom-space-grotesk h4,
+.font-custom-inter h4,
+.font-custom-montserrat h4,
+.font-custom-playfair-display h4,
+.font-custom-roboto h4,
+.font-custom-open-sans h4,
+.font-custom-space-grotesk p,
+.font-custom-inter p,
+.font-custom-montserrat p,
+.font-custom-playfair-display p,
+.font-custom-roboto p,
+.font-custom-open-sans p,
+.font-custom-space-grotesk span,
+.font-custom-inter span,
+.font-custom-montserrat span,
+.font-custom-playfair-display span,
+.font-custom-roboto span,
+.font-custom-open-sans span,
+.font-custom-space-grotesk div,
+.font-custom-inter div,
+.font-custom-montserrat div,
+.font-custom-playfair-display div,
+.font-custom-roboto div,
+.font-custom-open-sans div {
+  font-weight: 500 !important;
+  letter-spacing: -0.02em !important;
+}
+
 /* Right Side: Options (2/6) */
 .options-section {
   flex: 2;
@@ -960,7 +1328,29 @@ const handleBackStep = () => {
   align-items: center;
   justify-content: center;
   padding: 20px;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 100vh;
+}
+
+/* Custom scrollbar for options section */
+.options-section::-webkit-scrollbar {
+  width: 6px;
+}
+
+.options-section::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 3px;
+}
+
+.options-section::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+  transition: background 0.2s ease;
+}
+
+.options-section::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
 }
 
 
@@ -1435,6 +1825,14 @@ p {
 
 .circle-blush {
   background: #FCA5A5;
+}
+
+.circle-gradient {
+  background: linear-gradient(135deg, #6366F1, #8B5CF6);
+}
+
+.circle-gradient-2 {
+  background: linear-gradient(135deg, #8B5CF6, #A855F7);
 }
 
 .card-description {

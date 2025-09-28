@@ -111,7 +111,7 @@ const router = createRouter({
     {
       path: '/apply-model',
       name: 'apply-model',
-      component: ApplyModelView
+      redirect: '/in-development'
     },
     // Policy history routes
     {
