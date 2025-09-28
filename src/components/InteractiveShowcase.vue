@@ -539,7 +539,7 @@ const backgroundGradient = computed(() => {
   right: 0;
   height: 80cqh;
   background: rgba(255, 255, 255, 0.1);
-  border: 1px solid #333;
+  border: none;
   border-radius: 1cqh;
   display: flex;
   align-items: center;
