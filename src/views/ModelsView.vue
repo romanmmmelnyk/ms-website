@@ -26,7 +26,7 @@
           <!-- Right Side - Hero SVG -->
           <div class="hero-visual">
             <img
-              src="/hero-img.png"
+              src="/holographic runway.png"
               alt="Hero illustration"
               class="hero-svg"
               loading="lazy"
@@ -888,6 +888,7 @@ onMounted(() => {
   position: relative;
   padding: 120px 0 300px;
   overflow: hidden;
+  z-index: 0;
 }
 
 .hero-content {
@@ -1043,6 +1044,42 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+}
+
+.hero-visual::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(ellipse at center, 
+    rgba(59, 130, 246, 0.3) 0%,
+    rgba(147, 197, 253, 0.2) 30%,
+    rgba(59, 130, 246, 0.15) 50%,
+    rgba(147, 197, 253, 0.1) 70%,
+    transparent 100%);
+  transform: translate(-35%, -35%);
+  border-radius: 50%;
+  z-index: 1;
+  animation: lightning-pulse 3s ease-in-out infinite alternate;
+  filter: blur(20px);
+}
+
+@keyframes lightning-pulse {
+  0% {
+    opacity: 0.4;
+    transform: translate(-35%, -35%) scale(0.9);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translate(-35%, -35%) scale(1.1);
+  }
+  100% {
+    opacity: 0.5;
+    transform: translate(-35%, -35%) scale(1.0);
+  }
 }
 
 .hero-svg {
@@ -1050,8 +1087,11 @@ onMounted(() => {
   max-width: 600px;
   height: auto;
   object-fit: contain;
-  transform: scale(1.8) translateX(20px) translateY(30px);
+  transform: scale(2.6) translateX(20px) translateY(30px);
   transition: transform 0.3s ease;
+  mix-blend-mode: color-dodge;
+  position: relative;
+  z-index: 2;
 }
 
 /* Responsive Design */
@@ -1066,7 +1106,10 @@ onMounted(() => {
 
   .hero-svg {
     max-width: 500px;
-    transform: scale(1.8) translateX(20px) translateY(30px);
+    transform: scale(2.6) translateX(20px) translateY(30px);
+    mix-blend-mode: color-dodge;
+    position: relative;
+    z-index: 2;
   }
 }
 
@@ -1100,6 +1143,10 @@ onMounted(() => {
   }
 
   .hero-visual {
+    display: none;
+  }
+
+  .hero-visual::before {
     display: none;
   }
 

@@ -5,14 +5,15 @@
         <!-- Step 1: Initial Landing -->
         <div v-if="currentStep === 1" class="step-content">
           <h1 class="title-animation">Model website application</h1>
-          <InteractiveShowcase 
-            width="600px" 
-            innerColor="#E8E7E7"
-            outerColor="#E8E7E7"
-            :format="1"
-            title="PORTFOLIO"
-            pic="/src/assets/models/model male 1.png"
-            class="showcase-animation"
+          <img 
+            src="/designs/DESIGNS-1.png" 
+            alt="Design Portfolio" 
+            class="showcase-animation step1-image step1-image-desktop"
+          />
+          <img 
+            src="/designs/DESIGN-1-Mobile.png" 
+            alt="Design Portfolio" 
+            class="showcase-animation step1-image step1-image-mobile"
           />
           
           <!-- Terms Agreement Section -->
@@ -152,9 +153,9 @@ const showcaseFormat = computed(() => {
     case 'rapid-portfolio':
       return 'rapid-1'
     case 'licensed-layouts':
-      return 1
-    case 'custom':
       return 0
+    case 'custom':
+      return '1-animation'
     default:
       return 1
   }
@@ -228,6 +229,60 @@ const handleNextStep = () => {
   overflow: hidden;
   justify-content: center;
   padding-top: 4rem;
+}
+
+.step1-image {
+  max-width: 600px;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin: 1rem 0;
+}
+
+.step1-image-mobile {
+  display: none;
+}
+
+.step1-image-desktop {
+  display: block;
+}
+
+/* Mobile responsive images and text sizing */
+@media (max-width: 768px) {
+  .step1-image-desktop {
+    display: none;
+  }
+  
+  .step1-image-mobile {
+    display: block;
+    max-width: 220px;
+    margin: 0.5rem 0;
+  }
+  
+  /* Reduce step 1 text sizes and gaps on mobile */
+  .step-content h1 {
+    font-size: 1.6rem;
+    margin-bottom: 0.3rem;
+  }
+  
+  .step-content .terms-agreement {
+    margin: 0.8rem 0;
+  }
+  
+  .step-content .terms-text {
+    font-size: 0.9rem;
+  }
+  
+  .step-content .get-started-btn {
+    margin-top: 0.8rem;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+  }
+  
+  .step-content {
+    padding-top: 2rem;
+    gap: 0.5rem;
+  }
 }
 
 /* Step 2: Two Screen Layout */

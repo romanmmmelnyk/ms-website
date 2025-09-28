@@ -246,6 +246,8 @@ onUnmounted(() => {
   opacity: 0;
   transform: translateY(50px);
   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: 50;
 }
 
 .black-block-section.animate-in {
@@ -268,6 +270,7 @@ onUnmounted(() => {
   overflow: hidden;
   transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   cursor: pointer;
+  z-index: 100;
 }
 
 .black-block.transitioning {
