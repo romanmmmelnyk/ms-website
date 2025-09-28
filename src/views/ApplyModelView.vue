@@ -54,7 +54,7 @@
                 outerColor="#E8E7E7"
                 :format="showcaseFormat"
                 title="PORTFOLIO"
-                pic="/src/assets/models/model male 1.png"
+                pic="/models/model male 1.png"
                 modelName="John Doe"
                 location="New York"
                 :modelSpecs="{
@@ -838,8 +838,12 @@ p {
   
   .structure-title {
     font-size: 1.4rem;
-    margin-top: 2rem;
+    margin-top: 7rem;
     margin-bottom: 1rem;
+  }
+  
+  .next-btn {
+    margin-bottom: 40px;
   }
 }
 

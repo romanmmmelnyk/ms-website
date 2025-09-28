@@ -80,14 +80,14 @@
         <div class="rapid-1-gallery">
           <div class="gallery-images">
             <div class="gallery-main-image">
-              <img src="/src/assets/models/model shoot 1.jpg" alt="Model shoot 1" />
+              <img src="/models/model shoot 1.jpg" alt="Model shoot 1" />
             </div>
             <div class="gallery-side-images">
               <div class="gallery-small-image">
-                <img src="/src/assets/models/model shoot 2.jpg" alt="Model shoot 2" />
+                <img src="/models/model shoot 2.jpg" alt="Model shoot 2" />
               </div>
               <div class="gallery-small-image">
-                <img src="/src/assets/models/model shoot 3.jpg" alt="Model shoot 3" />
+                <img src="/models/model shoot 3.jpg" alt="Model shoot 3" />
               </div>
             </div>
           </div>
