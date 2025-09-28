@@ -49,7 +49,60 @@
           <!-- Left Side: Interactive Showcase (4/6) -->
           <div class="interactive-showcase-section">
             <div class="showcase-container">
+              <!-- Custom Content for Custom Option -->
+              <div v-if="selectedOption === 'custom'" class="custom-content">
+                <h3 class="custom-title">Custom Website Development</h3>
+                <p class="custom-text">We design and develop fully custom websites tailored precisely to your requirements. Every element is crafted according to your specifications, without templates or limits - the only boundary is your imagination.</p>
+                
+                <!-- Chat Animation Section -->
+                <div class="chat-section">
+                  <div class="chat-container">
+                    <div class="chat-message client-message" :class="{ 'animate-in': showClientMessage }">
+                      <div class="message-avatar client-avatar">C</div>
+                      <div class="message-bubble client-bubble">
+                        <p>"I need a wedding bridal model website based in London. Something elegant and sophisticated that showcases our models perfectly."</p>
+                      </div>
+                    </div>
+                    
+                    <div class="chat-message response-message" :class="{ 'animate-in': showResponseMessage }">
+                      <div class="message-bubble response-bubble">
+                        <p>We've got you</p>
+                      </div>
+                      <div class="message-avatar response-avatar">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z"/>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Generating Animation Section -->
+                <div class="generating-section" :class="{ 'animate-in': showGenerating }">
+                  <div class="generating-container">
+                    <div class="generating-spinner">
+                      <div class="spinner-ring"></div>
+                      <div class="spinner-ring"></div>
+                      <div class="spinner-ring"></div>
+                    </div>
+                    <p class="generating-text">Generating your website...</p>
+                    <div class="generating-dots">
+                      <span class="dot"></span>
+                      <span class="dot"></span>
+                      <span class="dot"></span>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Website Preview Section -->
+                <div class="website-preview" :class="{ 'animate-in': showWebsitePreview }">
+                  <img src="/bride website.png" alt="Wedding Model Website Preview" class="website-preview-image" />
+                </div>
+              </div>
+              
+              <!-- Interactive Showcase for other options -->
               <InteractiveShowcase 
+                v-else
                 width="100%" 
                 innerColor="#E8E7E7"
                 outerColor="#E8E7E7"
@@ -118,7 +171,7 @@
                 <div class="card-content">
                   <h4>Custom</h4>
                   <div class="card-price">
-                    <span class="price-text">From 199£<br>or 45£/mo.</span>
+                    <span class="price-text">Price on request<br>(POR)</span>
                   </div>
                 </div>
                 <div v-if="selectedOption === 'custom'" class="card-description">
@@ -147,6 +200,12 @@ const currentStep = ref(1)
 const agreedToTerms = ref(false)
 const selectedOption = ref('licensed-layouts')
 
+// Chat animation states
+const showClientMessage = ref(false)
+const showResponseMessage = ref(false)
+const showGenerating = ref(false)
+const showWebsitePreview = ref(false)
+
 // Computed format based on selected option
 const showcaseFormat = computed(() => {
   switch (selectedOption.value) {
@@ -155,7 +214,7 @@ const showcaseFormat = computed(() => {
     case 'licensed-layouts':
       return 0
     case 'custom':
-      return '1-animation'
+      return 'placeholder'
     default:
       return 1
   }
@@ -189,6 +248,36 @@ const nextStep = () => {
 const handleOptionSelect = (option: string) => {
   selectedOption.value = option
   console.log('Selected option:', option)
+  
+  // Trigger chat animations for custom option
+  if (option === 'custom') {
+    // Reset animations first
+    showClientMessage.value = false
+    showResponseMessage.value = false
+    showGenerating.value = false
+    showWebsitePreview.value = false
+    
+    // Start client message animation after a short delay
+    setTimeout(() => {
+      showClientMessage.value = true
+    }, 500)
+    
+    // Start response message animation after client message
+    setTimeout(() => {
+      showResponseMessage.value = true
+    }, 2000)
+    
+    // Show generating animation after response
+    setTimeout(() => {
+      showGenerating.value = true
+    }, 3500)
+    
+    // Show website preview after generating completes
+    setTimeout(() => {
+      showGenerating.value = false
+      showWebsitePreview.value = true
+    }, 6000)
+  }
 }
 
 const handleNextStep = () => {
@@ -875,7 +964,7 @@ p {
   .interactive-showcase-section {
     flex: none;
     height: 35vh;
-    padding: 10px;
+    padding: 50px 10px 10px 10px;
     overflow: hidden;
   }
   
@@ -945,6 +1034,394 @@ p {
   
   .option-card p {
     font-size: 0.9rem;
+  }
+}
+
+/* Custom Content Styling */
+.custom-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: 100%;
+  width: 100%;
+  padding: 7rem 2rem 2rem 2rem;
+  text-align: left;
+  gap: 2rem;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+.custom-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+.custom-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.custom-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: white;
+  line-height: 1.2;
+}
+
+.custom-text {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  margin: 0;
+  max-width: 500px;
+}
+
+/* Mobile responsive for custom content */
+@media (max-width: 768px) {
+  .custom-content {
+    padding: 1rem;
+    justify-content: flex-start;
+    padding-top: 2rem;
+  }
+  
+  .custom-title {
+    font-size: 1.4rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .custom-text {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+}
+
+@media (max-width: 480px) {
+  .custom-title {
+    font-size: 1.2rem;
+  }
+  
+  .custom-text {
+    font-size: 0.9rem;
+  }
+}
+
+/* Chat Animation Styling */
+.chat-section {
+  width: 100%;
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.chat-message {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.chat-message.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.client-message {
+  align-self: flex-start;
+}
+
+.response-message {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.message-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.client-avatar {
+  background: rgba(74, 158, 255, 0.2);
+  color: #4A9EFF;
+  border: 1px solid rgba(74, 158, 255, 0.3);
+}
+
+.response-avatar {
+  background: rgba(139, 92, 246, 0.2);
+  color: #8B5CF6;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.response-avatar svg {
+  width: 16px;
+  height: 16px;
+}
+
+.message-bubble {
+  max-width: 500px;
+  padding: 0.75rem 1rem;
+  border-radius: 16px;
+  position: relative;
+}
+
+.client-bubble {
+  background: rgba(74, 158, 255, 0.1);
+  border: 1px solid rgba(74, 158, 255, 0.2);
+  border-bottom-left-radius: 4px;
+}
+
+.response-bubble {
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-bottom-right-radius: 4px;
+}
+
+.message-bubble p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.client-bubble p {
+  font-style: italic;
+}
+
+/* Chat animation keyframes */
+@keyframes messageSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translateY(5px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Mobile responsive for chat */
+@media (max-width: 768px) {
+  .chat-section {
+    max-width: 100%;
+  }
+  
+  .message-bubble {
+    max-width: 320px;
+    padding: 0.6rem 0.8rem;
+  }
+  
+  .message-bubble p {
+    font-size: 0.85rem;
+  }
+  
+  .message-avatar {
+    width: 28px;
+    height: 28px;
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .message-bubble {
+    max-width: 200px;
+    padding: 0.5rem 0.7rem;
+  }
+  
+  .message-bubble p {
+    font-size: 0.8rem;
+  }
+}
+
+/* Generating Animation Styling */
+.generating-section {
+  width: 100%;
+  opacity: 0;
+  transform: scale(0.95) translateY(10px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+  position: absolute;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.generating-section.animate-in {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  position: relative;
+  pointer-events: auto;
+  z-index: 1;
+}
+
+.generating-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.generating-spinner {
+  position: relative;
+  width: 60px;
+  height: 60px;
+}
+
+.spinner-ring {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 2px solid transparent;
+  border-top: 2px solid #8B5CF6;
+  border-radius: 50%;
+  animation: spin 1.5s linear infinite;
+}
+
+.spinner-ring:nth-child(2) {
+  width: 80%;
+  height: 80%;
+  top: 10%;
+  left: 10%;
+  border-top-color: #A78BFA;
+  animation-duration: 2s;
+  animation-direction: reverse;
+}
+
+.spinner-ring:nth-child(3) {
+  width: 60%;
+  height: 60%;
+  top: 20%;
+  left: 20%;
+  border-top-color: #C4B5FD;
+  animation-duration: 1s;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.generating-text {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 0;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.generating-dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background: #8B5CF6;
+  border-radius: 50%;
+  animation: dotPulse 1.5s ease-in-out infinite;
+}
+
+.dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes dotPulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* Website Preview Styling */
+.website-preview {
+  width: 100%;
+  opacity: 0;
+  transform: scale(0.95) translateY(10px);
+  transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+
+.website-preview.animate-in {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+
+.website-preview-image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Mobile responsive for website preview */
+@media (max-width: 768px) {
+  .website-preview {
+    width: 100%;
+  }
+  
+  .website-preview-image {
+    width: 95%;
+    max-height: 85%;
+  }
+}
+
+@media (max-width: 480px) {
+  .website-preview-image {
+    width: 98%;
+    max-height: 90%;
   }
 }
 
