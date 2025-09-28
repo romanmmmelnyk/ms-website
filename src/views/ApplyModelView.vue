@@ -136,12 +136,12 @@
                 :class="{ selected: selectedOption === 'rapid-portfolio' }"
                 @click="handleOptionSelect('rapid-portfolio')"
               >
-                <div class="card-content">
-                  <h4>Rapid Portfolio</h4>
-                  <div class="card-price">
-                    <span class="price-text">From 199£<br>or 45£/mo.</span>
+                  <div class="card-content">
+                    <h4>Rapid Portfolio</h4>
+                    <div class="card-price">
+                      <span class="price-text">249£<br>or 25£/mo.</span>
+                    </div>
                   </div>
-                </div>
                 <div v-if="selectedOption === 'rapid-portfolio'" class="card-description">
                   <p>Quick and efficient portfolio setup with pre-designed templates. Perfect for getting your work online fast with minimal customization needed.</p>
                 </div>
@@ -152,12 +152,12 @@
                 :class="{ selected: selectedOption === 'licensed-layouts' }"
                 @click="handleOptionSelect('licensed-layouts')"
               >
-                <div class="card-content">
-                  <h4>Licensed Layouts</h4>
-                  <div class="card-price">
-                    <span class="price-text">From 199£<br>or 45£/mo.</span>
+                  <div class="card-content">
+                    <h4>Licensed Layouts</h4>
+                    <div class="card-price">
+                      <span class="price-text">599£<br>or 45£/mo.</span>
+                    </div>
                   </div>
-                </div>
                 <div v-if="selectedOption === 'licensed-layouts'" class="card-description">
                   <p>Build your website from professionally validated Moth Solutions components and unlock the full potential of your product.</p>
                 </div>
