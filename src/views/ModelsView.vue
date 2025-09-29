@@ -889,22 +889,26 @@ const setupIntersectionObserver = () => {
           
           if (target === articleSection.value) {
             isArticleVisible.value = true
-            // Trigger intro animation after a short delay
+            // Trigger intro animation first (text appears first)
             setTimeout(() => {
               isIntroVisible.value = true
-            }, 200)
-            // Trigger card animation after intro
+            }, 150)
+            // Trigger card animation after intro text has appeared
             setTimeout(() => {
               isCardVisible.value = true
-            }, 600)
+            }, 1200)
           }
           
           if (target === topResultSection.value) {
             isTopResultVisible.value = true
-            // Trigger Google mockup animation
+            // Show text first (appears immediately)
+            setTimeout(() => {
+              isTopResultTextVisible.value = true
+            }, 100)
+            // Trigger Google mockup animation after text appears
             setTimeout(() => {
               isGoogleMockupVisible.value = true
-            }, 200)
+            }, 800)
             // Start typing animation after mockup appears
             setTimeout(() => {
               isSearchQueryTyping.value = true
@@ -914,11 +918,7 @@ const setupIntersectionObserver = () => {
                   isModelProfilesVisible.value = true
                 }, 500)
               })
-            }, 800)
-            // Show right side text
-            setTimeout(() => {
-              isTopResultTextVisible.value = true
-            }, 1000)
+            }, 1400)
           }
           
           
@@ -1377,7 +1377,7 @@ onMounted(() => {
   padding-right: 40px;
   opacity: 0;
   transform: translateX(-50px);
-  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .article-intro.animate-in {
@@ -1395,8 +1395,8 @@ onMounted(() => {
   padding: 10px 0;
   opacity: 0;
   transform: translateY(30px);
-  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  transition-delay: 0.2s;
+  transition: all 1.0s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition-delay: 0.3s;
 }
 
 .article-intro-title.animate-in {
@@ -1411,8 +1411,8 @@ onMounted(() => {
   line-height: 1.6;
   opacity: 0;
   transform: translateY(30px);
-  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  transition-delay: 0.4s;
+  transition: all 1.0s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition-delay: 0.5s;
 }
 
 .article-intro-subtitle.animate-in {
@@ -1452,7 +1452,14 @@ onMounted(() => {
   max-width: 600px;
   margin: 0 auto;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.featured-article-card.animate-in {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .featured-article-card:hover {
@@ -1464,6 +1471,14 @@ onMounted(() => {
   position: relative;
   height: 300px;
   overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 1.0s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.article-image.animate-in {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .model-photo {
@@ -1488,6 +1503,14 @@ onMounted(() => {
 .article-card-content {
   padding: 30px;
   background: linear-gradient(135deg, #E8F4FD 0%, #F0F8FF 100%);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 1.0s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.article-card-content.animate-in {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .article-meta {
@@ -1495,6 +1518,14 @@ onMounted(() => {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.article-meta.animate-in {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .article-tags {
@@ -1527,6 +1558,14 @@ onMounted(() => {
   color: var(--color-black);
   margin-bottom: 16px;
   line-height: 1.3;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.article-card-title.animate-in {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .article-excerpt {
@@ -1534,6 +1573,14 @@ onMounted(() => {
   color: var(--color-dark-gray);
   line-height: 1.6;
   margin: 0 0 20px 0;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.article-excerpt.animate-in {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .article-card-footer {
