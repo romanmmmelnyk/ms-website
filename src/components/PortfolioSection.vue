@@ -1,6 +1,9 @@
 <template>
-  <section class="black-block-section" ref="portfolioSection" :class="{ 'animate-in': isPortfolioVisible, 'fullscreen': isFullscreen }" @mousemove="handleMouseMove" @mouseleave="handleMouseLeave">
+  <section class="black-block-section white-bg" ref="portfolioSection" :class="{ 'animate-in': isPortfolioVisible, 'fullscreen': isFullscreen }" @mousemove="handleMouseMove" @mouseleave="handleMouseLeave">
     <Container>
+      <div class="portfolio-header" ref="portfolioHeader" :class="{ 'animate-in': isPortfolioHeaderVisible }">
+        <h2 class="portfolio-main-title">Define your <span class="highlight-text">aura</span>.</h2>
+      </div>
       <div class="black-block" :style="{ background: currentStage.background }" :class="{ 'transitioning': isTransitioning }" @click="toggleFullscreen">
         <img :src="currentStage.image" :alt="currentStage.title" class="portfolio-image" ref="portfolioImage" :class="{ 'animate-in': isPortfolioImageVisible, 'transitioning': isTransitioning }" :style="{ transform: `translate(-50%, -50%) translate(${mouseParallax.x * 0.3}px, ${mouseParallax.y * 0.3}px)` }" />
         <h2 class="portfolio-title" ref="portfolioTitle" :class="{ 'animate-in': isPortfolioTitleVisible, 'transitioning': isTransitioning }" :style="{ color: textColor, transform: `translate(-50%, -50%) scaleY(2) translate(${mouseParallax.x * 0.2}px, ${mouseParallax.y * 0.2}px)` }">{{ currentStage.title }}</h2>
@@ -65,6 +68,7 @@ const portfolioStages = [
 
 // Refs
 const portfolioSection = ref<HTMLElement | null>(null)
+const portfolioHeader = ref<HTMLElement | null>(null)
 const portfolioTitle = ref<HTMLElement | null>(null)
 const portfolioTitleStroke = ref<HTMLElement | null>(null)
 const portfolioImage = ref<HTMLElement | null>(null)
@@ -74,6 +78,7 @@ const portfolioSocials = ref<HTMLElement | null>(null)
 
 // Animation states
 const isPortfolioVisible = ref(false)
+const isPortfolioHeaderVisible = ref(false)
 const isPortfolioTitleVisible = ref(false)
 const isPortfolioTitleStrokeVisible = ref(false)
 const isPortfolioImageVisible = ref(false)
@@ -178,30 +183,34 @@ const setupIntersectionObserver = () => {
         if (entry.isIntersecting) {
           if (entry.target === portfolioSection.value) {
             isPortfolioVisible.value = true
+            // Trigger portfolio header animation
+            setTimeout(() => {
+              isPortfolioHeaderVisible.value = true
+            }, 200)
             // Trigger portfolio title animation
             setTimeout(() => {
               isPortfolioTitleVisible.value = true
-            }, 200)
+            }, 400)
             // Trigger portfolio title stroke animation
             setTimeout(() => {
               isPortfolioTitleStrokeVisible.value = true
-            }, 400)
+            }, 600)
             // Trigger portfolio image animation
             setTimeout(() => {
               isPortfolioImageVisible.value = true
-            }, 600)
+            }, 800)
             // Trigger futuristic beauty text animation
             setTimeout(() => {
               isFuturisticBeautyVisible.value = true
-            }, 800)
+            }, 1000)
             // Trigger portfolio arrow animation
             setTimeout(() => {
               isPortfolioArrowVisible.value = true
-            }, 1000)
+            }, 1200)
             // Trigger portfolio socials animation
             setTimeout(() => {
               isPortfolioSocialsVisible.value = true
-            }, 1200)
+            }, 1400)
           }
         }
       })
@@ -241,7 +250,7 @@ onUnmounted(() => {
 /* Black Block Section */
 .black-block-section {
   background: #ffffff;
-  padding: 0;
+  padding: 80px 0;
   margin: 0;
   opacity: 0;
   transform: translateY(50px);
@@ -255,26 +264,57 @@ onUnmounted(() => {
   transform: translateY(0);
 }
 
-.black-block {
-  width: 100%;
-  height: 680px; /* Increased height for better visual impact */
-  background: radial-gradient(circle, #cdf2f6 0%, #768c9e 100%);
-  border-radius: 24px;
-  margin: 0 auto;
-  max-width: 1400px; /* Increased width for better visual impact */
-  transform: translateY(-200px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-  transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  cursor: pointer;
-  z-index: 100;
-}
+  .black-block {
+    width: 100%;
+    height: 680px;
+    background: radial-gradient(circle, #cdf2f6 0%, #768c9e 100%);
+    border-radius: 24px;
+    margin: 0 auto;
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    cursor: pointer;
+    z-index: 100;
+  }
 
 .black-block.transitioning {
   transition: background 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Portfolio Header */
+.portfolio-header {
+  text-align: left;
+  margin-bottom: 40px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.portfolio-header.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.portfolio-main-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--color-black);
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  line-height: 1.1;
+}
+
+.highlight-text {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  font-style: italic;
 }
 
 /* Desktop centering - only apply on larger screens */
@@ -288,7 +328,8 @@ onUnmounted(() => {
   
   .black-block {
     left: 50%;
-    transform: translateX(-50%) translateY(-200px);
+    transform: translateX(-50%);
+    max-width: 1400px;
   }
 }
 
@@ -511,9 +552,16 @@ onUnmounted(() => {
 }
 
 @media (max-width: 768px) {
+  .portfolio-header {
+    margin-bottom: 30px;
+  }
+  
+  .portfolio-main-title {
+    font-size: 2.5rem;
+  }
+  
   .black-block {
     height: 500px;
-    transform: translateY(-160px);
   }
   
   .portfolio-image {
@@ -568,9 +616,16 @@ onUnmounted(() => {
 }
 
 @media (max-width: 480px) {
+  .portfolio-header {
+    margin-bottom: 20px;
+  }
+  
+  .portfolio-main-title {
+    font-size: 2rem;
+  }
+  
   .black-block {
     height: 350px;
-    transform: translateY(-160px);
   }
   
   .portfolio-image {

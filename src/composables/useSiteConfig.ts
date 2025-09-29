@@ -51,7 +51,7 @@ export interface SocialMedia {
     url: string
     username: string
   }
-  facebook: {
+  whatsapp: {
     url: string
     username: string
   }
@@ -170,7 +170,7 @@ export function useSiteConfig() {
   const socialLinks = computed(() => ({
     linkedin: config.value.social.linkedin.url,
     instagram: config.value.social.instagram.url,
-    facebook: config.value.social.facebook.url,
+    whatsapp: config.value.social.whatsapp.url,
     twitter: config.value.social.twitter.url,
     github: config.value.social.github.url
   }))

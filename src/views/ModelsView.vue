@@ -16,7 +16,7 @@
               Into a <span class="highlight">Brand</span>
             </h1>
 
-            <p class="hero-subtitle">Your website is your runway</p>
+            <p class="hero-subtitle">With the website as your runway</p>
 
             <div class="hero-button">
               <button class="btn btn-primary" @click="navigateToContact">Apply</button>
@@ -37,8 +37,14 @@
         </Container>
       </section>
 
-      <!-- Portfolio Section -->
-      <PortfolioSection />
+      <!-- Dashboard Image Section -->
+      <section ref="dashboardSection" class="dashboard-section" :class="{ 'animate-in': isDashboardVisible }">
+        <Container>
+          <div class="dashboard-container">
+            <img src="/dashboard.png" alt="Dashboard Interface" class="dashboard-image" ref="dashboardImage" :class="{ 'animate-in': isDashboardImageVisible }" />
+          </div>
+        </Container>
+      </section>
 
       <!-- Featured Article Section -->
       <section ref="articleSection" class="featured-article-section white-bg" :class="{ 'animate-in': isArticleVisible }">
@@ -156,16 +162,19 @@
                 Be the <span class="highlight-text">Top Result</span>.
               </h2>
               <p class="top-result-description" :class="{ 'fade-in': isTopResultTextVisible }">
-                If we can type 'tall brunette blue eyed male model' in the search and get Colton Haynes
+                We write clear, targeted meta tags that push your profile higher in Google search.
               </p>
               <p class="top-result-description" :class="{ 'fade-in': isTopResultTextVisible }">
-                So we can type 'the most attractive person in the world' and we will get <strong>YOU</strong>
+                This helps clients find you fast and choose you for real projects.
               </p>
               <button class="btn btn-primary" :class="{ 'fade-in': isTopResultTextVisible }" @click="navigateToContact">Apply</button>
             </div>
           </div>
         </Container>
       </section>
+
+      <!-- Portfolio Section -->
+      <PortfolioSection />
 
       <!-- Booking Management Section -->
       <section class="booking-management-section white-bg" ref="bookingManagementSection" :class="{ 'animate-in': isBookingManagementVisible }">
@@ -571,6 +580,8 @@ const bookingForm = ref({
 const showContactModal = ref(false)
 
 // Animation refs
+const dashboardSection = ref<HTMLElement>()
+const dashboardImage = ref<HTMLElement>()
 const articleSection = ref<HTMLElement>()
 const articleIntro = ref<HTMLElement>()
 const articleCard = ref<HTMLElement>()
@@ -589,6 +600,8 @@ const modelProfiles = ref<HTMLElement>()
 const topResultText = ref<HTMLElement>()
 
 // Animation state
+const isDashboardVisible = ref(false)
+const isDashboardImageVisible = ref(false)
 const isArticleVisible = ref(false)
 const isIntroVisible = ref(false)
 const isCardVisible = ref(false)
@@ -866,6 +879,14 @@ const setupIntersectionObserver = () => {
         if (entry.isIntersecting) {
           const target = entry.target as HTMLElement
           
+          if (target === dashboardSection.value) {
+            isDashboardVisible.value = true
+            // Trigger dashboard image animation after a short delay
+            setTimeout(() => {
+              isDashboardImageVisible.value = true
+            }, 150)
+          }
+          
           if (target === articleSection.value) {
             isArticleVisible.value = true
             // Trigger intro animation after a short delay
@@ -917,6 +938,10 @@ const setupIntersectionObserver = () => {
     }
   )
 
+  if (dashboardSection.value) {
+    observer.observe(dashboardSection.value)
+  }
+  
   if (articleSection.value) {
     observer.observe(articleSection.value)
   }
@@ -1257,10 +1282,71 @@ onMounted(() => {
   }
 }
 
+/* Dashboard Section - Floating */
+.dashboard-section {
+  position: relative;
+  z-index: 10;
+  margin: -200px 0 -50px 0;
+  padding: 0;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dashboard-section.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.dashboard-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 20;
+}
+
+.dashboard-image {
+  max-width: 90%;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dashboard-image.animate-in {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Responsive Design for Dashboard Section */
+@media (max-width: 768px) {
+  .dashboard-section {
+    margin: -160px 0 20px 0;
+  }
+  
+  .dashboard-image {
+    max-width: 95%;
+    border-radius: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-section {
+    margin: -120px 0 40px 0;
+  }
+  
+  .dashboard-image {
+    max-width: 98%;
+    border-radius: 12px;
+  }
+}
 
 /* Featured Article Section */
 .featured-article-section {
-  padding: 0 0 120px 0;
+  padding: 120px 0;
   background: linear-gradient(90deg, #FFFFFF 0%, #E6D1FF 100%);
   min-height: 80vh;
   display: flex;
