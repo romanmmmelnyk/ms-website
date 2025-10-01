@@ -32,7 +32,7 @@ const privacyPolicyVersions: PolicyVersion[] = [
       <div class="policy-content">
         <section>
           <h2>1. General Information</h2>
-          <p>Moth Solutions ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website mothsolutions.com or use our services.</p>
+          <p>Moth Solutions ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website moth.solutions or use our services.</p>
           <p>We are a digital development company based in the United Kingdom, specializing in web development, software solutions, and digital marketing services.</p>
         </section>
         
@@ -90,7 +90,7 @@ const privacyPolicyVersions: PolicyVersion[] = [
           <h2>6. Contact Us</h2>
           <p>If you have any questions about this Privacy Policy, please contact us:</p>
           <div class="contact-info">
-            <p><strong>Email:</strong> hello@mothsolutions.com</p>
+            <p><strong>Email:</strong> hello@moth.solutions</p>
             <p><strong>Phone:</strong> +44 7787 292197</p>
             <p><strong>Address:</strong> United Kingdom</p>
           </div>
@@ -191,7 +191,7 @@ const termsOfServiceVersions: PolicyVersion[] = [
           <h2>7. Contact Information</h2>
           <p>If you have any questions about these Terms of Service, please contact us:</p>
           <div class="contact-info">
-            <p><strong>Email:</strong> hello@mothsolutions.com</p>
+            <p><strong>Email:</strong> hello@moth.solutions</p>
             <p><strong>Phone:</strong> +44 7787 292197</p>
             <p><strong>Address:</strong> United Kingdom</p>
           </div>

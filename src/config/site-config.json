@@ -5,7 +5,7 @@
     "tagline": "Digital Development Agency",
     "description": "Leading digital development agency specializing in web development, software solutions, digital marketing, and automation. Transform your ideas into functional digital products with our expert team.",
     "founded": "2023",
-    "website": "https://mothsolutions.com",
+    "website": "https://moth.solutions",
     "registration": {
       "country": "England & Wales",
       "company_number": "16664532",
@@ -83,13 +83,13 @@
         "card": "summary_large_image",
         "site": "@mothsolutions",
         "creator": "@mothsolutions",
-        "image": "https://mothsolutions.com/twitter-image.jpg"
+        "image": "https://moth.solutions/twitter-image.jpg"
       },
       "open_graph": {
         "title": "Moth Solutions - Digital Development Agency",
         "description": "Leading digital development agency specializing in web development, software solutions, digital marketing, and automation.",
-        "image": "https://mothsolutions.com/og-image.jpg",
-        "url": "https://mothsolutions.com"
+        "image": "https://moth.solutions/og-image.jpg",
+        "url": "https://moth.solutions"
       }
     }
   },
