@@ -1,5 +1,5 @@
 # Robots.txt for Moth Solutions
-# https://mothsolutions.com
+# https://moth.solutions
 
 User-agent: *
 Allow: /
@@ -19,7 +19,7 @@ Allow: /portfolio
 Allow: /careers
 
 # Sitemap location
-Sitemap: https://mothsolutions.com/sitemap.xml
+Sitemap: https://moth.solutions/sitemap.xml
 
 # Crawl delay (optional - helps prevent overloading server)
 Crawl-delay: 1
