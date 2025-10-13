@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@types/three": "^0.179.0",
+    "@unhead/vue": "^2.0.19",
     "gsap": "^3.13.0",
     "html2canvas": "^1.4.1",
     "jspdf": "^3.0.3",

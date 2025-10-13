@@ -554,9 +554,363 @@
 <script setup lang="ts">
 import { onMounted, ref, nextTick, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { useHead } from '@unhead/vue'
 import Container from '../components/Container.vue'
 import PortfolioSection from '../components/PortfolioSection.vue'
 import { performanceMonitor } from '@/utils/performance'
+
+// SEO Meta Tags Configuration
+useHead({
+  title: 'Model Portfolio Websites | Professional Online Presence for Models | Moth Solutions',
+  meta: [
+    // Primary Meta Tags
+    { 
+      name: 'title', 
+      content: 'Model Portfolio Websites | Professional Online Presence for Models | Moth Solutions'
+    },
+    { 
+      name: 'description', 
+      content: 'Transform your modeling career with a professional portfolio website. Get discovered on Google, manage bookings online, and turn your name into a brand. Book your spot - only 2 available.'
+    },
+    { 
+      name: 'keywords', 
+      content: 'model portfolio website, modeling portfolio, fashion model website, professional model portfolio, model booking system, model portfolio design, online model portfolio, model website builder, fashion portfolio website, model SEO, model branding, model online presence, digital model portfolio, model career website, fashion model online portfolio'
+    },
+    { 
+      name: 'author', 
+      content: 'Moth Solutions'
+    },
+    
+    // Open Graph / Facebook
+    { 
+      property: 'og:type', 
+      content: 'website'
+    },
+    { 
+      property: 'og:url', 
+      content: 'https://moth.solutions/models'
+    },
+    { 
+      property: 'og:title', 
+      content: 'Turn Your Name Into a Brand | Professional Model Portfolio Websites'
+    },
+    { 
+      property: 'og:description', 
+      content: 'Get discovered on Google with a professional portfolio website. Manage bookings, showcase your portfolio, and elevate your modeling career. Only 2 spots left!'
+    },
+    { 
+      property: 'og:image', 
+      content: 'https://moth.solutions/model-hero.png'
+    },
+    { 
+      property: 'og:image:width', 
+      content: '1200'
+    },
+    { 
+      property: 'og:image:height', 
+      content: '630'
+    },
+    { 
+      property: 'og:image:alt', 
+      content: 'Professional Model Portfolio Website with Booking Management'
+    },
+    { 
+      property: 'og:site_name', 
+      content: 'Moth Solutions'
+    },
+    { 
+      property: 'og:locale', 
+      content: 'en_GB'
+    },
+    
+    // Twitter Card
+    { 
+      name: 'twitter:card', 
+      content: 'summary_large_image'
+    },
+    { 
+      name: 'twitter:url', 
+      content: 'https://moth.solutions/models'
+    },
+    { 
+      name: 'twitter:title', 
+      content: 'Professional Model Portfolio Websites | Turn Your Name Into a Brand'
+    },
+    { 
+      name: 'twitter:description', 
+      content: 'Be the top result on Google. Professional portfolio websites for models with booking management and SEO optimization.'
+    },
+    { 
+      name: 'twitter:image', 
+      content: 'https://moth.solutions/model-hero.png'
+    },
+    { 
+      name: 'twitter:image:alt', 
+      content: 'Model Portfolio Website Dashboard'
+    },
+    { 
+      name: 'twitter:site', 
+      content: '@mothsolutions'
+    },
+    { 
+      name: 'twitter:creator', 
+      content: '@mothsolutions'
+    },
+    
+    // Additional SEO
+    { 
+      name: 'robots', 
+      content: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
+    },
+    { 
+      name: 'googlebot', 
+      content: 'index, follow'
+    },
+    { 
+      name: 'bingbot', 
+      content: 'index, follow'
+    },
+    
+    // Mobile & App
+    { 
+      name: 'mobile-web-app-capable', 
+      content: 'yes'
+    },
+    { 
+      name: 'apple-mobile-web-app-capable', 
+      content: 'yes'
+    },
+    { 
+      name: 'apple-mobile-web-app-title', 
+      content: 'Model Portfolios'
+    },
+    
+    // Geographic
+    { 
+      name: 'geo.region', 
+      content: 'GB'
+    },
+    { 
+      name: 'geo.placename', 
+      content: 'United Kingdom'
+    },
+    
+    // Additional Dublin Core
+    { 
+      name: 'DC.title', 
+      content: 'Professional Model Portfolio Websites | Moth Solutions'
+    },
+    { 
+      name: 'DC.description', 
+      content: 'Transform your modeling career with a professional portfolio website'
+    },
+    { 
+      name: 'DC.subject', 
+      content: 'Model Portfolio, Fashion Website, Model Booking, Online Portfolio'
+    },
+    { 
+      name: 'DC.type', 
+      content: 'Service'
+    },
+    { 
+      name: 'DC.audience', 
+      content: 'Models, Fashion Models, Aspiring Models, Modeling Agencies'
+    }
+  ],
+  
+  link: [
+    { 
+      rel: 'canonical', 
+      href: 'https://moth.solutions/models'
+    }
+  ],
+  
+  // Structured Data - Service Schema
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        '@id': 'https://moth.solutions/models#service',
+        'name': 'Professional Model Portfolio Websites',
+        'description': 'Custom portfolio websites for models with SEO optimization, booking management, and professional design to elevate your modeling career.',
+        'provider': {
+          '@type': 'Organization',
+          '@id': 'https://moth.solutions/#organization',
+          'name': 'Moth Solutions',
+          'url': 'https://moth.solutions',
+          'logo': 'https://moth.solutions/logo.png',
+          'contactPoint': {
+            '@type': 'ContactPoint',
+            'telephone': '+44-7787-292197',
+            'contactType': 'sales',
+            'email': 'hello@moth.solutions',
+            'availableLanguage': 'English'
+          }
+        },
+        'serviceType': 'Model Portfolio Website Development',
+        'areaServed': {
+          '@type': 'GeoCircle',
+          'geoMidpoint': {
+            '@type': 'GeoCoordinates',
+            'latitude': 51.5074,
+            'longitude': -0.1278
+          },
+          'geoRadius': '10000000'
+        },
+        'offers': {
+          '@type': 'Offer',
+          'availability': 'https://schema.org/LimitedAvailability',
+          'availableAtOrFrom': {
+            '@type': 'Place',
+            'name': 'Online'
+          },
+          'description': 'Professional model portfolio website with booking management - Only 2 spots available'
+        },
+        'hasOfferCatalog': {
+          '@type': 'OfferCatalog',
+          'name': 'Model Portfolio Features',
+          'itemListElement': [
+            {
+              '@type': 'Offer',
+              'itemOffered': {
+                '@type': 'Service',
+                'name': 'SEO Optimization',
+                'description': 'Be the top result on Google with targeted meta tags and search optimization'
+              }
+            },
+            {
+              '@type': 'Offer',
+              'itemOffered': {
+                '@type': 'Service',
+                'name': 'Booking Management System',
+                'description': 'Professional calendar and booking management for client appointments'
+              }
+            },
+            {
+              '@type': 'Offer',
+              'itemOffered': {
+                '@type': 'Service',
+                'name': 'Portfolio Showcase',
+                'description': 'Beautiful gallery to showcase your modeling work and achievements'
+              }
+            },
+            {
+              '@type': 'Offer',
+              'itemOffered': {
+                '@type': 'Service',
+                'name': 'Professional Branding',
+                'description': 'Turn your name into a recognizable brand in the fashion industry'
+              }
+            }
+          ]
+        },
+        'audience': {
+          '@type': 'PeopleAudience',
+          'audienceType': 'Models, Fashion Models, Aspiring Models'
+        }
+      })
+    },
+    
+    // Breadcrumb Schema
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        'itemListElement': [
+          {
+            '@type': 'ListItem',
+            'position': 1,
+            'name': 'Home',
+            'item': 'https://moth.solutions'
+          },
+          {
+            '@type': 'ListItem',
+            'position': 2,
+            'name': 'Model Portfolio Websites',
+            'item': 'https://moth.solutions/models'
+          }
+        ]
+      })
+    },
+    
+    // WebPage Schema
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        '@id': 'https://moth.solutions/models#webpage',
+        'url': 'https://moth.solutions/models',
+        'name': 'Professional Model Portfolio Websites | Moth Solutions',
+        'description': 'Transform your modeling career with a professional portfolio website. Get discovered on Google, manage bookings online, and turn your name into a brand.',
+        'inLanguage': 'en-GB',
+        'isPartOf': {
+          '@type': 'WebSite',
+          '@id': 'https://moth.solutions/#website',
+          'url': 'https://moth.solutions',
+          'name': 'Moth Solutions'
+        },
+        'about': {
+          '@type': 'Thing',
+          'name': 'Model Portfolio Development',
+          'description': 'Professional website development services for fashion models'
+        },
+        'audience': {
+          '@type': 'Audience',
+          'audienceType': 'Models and Fashion Professionals'
+        },
+        'datePublished': '2024-01-15',
+        'dateModified': '2025-10-13'
+      })
+    },
+    
+    // FAQ Schema
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        'mainEntity': [
+          {
+            '@type': 'Question',
+            'name': 'Why do models need a portfolio website?',
+            'acceptedAnswer': {
+              '@type': 'Answer',
+              'text': 'A professional portfolio website helps models get discovered on Google, showcase their work professionally, manage client bookings efficiently, and build their personal brand in the fashion industry.'
+            }
+          },
+          {
+            '@type': 'Question',
+            'name': 'What features are included in a model portfolio website?',
+            'acceptedAnswer': {
+              '@type': 'Answer',
+              'text': 'Our model portfolio websites include SEO optimization to rank on Google, booking management system with calendar integration, professional gallery showcase, contact forms, and mobile-responsive design.'
+            }
+          },
+          {
+            '@type': 'Question',
+            'name': 'How does SEO help models get more bookings?',
+            'acceptedAnswer': {
+              '@type': 'Answer',
+              'text': 'SEO optimization ensures that when clients search for models on Google, your portfolio appears at the top of search results. This increases visibility, leads to more discovery by clients, and ultimately results in more booking opportunities.'
+            }
+          },
+          {
+            '@type': 'Question',
+            'name': 'How many spots are available for model portfolio websites?',
+            'acceptedAnswer': {
+              '@type': 'Answer',
+              'text': 'We currently have only 2 spots available for new model portfolio website projects to ensure we deliver the highest quality and personalized service to each client.'
+            }
+          }
+        ]
+      })
+    }
+  ]
+})
 
 const router = useRouter()
 const componentStartTime = performance.now()
