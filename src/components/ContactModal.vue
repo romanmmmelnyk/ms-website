@@ -339,17 +339,49 @@ const handleSubmit = async () => {
   isSubmitting.value = true
 
   try {
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000))
+    // Prepare the data payload
+    const payload = {
+      firstName: form.firstName.trim(),
+      lastName: form.lastName.trim(),
+      email: form.email.trim(),
+      company: form.company.trim() || undefined,
+      projectType: form.projectType,
+      budget: form.budget || undefined,
+      timeline: form.timeline || undefined,
+      message: form.message.trim(),
+      newsletter: form.newsletter
+    }
+
+    // Remove undefined values (optional fields that are empty)
+    Object.keys(payload).forEach(key => 
+      payload[key as keyof typeof payload] === undefined && delete payload[key as keyof typeof payload]
+    )
+
+    // Make the API call
+    const response = await fetch('https://server.moth.solutions/enquiries', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload)
+    })
+
+    if (!response.ok) {
+      throw new Error(`Server responded with ${response.status}: ${response.statusText}`)
+    }
+
+    const result = await response.json()
+    console.log('Form submitted successfully:', result)
     
-    // Success - you would typically show a success message here
-    console.log('Form submitted:', form)
+    // Success - show success feedback
+    alert('Thank you for your enquiry! We will get back to you within 24 hours.')
     
     // Close modal and reset form
     emit('close')
     resetForm()
   } catch (error) {
     console.error('Error submitting form:', error)
+    alert('There was an error submitting your enquiry. Please try again or contact us directly.')
   } finally {
     isSubmitting.value = false
   }
