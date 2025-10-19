@@ -24,7 +24,7 @@
           </p>
           <div class="hero-stats">
             <div class="stat-item">
-              <span class="stat-number">50+</span>
+              <span class="stat-number">15+</span>
               <span class="stat-label">Projects Delivered</span>
             </div>
             <div class="stat-item">
@@ -32,7 +32,7 @@
               <span class="stat-label">Years Experience</span>
             </div>
             <div class="stat-item">
-              <span class="stat-number">20+</span>
+              <span class="stat-number">10+</span>
               <span class="stat-label">Team Experts</span>
             </div>
           </div>
@@ -67,7 +67,56 @@
 
     <!-- Services Section -->
     <section class="services-section">
-      <div class="container">
+      <!-- Geometric Background -->
+      <div class="geometric-background">
+        <!-- Grid Lines -->
+        <div class="grid-lines">
+          <div class="grid-line horizontal" v-for="i in 8" :key="`h-${i}`" :style="getGridLineStyle('horizontal', i)"></div>
+          <div class="grid-line vertical" v-for="i in 12" :key="`v-${i}`" :style="getGridLineStyle('vertical', i)"></div>
+        </div>
+        
+        <!-- Geometric Shapes -->
+        <div class="geometric-shapes">
+          <!-- Hexagons -->
+          <div class="hexagon" v-for="i in 15" :key="`hex-${i}`" :style="getHexagonStyle(i)" :data-speed="getRandomSpeed()"></div>
+          
+          <!-- Triangles -->
+          <div class="triangle" v-for="i in 12" :key="`tri-${i}`" :style="getTriangleStyle(i)" :data-speed="getRandomSpeed()"></div>
+          
+          <!-- Squares -->
+          <div class="square" v-for="i in 8" :key="`sq-${i}`" :style="getSquareStyle(i)" :data-speed="getRandomSpeed()"></div>
+          
+          <!-- Circles -->
+          <div class="circle" v-for="i in 10" :key="`cir-${i}`" :style="getCircleStyle(i)" :data-speed="getRandomSpeed()"></div>
+        </div>
+        
+        <!-- Floating Elements -->
+        <div class="floating-elements">
+          <div class="floating-dot" v-for="i in 20" :key="`dot-${i}`" :style="getFloatingDotStyle(i)"></div>
+        </div>
+        
+        <!-- Connection Lines -->
+        <svg class="connections-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:var(--color-primary-purple);stop-opacity:0.3" />
+              <stop offset="100%" style="stop-color:var(--color-secondary-teal);stop-opacity:0.1" />
+            </linearGradient>
+          </defs>
+          <path 
+            v-for="i in 18" 
+            :key="`path-${i}`"
+            :d="getConnectionPath()"
+            stroke="url(#connectionGradient)"
+            stroke-width="0.1"
+            fill="none"
+            opacity="0.4"
+            class="connection-path"
+          />
+        </svg>
+      </div>
+
+      <div class="container services-content">
         <div class="section-header">
           <h2 class="section-title">What We Do</h2>
           <p class="section-subtitle">Comprehensive digital solutions for modern businesses</p>
@@ -105,7 +154,7 @@
             @mouseleave="handleMemberLeave(index)"
           >
             <div class="member-photo">
-              <div class="photo-placeholder" v-if="!member.photo">
+              <div class="photo-placeholder" v-if="!(member as any).photo">
                 <span>{{ member.initials }}</span>
               </div>
               <img v-else :src="(member as any).photo" :alt="member.name" class="member-image" />
@@ -181,23 +230,23 @@ const shape4 = ref<HTMLElement>()
 const timelineItems = ref([
   {
     year: '2021',
-    title: 'Company Founded',
-    description: 'Started with a vision to revolutionize digital development'
+    title: 'The Beginning',
+    description: 'Two friends carried every project together, shaping ideas and building a shared vision.'
   },
   {
     year: '2022',
-    title: 'First Major Project',
-    description: 'Delivered our first enterprise solution to a Fortune 500 company'
+    title: 'The Breakaway',
+    description: 'They branched out to pursue independent concepts, transforming experience into bold new ideas.'
   },
   {
     year: '2023',
-    title: 'Team Expansion',
-    description: 'Grew to 20+ experts across multiple disciplines'
+    title: 'The Expansion',
+    description: 'A growing project base brought new talent, collaboration, and the foundation for broader impact.'
   },
   {
     year: '2024',
-    title: 'Industry Recognition',
-    description: 'Named one of the top development agencies in the region'
+    title: 'The Presence',
+    description: 'The team built its social voice, connecting creativity, purpose, and community across platforms.'
   }
 ])
 
@@ -300,6 +349,123 @@ const handleMemberHover = (index: number) => {
 
 const handleMemberLeave = (index: number) => {
   // Remove hover effects for team members
+}
+
+// Geometric Background Functions
+const getGridLineStyle = (direction: 'horizontal' | 'vertical', index: number) => {
+  if (direction === 'horizontal') {
+    const top = (index * 12.5) + '%'
+    return {
+      top: top,
+      left: '0%',
+      width: '100%',
+      height: '1px'
+    }
+  } else {
+    const left = (index * 8.33) + '%'
+    return {
+      left: left,
+      top: '0%',
+      width: '1px',
+      height: '100%'
+    }
+  }
+}
+
+const getHexagonStyle = (index: number) => {
+  const size = 20 + Math.random() * 40
+  const x = Math.random() * 100
+  const y = Math.random() * 100
+  const rotation = Math.random() * 360
+  const delay = index * 0.2
+  
+  return {
+    left: `${x}%`,
+    top: `${y}%`,
+    width: `${size}px`,
+    height: `${size}px`,
+    transform: `rotate(${rotation}deg)`,
+    animationDelay: `${delay}s`
+  }
+}
+
+const getTriangleStyle = (index: number) => {
+  const size = 15 + Math.random() * 25
+  const x = Math.random() * 100
+  const y = Math.random() * 100
+  const rotation = Math.random() * 360
+  const delay = index * 0.15
+  
+  return {
+    left: `${x}%`,
+    top: `${y}%`,
+    width: `${size}px`,
+    height: `${size}px`,
+    transform: `rotate(${rotation}deg)`,
+    animationDelay: `${delay}s`
+  }
+}
+
+const getSquareStyle = (index: number) => {
+  const size = 12 + Math.random() * 20
+  const x = Math.random() * 100
+  const y = Math.random() * 100
+  const rotation = Math.random() * 360
+  const delay = index * 0.1
+  
+  return {
+    left: `${x}%`,
+    top: `${y}%`,
+    width: `${size}px`,
+    height: `${size}px`,
+    transform: `rotate(${rotation}deg)`,
+    animationDelay: `${delay}s`
+  }
+}
+
+const getCircleStyle = (index: number) => {
+  const size = 8 + Math.random() * 16
+  const x = Math.random() * 100
+  const y = Math.random() * 100
+  const delay = index * 0.25
+  
+  return {
+    left: `${x}%`,
+    top: `${y}%`,
+    width: `${size}px`,
+    height: `${size}px`,
+    animationDelay: `${delay}s`
+  }
+}
+
+const getFloatingDotStyle = (index: number) => {
+  const size = 2 + Math.random() * 3
+  const x = Math.random() * 100
+  const y = Math.random() * 100
+  const delay = index * 0.1
+  const duration = 4 + Math.random() * 2
+  
+  return {
+    left: `${x}%`,
+    top: `${y}%`,
+    width: `${size}px`,
+    height: `${size}px`,
+    animationDelay: `${delay}s`,
+    animationDuration: `${duration}s`
+  }
+}
+
+const getRandomSpeed = () => {
+  return Math.random() * 0.3 + 0.1
+}
+
+const getConnectionPath = () => {
+  const x1 = Math.random() * 100
+  const y1 = Math.random() * 100
+  const x2 = Math.random() * 100
+  const y2 = Math.random() * 100
+  
+  return `M ${x1} ${y1} L ${x2} ${y2}`
 }
 
 // GSAP Animations
@@ -443,10 +609,10 @@ let ticking = false
 const handleScroll = () => {
   if (!ticking) {
     requestAnimationFrame(() => {
+      const scrolled = window.pageYOffset
+      const rate = scrolled * -0.3
+      
       if (heroSection.value) {
-        const scrolled = window.pageYOffset
-        const rate = scrolled * -0.5
-        
         if (heroSphere.value) {
           heroSphere.value.style.transform = `translateY(${rate}px) rotate(${scrolled * 0.1}deg)`
         }
@@ -456,6 +622,31 @@ const handleScroll = () => {
         if (shape3.value) shape3.value.style.transform = `translateY(${scrolled * 0.4}px) rotate(${scrolled * 0.07}deg)`
         if (shape4.value) shape4.value.style.transform = `translateY(${scrolled * 0.25}px) rotate(${scrolled * -0.04}deg)`
       }
+      
+      // Update geometric shapes with parallax
+      const shapes = document.querySelectorAll('.services-section .hexagon, .services-section .triangle, .services-section .square, .services-section .circle')
+      shapes.forEach((shape, index) => {
+        const speed = parseFloat(shape.getAttribute('data-speed') || '0.1')
+        const yPos = rate * speed
+        ;(shape as HTMLElement).style.transform = `translateY(${yPos}px) rotate(${index * 2}deg)`
+      })
+      
+      // Update floating dots
+      const dots = document.querySelectorAll('.services-section .floating-dot')
+      dots.forEach((dot, index) => {
+        const speed = 0.2 + (index * 0.05)
+        const yPos = rate * speed
+        ;(dot as HTMLElement).style.transform = `translateY(${yPos}px)`
+      })
+      
+      // Update connection paths
+      const paths = document.querySelectorAll('.services-section .connection-path')
+      paths.forEach((path, index) => {
+        const speed = 0.15 + (index * 0.03)
+        const yPos = rate * speed
+        ;(path as HTMLElement).style.transform = `translateY(${yPos}px)`
+      })
+      
       ticking = false
     })
     ticking = true
@@ -639,28 +830,27 @@ onUnmounted(() => {
 /* Section Styles */
 .section-header {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 80px;
   position: relative;
   z-index: 3;
 }
 
 .section-title {
-  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-size: 3rem;
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin-bottom: 20px;
   background: var(--gradient-primary);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .section-subtitle {
   font-size: 1.2rem;
-  color: var(--color-white);
+  color: var(--color-text-muted);
   max-width: 600px;
   margin: 0 auto;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  line-height: 1.6;
 }
 
 /* Story Section */
@@ -791,59 +981,217 @@ onUnmounted(() => {
 
 /* Services Section */
 .services-section {
-  padding: 6rem 0;
+  position: relative;
+  z-index: 2;
+  padding: 120px 0;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+}
+
+.services-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* Geometric Background */
+.geometric-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  filter: blur(5px);
+}
+
+/* Grid Lines */
+.grid-lines {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.grid-line {
+  position: absolute;
+  background: linear-gradient(90deg, transparent, rgba(127, 0, 253, 0.1), transparent);
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.grid-line.horizontal {
+  background: linear-gradient(90deg, transparent, rgba(127, 0, 253, 0.08), transparent);
+}
+
+.grid-line.vertical {
+  background: linear-gradient(180deg, transparent, rgba(127, 0, 253, 0.08), transparent);
+}
+
+/* Geometric Shapes */
+.geometric-shapes {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.hexagon {
+  position: absolute;
+  background: linear-gradient(45deg, var(--color-primary-purple), var(--color-secondary-teal));
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  opacity: 0.15;
+  animation: floatGeometric 8s ease-in-out infinite;
+  transition: transform 0.1s ease-out;
+}
+
+.triangle {
+  position: absolute;
+  background: linear-gradient(45deg, var(--color-secondary-teal), var(--color-primary-purple));
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  opacity: 0.12;
+  animation: floatGeometric 10s ease-in-out infinite reverse;
+  transition: transform 0.1s ease-out;
+}
+
+.square {
+  position: absolute;
+  background: linear-gradient(45deg, var(--color-primary-purple), var(--color-accent-teal));
+  opacity: 0.1;
+  animation: floatGeometric 12s ease-in-out infinite;
+  transition: transform 0.1s ease-out;
+}
+
+.circle {
+  position: absolute;
+  background: linear-gradient(45deg, var(--color-secondary-teal), var(--color-accent-blue));
+  border-radius: 50%;
+  opacity: 0.08;
+  animation: floatGeometric 6s ease-in-out infinite reverse;
+  transition: transform 0.1s ease-out;
+}
+
+/* Floating Elements */
+.floating-elements {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.floating-dot {
+  position: absolute;
+  background: var(--color-primary-purple);
+  border-radius: 50%;
+  opacity: 0.4;
+  animation: floatGeometric 4s ease-in-out infinite;
+}
+
+/* Connection Lines */
+.connections-svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.connection-path {
+  transition: transform 0.1s ease-out;
+}
+
+@keyframes floatGeometric {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-15px) scale(1.05);
+    opacity: 0.4;
+  }
 }
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
 }
 
 .service-card {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 16px;
-  padding: 2.5rem;
-  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 40px 30px;
+  backdrop-filter: blur(10px);
   transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--gradient-primary);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.service-card:hover::before {
+  transform: scaleX(1);
 }
 
 .service-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  border-color: var(--color-secondary-teal);
+  box-shadow: 0 25px 50px rgba(127, 0, 253, 0.2);
+  border-color: var(--color-primary-purple);
 }
 
 .service-icon {
-  font-size: 3rem;
+  width: 60px;
+  height: 60px;
+  background: var(--gradient-primary);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
   margin-bottom: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.service-card:hover .service-icon {
+  transform: scale(1.1) rotate(5deg);
 }
 
 .service-title {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 600;
   margin-bottom: 1rem;
-  color: var(--color-primary-purple);
+  color: var(--color-text-primary);
 }
 
 .service-description {
   color: var(--color-text-muted);
   line-height: 1.6;
   margin-bottom: 1.5rem;
+  font-size: 1rem;
 }
 
 .service-features {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 .service-features li {
   color: var(--color-text-muted);
-  padding: 0.5rem 0;
+  padding: 0.6rem 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   position: relative;
   padding-left: 1.5rem;
+  font-size: 0.95rem;
 }
 
 .service-features li::before {
@@ -1124,6 +1472,25 @@ onUnmounted(() => {
 }
 
 /* Responsive Design */
+@media (max-width: 1024px) {
+  .services-section,
+  .team-section,
+  .tech-section,
+  .cta-section {
+    padding: 100px 0;
+  }
+  
+  .services-grid,
+  .team-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+  }
+  
+  .tech-grid {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+}
+
 @media (max-width: 768px) {
   .container {
     padding: 0 1rem;
@@ -1131,7 +1498,7 @@ onUnmounted(() => {
   
   .hero-title {
     text-align: center;
-    margin-top: 80px; /* Add space below header on mobile */
+    margin-top: 80px;
   }
   
   .hero-subtitle {
@@ -1160,17 +1527,28 @@ onUnmounted(() => {
     margin-right: 0 !important;
   }
   
-  .services-grid {
-    grid-template-columns: 1fr;
+  .services-section,
+  .team-section,
+  .tech-section,
+  .cta-section {
+    padding: 80px 0;
   }
   
+  .services-grid,
   .team-grid {
     grid-template-columns: 1fr;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .service-card,
+  .team-member {
+    padding: 30px 25px;
   }
   
   .tech-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+    gap: 20px;
   }
   
   .tech-main-title {
@@ -1184,11 +1562,12 @@ onUnmounted(() => {
   .cta-buttons {
     flex-direction: column;
     align-items: center;
+    gap: 1rem;
   }
   
   .btn {
     width: 100%;
-    max-width: 300px;
+    max-width: 350px;
     text-align: center;
   }
 }
@@ -1196,7 +1575,7 @@ onUnmounted(() => {
 @media (max-width: 480px) {
   .hero-title {
     font-size: 2.5rem;
-    margin-top: 100px; /* Even more space on very small screens */
+    margin-top: 100px;
   }
   
   .section-title {
@@ -1207,9 +1586,26 @@ onUnmounted(() => {
     grid-template-columns: 1fr;
   }
   
+  .services-section,
+  .team-section,
+  .tech-section,
+  .cta-section {
+    padding: 60px 0;
+  }
+  
+  .service-card,
+  .team-member {
+    padding: 25px 20px;
+  }
+  
   .tech-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+  
+  .tech-logo {
+    width: 60px;
+    height: 60px;
   }
   
   .tech-main-title {
@@ -1218,6 +1614,11 @@ onUnmounted(() => {
   
   .tech-background-text {
     font-size: 2.5rem;
+  }
+  
+  .btn {
+    padding: 16px 32px;
+    font-size: 1rem;
   }
 }
 </style>
