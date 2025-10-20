@@ -63,7 +63,7 @@
             </div>
             <div class="stat-item">
               <span class="stat-text">TEAM OF</span>
-              <span class="stat-number gradient-text-primary">20</span>
+              <span class="stat-number gradient-text-primary">10+</span>
               <span class="stat-text">EXPERTS</span>
             </div>
             <div class="stat-item">
