@@ -487,6 +487,7 @@ const handleSubmit = async () => {
     )
 
     // Make the API call
+    console.log('Submitting payload:', payload)
     const response = await fetch('https://server.moth.solutions/enquiries', {
       method: 'POST',
       headers: {
@@ -495,7 +496,11 @@ const handleSubmit = async () => {
       body: JSON.stringify(payload)
     })
 
+    console.log('Response status:', response.status)
+
     if (!response.ok) {
+      const errorText = await response.text()
+      console.error('Error response:', errorText)
       throw new Error(`Server responded with ${response.status}: ${response.statusText}`)
     }
 
@@ -509,7 +514,11 @@ const handleSubmit = async () => {
     resetForm()
   } catch (error) {
     console.error('Error submitting form:', error)
-    alert('There was an error submitting your enquiry. Please try again or contact us directly.')
+    if (error instanceof Error) {
+      alert(`Error: ${error.message}\n\nPlease try again or contact us directly.`)
+    } else {
+      alert('There was an error submitting your enquiry. Please try again or contact us directly.')
+    }
   } finally {
     isSubmitting.value = false
   }
