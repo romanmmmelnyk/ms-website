@@ -6,6 +6,7 @@ import CostCalculationView from '../views/CostCalculationView.vue'
 import ContactView from '../views/pages/ContactView.vue'
 import AboutView from '../views/pages/AboutView.vue'
 import ApplyView from '../views/pages/ApplyView.vue'
+import LaunchView from '../views/pages/LaunchView.vue'
 import InDevelopmentView from '../views/InDevelopmentView.vue'
 import NotFoundView from '../views/NotFoundView.vue'
 import PrivacyPolicyView from '../views/policies/PrivacyPolicyView.vue'
@@ -88,6 +89,11 @@ const router = createRouter({
       path: '/apply',
       name: 'apply',
       component: ApplyView
+    },
+    {
+      path: '/launch',
+      name: 'launch',
+      component: LaunchView
     },
     {
       path: '/privacy-policy',
