@@ -8,17 +8,54 @@
           <p class="hero-subtitle">Build the future with innovative IT solutions. We're looking for passionate developers, designers, and problem-solvers who want to make a difference.</p>
           <div class="hero-stats">
             <div class="stat-item">
-              <span class="stat-number">50+</span>
+              <span class="stat-number">10+</span>
               <span class="stat-label">Team Members</span>
             </div>
             <div class="stat-item">
-              <span class="stat-number">15+</span>
+              <span class="stat-number">5+</span>
               <span class="stat-label">Open Positions</span>
             </div>
             <div class="stat-item">
               <span class="stat-number">95%</span>
               <span class="stat-label">Employee Satisfaction</span>
             </div>
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <!-- Open Positions Section -->
+    <section class="positions-section white-bg">
+      <Container>
+        <div class="section-header">
+          <h2>Open Positions</h2>
+          <p>Find your perfect role and join our growing team.</p>
+        </div>
+        <div class="positions-grid">
+          <div class="position-card" v-for="position in openPositions" :key="position.id">
+            <div class="position-header">
+              <h3>{{ position.title }}</h3>
+              <span class="position-type">{{ position.type }}</span>
+            </div>
+            <div class="position-details">
+              <div class="detail-item">
+                <span class="detail-icon">📍</span>
+                <span>{{ position.location }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-icon">⏰</span>
+                <span>{{ position.duration }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-icon">💼</span>
+                <span>{{ position.experience }}</span>
+              </div>
+            </div>
+            <p class="position-description">{{ position.description }}</p>
+            <div class="position-tags">
+              <span class="tag" v-for="tag in position.tags" :key="tag">{{ tag }}</span>
+            </div>
+            <button class="apply-btn" @click="openApplication(position)">Apply Now</button>
           </div>
         </div>
       </Container>
@@ -99,43 +136,6 @@
               <li>Company retreats</li>
               <li>Birthday celebrations</li>
             </ul>
-          </div>
-        </div>
-      </Container>
-    </section>
-
-    <!-- Open Positions Section -->
-    <section class="positions-section white-bg">
-      <Container>
-        <div class="section-header">
-          <h2>Open Positions</h2>
-          <p>Find your perfect role and join our growing team.</p>
-        </div>
-        <div class="positions-grid">
-          <div class="position-card" v-for="position in openPositions" :key="position.id">
-            <div class="position-header">
-              <h3>{{ position.title }}</h3>
-              <span class="position-type">{{ position.type }}</span>
-            </div>
-            <div class="position-details">
-              <div class="detail-item">
-                <span class="detail-icon">📍</span>
-                <span>{{ position.location }}</span>
-              </div>
-              <div class="detail-item">
-                <span class="detail-icon">⏰</span>
-                <span>{{ position.duration }}</span>
-              </div>
-              <div class="detail-item">
-                <span class="detail-icon">💼</span>
-                <span>{{ position.experience }}</span>
-              </div>
-            </div>
-            <p class="position-description">{{ position.description }}</p>
-            <div class="position-tags">
-              <span class="tag" v-for="tag in position.tags" :key="tag">{{ tag }}</span>
-            </div>
-            <button class="apply-btn" @click="openApplication(position)">Apply Now</button>
           </div>
         </div>
       </Container>
