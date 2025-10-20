@@ -78,7 +78,7 @@
               </button>
               
               <button 
-                v-if="currentStep < totalSteps" 
+                v-if="currentStep < totalSteps && currentStep > 1" 
                 @click="nextStep" 
                 class="nav-btn next"
                 :disabled="!canProceed"
@@ -96,11 +96,14 @@
       <div class="summary-preview">
         <div class="summary-icon">📋</div>
         <div class="summary-info">
-          <div class="summary-cost" v-if="quickEstimate">
-            £{{ formatNumber(quickEstimate.low) }} - £{{ formatNumber(quickEstimate.high) }}
-          </div>
-          <div class="summary-complexity" v-if="formData.productType">
-            {{ getProjectTypeLabel() }}
+          <template v-if="formData.productType">
+            <div class="summary-complexity">
+              {{ getProjectTypeLabel() }}
+            </div>
+          </template>
+          <div v-else class="summary-empty">
+            <div class="empty-text">No selections yet</div>
+            <div class="empty-hint">Start answering to see estimate</div>
           </div>
         </div>
       </div>
@@ -574,11 +577,13 @@ onMounted(() => {
 }
 
 .hero-image {
-  width: 100%;
+  width: 70%;
   height: auto;
   border-radius: 16px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease;
+  margin: 0 auto;
+  display: block;
 }
 
 .hero-image:hover {
@@ -603,35 +608,35 @@ onMounted(() => {
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
-  padding: 60px;
+  padding: 40px;
   backdrop-filter: blur(10px);
-  min-height: 600px;
+  min-height: 500px;
 }
 
 .wizard-header {
-  margin-bottom: 32px;
+  margin-bottom: 24px;
   text-align: center;
 }
 
 .wizard-header h2 {
   color: var(--color-text-primary);
-  font-size: 36px;
+  font-size: 28px;
   font-weight: 700;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .wizard-header p {
   color: var(--color-text-muted);
-  font-size: 16px;
+  font-size: 14px;
 }
 
 /* Progress Bar */
 .progress-bar {
   width: 100%;
-  height: 12px;
+  height: 8px;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
-  margin-bottom: 40px;
+  border-radius: 4px;
+  margin-bottom: 24px;
   overflow: hidden;
 }
 
@@ -645,41 +650,41 @@ onMounted(() => {
 /* AI Assistant */
 .ai-assistant {
   display: flex;
-  gap: 20px;
-  margin-bottom: 40px;
-  padding: 30px;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding: 20px;
   background: rgba(127, 0, 253, 0.05);
   border: 1px solid rgba(127, 0, 253, 0.2);
-  border-radius: 20px;
-  min-height: 120px;
+  border-radius: 16px;
+  min-height: 80px;
 }
 
 .assistant-avatar {
-  font-size: 48px;
+  font-size: 36px;
   flex-shrink: 0;
 }
 
 .assistant-message p {
   color: var(--color-text-primary);
-  font-size: 20px;
-  line-height: 1.6;
-  margin: 0 0 16px 0;
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0 0 12px 0;
 }
 
 .assistant-hint {
   color: var(--color-text-muted);
-  font-size: 16px;
+  font-size: 14px;
   font-style: italic;
 }
 
 /* Step Form */
 .step-form {
-  margin-bottom: 40px;
-  min-height: 300px;
+  margin-bottom: 24px;
+  min-height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 16px;
 }
 
 .step-form :deep(.step-component) {
@@ -1069,6 +1074,24 @@ onMounted(() => {
   font-style: italic;
 }
 
+.summary-empty {
+  text-align: left;
+}
+
+.empty-text {
+  color: var(--color-text-muted);
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.empty-hint {
+  color: var(--color-text-muted);
+  font-size: 12px;
+  opacity: 0.7;
+  font-style: italic;
+}
+
 /* Summary Modal */
 .summary-modal-overlay {
   position: fixed;
@@ -1355,30 +1378,58 @@ onMounted(() => {
     font-size: 16px;
   }
   
+  .hero-image {
+    width: 100%;
+  }
+  
   .wizard-steps {
-    padding: 30px;
-    min-height: 500px;
+    padding: 24px;
+    min-height: 400px;
+  }
+  
+  .wizard-header {
+    margin-bottom: 20px;
   }
   
   .wizard-header h2 {
-    font-size: 28px;
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+  
+  .wizard-header p {
+    font-size: 13px;
+  }
+  
+  .progress-bar {
+    height: 6px;
+    margin-bottom: 20px;
   }
   
   .ai-assistant {
-    padding: 24px;
-    min-height: 100px;
+    padding: 16px;
+    gap: 12px;
+    margin-bottom: 20px;
+    min-height: 70px;
   }
   
   .assistant-avatar {
-    font-size: 36px;
+    font-size: 28px;
   }
   
   .assistant-message p {
-    font-size: 18px;
+    font-size: 15px;
+    line-height: 1.4;
+    margin: 0 0 8px 0;
+  }
+  
+  .assistant-hint {
+    font-size: 13px;
   }
   
   .step-form {
-    min-height: 250px;
+    min-height: 180px;
+    padding: 12px;
+    margin-bottom: 20px;
   }
   
   .wizard-container {
@@ -1427,31 +1478,55 @@ onMounted(() => {
   }
   
   .wizard-steps {
-    padding: 20px;
-    min-height: 450px;
+    padding: 16px;
+    min-height: 350px;
+  }
+  
+  .wizard-header {
+    margin-bottom: 16px;
   }
   
   .wizard-header h2 {
-    font-size: 24px;
+    font-size: 20px;
+    margin-bottom: 6px;
+  }
+  
+  .wizard-header p {
+    font-size: 12px;
+  }
+  
+  .progress-bar {
+    height: 5px;
+    margin-bottom: 16px;
   }
   
   .ai-assistant {
-    padding: 20px;
-    min-height: 80px;
+    padding: 14px;
+    gap: 10px;
+    margin-bottom: 16px;
+    min-height: 60px;
     flex-direction: column;
     text-align: center;
   }
   
   .assistant-avatar {
-    font-size: 32px;
+    font-size: 24px;
   }
   
   .assistant-message p {
-    font-size: 16px;
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 0 0 6px 0;
+  }
+  
+  .assistant-hint {
+    font-size: 12px;
   }
   
   .step-form {
-    min-height: 200px;
+    min-height: 150px;
+    padding: 10px;
+    margin-bottom: 16px;
   }
   
   .nav-btn {

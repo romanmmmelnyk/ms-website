@@ -1671,7 +1671,7 @@ export const makePricer = (config?: any) => {
       }
       
       // Regular development project calculation
-      let basePrice = config?.baseRate || 1000;
+      let basePrice = config?.baseRate || 500;
       let total = basePrice;
       
       // Apply basic factors
@@ -1703,7 +1703,7 @@ export const makePricer = (config?: any) => {
       
       return {
         currency: config?.currency || "GBP",
-        baseRate: config?.baseRate || 1000,
+        baseRate: config?.baseRate || 500,
         subtotal: Math.round(total),
         marginApplied: Math.round(margin),
         contingencyApplied: Math.round(contingency),
@@ -1726,7 +1726,7 @@ const calculateDesignQuote = (questionnaire: Questionnaire, config?: any): Quote
   const breakdown: any[] = [];
   
   // Base design cost
-  const baseDesignCost = 1500;
+  const baseDesignCost = 750;
   total += baseDesignCost;
   breakdown.push({
     item: 'Base Design Package',
@@ -1737,91 +1737,91 @@ const calculateDesignQuote = (questionnaire: Questionnaire, config?: any): Quote
   // Add design deliverables
   if (questionnaire.designDeliverables) {
     if (questionnaire.designDeliverables.wireframes) {
-      total += 800;
+      total += 400;
       breakdown.push({
         item: 'Wireframes & User Flows',
-        cost: 800,
+        cost: 400,
         description: 'Low-fidelity layouts and user journey maps'
       });
     }
     
     if (questionnaire.designDeliverables.mockups) {
-      total += 1200;
+      total += 650;
       breakdown.push({
         item: 'High-Fidelity Mockups',
-        cost: 1200,
+        cost: 650,
         description: 'Detailed visual designs with realistic content'
       });
     }
     
     if (questionnaire.designDeliverables.prototype) {
-      total += 1500;
+      total += 800;
       breakdown.push({
         item: 'Interactive Prototype',
-        cost: 1500,
+        cost: 800,
         description: 'Clickable prototype for user testing'
       });
     }
     
     if (questionnaire.designDeliverables.designSystem) {
-      total += 2000;
+      total += 1100;
       breakdown.push({
         item: 'Design System & Style Guide',
-        cost: 2000,
+        cost: 1100,
         description: 'Reusable components and brand guidelines'
       });
     }
     
     if (questionnaire.designDeliverables.mobile) {
-      total += 600;
+      total += 300;
       breakdown.push({
         item: 'Mobile-First Design',
-        cost: 600,
+        cost: 300,
         description: 'Responsive design optimized for mobile devices'
       });
     }
     
     if (questionnaire.designDeliverables.desktop) {
-      total += 400;
+      total += 250;
       breakdown.push({
         item: 'Desktop Design',
-        cost: 400,
+        cost: 250,
         description: 'Full desktop experience with advanced layouts'
       });
     }
     
     if (questionnaire.designDeliverables.tablet) {
-      total += 300;
+      total += 150;
       breakdown.push({
         item: 'Tablet Design',
-        cost: 300,
+        cost: 150,
         description: 'Optimized layouts for tablet devices'
       });
     }
     
     if (questionnaire.designDeliverables.userResearch) {
-      total += 1800;
+      total += 950;
       breakdown.push({
         item: 'User Research',
-        cost: 1800,
+        cost: 950,
         description: 'Interviews, surveys, and user behavior analysis'
       });
     }
     
     if (questionnaire.designDeliverables.usabilityTesting) {
-      total += 1200;
+      total += 650;
       breakdown.push({
         item: 'Usability Testing',
-        cost: 1200,
+        cost: 650,
         description: 'User testing sessions and feedback analysis'
       });
     }
     
     if (questionnaire.designDeliverables.accessibility) {
-      total += 800;
+      total += 450;
       breakdown.push({
         item: 'Accessibility Design',
-        cost: 800,
+        cost: 450,
         description: 'WCAG compliant design for all users'
       });
     }

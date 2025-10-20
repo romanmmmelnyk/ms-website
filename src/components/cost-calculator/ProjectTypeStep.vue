@@ -42,11 +42,49 @@
     </div>
     
     <!-- Don't Know Option -->
-    <div class="dont-know-section">
-      <button @click="selectRecommended" class="dont-know-btn">
+    <div class="dont-know-section" v-if="!showRecommendQuestions">
+      <button @click="showRecommendationQuestions" class="dont-know-btn">
         🤔 Not sure? Let me recommend something
       </button>
       <p class="dont-know-hint">I'll suggest the best option based on common business needs</p>
+    </div>
+    
+    <!-- Recommendation Questions -->
+    <div class="recommendation-section" v-if="showRecommendQuestions">
+      <div class="recommendation-header">
+        <h4 class="recommendation-title">Let me help you choose the right option</h4>
+        <p class="recommendation-subtitle">What's your main goal?</p>
+      </div>
+      
+      <div class="goal-options">
+        <button @click="recommendBasedOnGoal('sell')" class="goal-btn">
+          <span class="goal-icon">🛒</span>
+          <div class="goal-content">
+            <h5>Sell Products or Services</h5>
+            <p>I want to sell things online</p>
+          </div>
+        </button>
+        
+        <button @click="recommendBasedOnGoal('present')" class="goal-btn">
+          <span class="goal-icon">📱</span>
+          <div class="goal-content">
+            <h5>Present Information</h5>
+            <p>I want to showcase my business or portfolio</p>
+          </div>
+        </button>
+        
+        <button @click="recommendBasedOnGoal('build')" class="goal-btn">
+          <span class="goal-icon">⚙️</span>
+          <div class="goal-content">
+            <h5>Build a Product</h5>
+            <p>I want to create a tool or platform</p>
+          </div>
+        </button>
+      </div>
+      
+      <button @click="showRecommendQuestions = false" class="back-to-options">
+        Learn more →
+      </button>
     </div>
   </div>
 </template>
@@ -69,61 +107,64 @@ interface Emits {
 const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
 
+// Recommendation state
+const showRecommendQuestions = ref(false)
+
 // Project type data with essential information only
 const projectTypeData = {
   landing: {
     icon: '📄',
     description: 'Single page website focused on one goal - lead generation, product launch, or simple information.',
     complexity: 2,
-    typicalRange: { min: 2000, max: 8000 }
+    typicalRange: { min: 999, max: 3999 }
   },
   corporate: {
     icon: '🏢',
     description: 'Multi-page business website with company information, services, and contact details.',
     complexity: 3,
-    typicalRange: { min: 5000, max: 25000 }
+    typicalRange: { min: 2499, max: 9999 }
   },
   ecommerce: {
     icon: '🛒',
     description: 'Online store with product catalog, shopping cart, and payment processing.',
     complexity: 4,
-    typicalRange: { min: 15000, max: 75000 }
+    typicalRange: { min: 7999, max: 29999 }
   },
   marketplace: {
     icon: '🏪',
     description: 'Multi-vendor platform where different sellers can list and sell products.',
     complexity: 5,
-    typicalRange: { min: 30000, max: 150000 }
+    typicalRange: { min: 14999, max: 59999 }
   },
   saas_webapp: {
     icon: '💻',
     description: 'Software as a service application with user accounts, subscriptions, and recurring billing.',
     complexity: 5,
-    typicalRange: { min: 25000, max: 100000 }
+    typicalRange: { min: 12499, max: 49999 }
   },
   mobile_native: {
     icon: '📱',
     description: 'Native mobile application built specifically for iOS and Android platforms.',
     complexity: 4,
-    typicalRange: { min: 20000, max: 80000 }
+    typicalRange: { min: 9999, max: 39999 }
   },
   mobile_cross: {
     icon: '📱🔄',
     description: 'Cross-platform mobile app that works on both iOS and Android with shared codebase.',
     complexity: 4,
-    typicalRange: { min: 25000, max: 90000 }
+    typicalRange: { min: 12499, max: 44999 }
   },
   desktop_app: {
     icon: '🖥️',
     description: 'Desktop application for Windows, Mac, or Linux with offline capabilities.',
     complexity: 4,
-    typicalRange: { min: 20000, max: 80000 }
+    typicalRange: { min: 9999, max: 39999 }
   },
   design_only: {
     icon: '🎨',
     description: 'UI/UX design deliverables only - no development included.',
     complexity: 2,
-    typicalRange: { min: 3000, max: 15000 }
+    typicalRange: { min: 1499, max: 7499 }
   }
 }
 
@@ -141,7 +182,7 @@ const getComplexityLevel = (key: string) => {
 }
 
 const getTypicalRange = (key: string) => {
-  return projectTypeData[key as keyof typeof projectTypeData]?.typicalRange || { min: 10000, max: 50000 }
+  return projectTypeData[key as keyof typeof projectTypeData]?.typicalRange || { min: 4999, max: 24999 }
 }
 
 const formatNumber = (num: number) => {
@@ -152,6 +193,33 @@ const formatNumber = (num: number) => {
 const selectProjectType = (projectType: string) => {
   // Update the model value
   const updatedValue = { ...props.modelValue, productType: projectType }
+  
+  // Auto-select essential features for ecommerce and marketplace
+  if (projectType === 'ecommerce' || projectType === 'marketplace') {
+    // Initialize features array if it doesn't exist
+    if (!updatedValue.features) {
+      updatedValue.features = []
+    }
+    
+    // Add essential features if not already present
+    const essentialFeatures = ['database', 'payments', 'auth']
+    essentialFeatures.forEach(feature => {
+      if (!updatedValue.features.includes(feature)) {
+        updatedValue.features.push(feature)
+      }
+    })
+    
+    // For marketplace, also add search and admin panel
+    if (projectType === 'marketplace') {
+      const marketplaceFeatures = ['search', 'admin']
+      marketplaceFeatures.forEach(feature => {
+        if (!updatedValue.features.includes(feature)) {
+          updatedValue.features.push(feature)
+        }
+      })
+    }
+  }
+  
   emit('update:modelValue', updatedValue)
   
   // Auto-advance to next step after a short delay
@@ -160,9 +228,26 @@ const selectProjectType = (projectType: string) => {
   }, 300)
 }
 
-const selectRecommended = () => {
-  // Recommend corporate website as it's most common
-  selectProjectType('corporate')
+const showRecommendationQuestions = () => {
+  showRecommendQuestions.value = true
+}
+
+const recommendBasedOnGoal = (goal: 'sell' | 'present' | 'build') => {
+  let recommendedType = 'corporate'
+  
+  if (goal === 'sell') {
+    // If they want to sell, recommend e-commerce
+    recommendedType = 'ecommerce'
+  } else if (goal === 'present') {
+    // If they want to present, recommend landing or corporate
+    recommendedType = 'landing'
+  } else if (goal === 'build') {
+    // If they want to build a product, recommend SaaS/webapp
+    recommendedType = 'saas_webapp'
+  }
+  
+  selectProjectType(recommendedType)
+  showRecommendQuestions.value = false
 }
 </script>
 
@@ -335,6 +420,146 @@ const selectRecommended = () => {
   font-style: italic;
 }
 
+/* Recommendation Section */
+.recommendation-section {
+  text-align: center;
+  margin-top: 20px;
+  padding: 30px;
+  background: rgba(127, 0, 253, 0.05);
+  border: 1px solid rgba(127, 0, 253, 0.2);
+  border-radius: 16px;
+  animation: slideInUp 0.5s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.recommendation-header {
+  margin-bottom: 24px;
+  animation: fadeIn 0.6s ease-out 0.2s both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.recommendation-title {
+  color: var(--color-text-primary);
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+.recommendation-subtitle {
+  color: var(--color-text-muted);
+  font-size: 16px;
+  margin: 0;
+}
+
+.goal-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.goal-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: fadeInScale 0.5s ease-out both;
+}
+
+.goal-btn:nth-child(1) {
+  animation-delay: 0.3s;
+}
+
+.goal-btn:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.goal-btn:nth-child(3) {
+  animation-delay: 0.5s;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.goal-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--color-secondary-teal);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(34, 252, 176, 0.2);
+}
+
+.goal-icon {
+  font-size: 32px;
+  flex-shrink: 0;
+}
+
+.goal-content {
+  flex: 1;
+}
+
+.goal-content h5 {
+  color: var(--color-text-primary);
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+}
+
+.goal-content p {
+  color: var(--color-text-muted);
+  font-size: 13px;
+  margin: 0;
+}
+
+.back-to-options {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 12px 24px;
+  color: var(--color-text-muted);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  animation: fadeIn 0.5s ease-out 0.6s both;
+}
+
+.back-to-options:hover {
+  border-color: var(--color-text-muted);
+  color: var(--color-text-primary);
+  transform: translateX(3px);
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
   .options-grid {
@@ -382,23 +607,107 @@ const selectRecommended = () => {
 @media (max-width: 480px) {
   .step-title {
     font-size: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .options-grid {
+    gap: 12px;
     margin-bottom: 24px;
   }
   
   .option-card {
-    padding: 16px;
+    padding: 12px;
   }
   
   .option-icon {
-    font-size: 28px;
+    font-size: 24px;
+  }
+  
+  .option-header {
+    gap: 10px;
+    margin-bottom: 10px;
   }
   
   .option-text h4 {
-    font-size: 18px;
+    font-size: 16px;
+    margin: 0;
   }
   
   .option-description {
+    display: none;
+  }
+  
+  .option-details {
+    padding: 12px;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  
+  .complexity-indicator {
+    gap: 8px;
+  }
+  
+  .complexity-label {
+    font-size: 11px;
+  }
+  
+  .complexity-bars {
+    gap: 2px;
+  }
+  
+  .complexity-bar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  .typical-range {
+    align-items: flex-start;
+    gap: 4px;
+  }
+  
+  .range-label {
+    font-size: 10px;
+  }
+  
+  .range-price {
     font-size: 14px;
+  }
+  
+  .recommendation-section {
+    padding: 20px;
+  }
+  
+  .recommendation-title {
+    font-size: 18px;
+  }
+  
+  .recommendation-subtitle {
+    font-size: 14px;
+  }
+  
+  .goal-options {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .goal-btn {
+    padding: 16px;
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+  
+  .goal-icon {
+    font-size: 28px;
+  }
+  
+  .goal-content h5 {
+    font-size: 15px;
+  }
+  
+  .goal-content p {
+    font-size: 12px;
   }
 }
 </style>

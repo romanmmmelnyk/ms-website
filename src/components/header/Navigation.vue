@@ -171,7 +171,7 @@ const makePhoneCall = () => {
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 100;
+  z-index: 9998;
   overflow: hidden;
 }
 
@@ -683,7 +683,7 @@ const makePhoneCall = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 10001;
   backdrop-filter: blur(5px);
 }
 

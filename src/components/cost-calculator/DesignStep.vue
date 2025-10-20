@@ -812,4 +812,52 @@ const continueToNext = () => {
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 480px) {
+  .step-title {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .design-options {
+    gap: 12px;
+  }
+  
+  .design-option {
+    padding: 12px;
+  }
+  
+  .design-icon {
+    font-size: 24px;
+  }
+  
+  .design-text h4 {
+    font-size: 16px;
+  }
+  
+  .design-description {
+    display: none;
+  }
+  
+  .design-visual {
+    margin: 12px 0;
+  }
+  
+  .visual-preview {
+    height: 100px;
+  }
+  
+  .design-details {
+    gap: 8px;
+    padding: 10px;
+  }
+  
+  .detail-label {
+    font-size: 11px;
+  }
+  
+  .detail-value {
+    font-size: 13px;
+  }
+}
 </style>

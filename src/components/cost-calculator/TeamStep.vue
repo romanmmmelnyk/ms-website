@@ -979,4 +979,49 @@ const selectComplexProject = () => {
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 480px) {
+  .step-title {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .team-options {
+    gap: 12px;
+  }
+  
+  .team-option {
+    padding: 12px;
+  }
+  
+  .team-icon {
+    font-size: 24px;
+  }
+  
+  .team-text h4 {
+    font-size: 16px;
+  }
+  
+  .team-description {
+    display: none;
+  }
+  
+  .team-visual {
+    margin: 12px 0;
+    padding: 10px;
+  }
+  
+  .team-details {
+    gap: 8px;
+    padding: 10px;
+  }
+  
+  .detail-label {
+    font-size: 11px;
+  }
+  
+  .detail-value {
+    font-size: 13px;
+  }
+}
 </style>
