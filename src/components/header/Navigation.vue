@@ -9,7 +9,7 @@
               <li><a @click="navigateTo('/portfolio')">PORTFOLIO</a></li>
               <li><a @click="navigateTo('/careers')">CAREERS</a></li>
               <li><a @click="navigateTo('/cost-calculator')">COST CALCULATOR</a></li>
-              <li><a @click="showContactOptions">APPLY</a></li>
+              <li><a @click="navigateTo('/apply')">APPLY</a></li>
               <li><a @click="navigateTo('/contact')">CONTACT US</a></li>
               <li><a class="highlighted-for-models" @click="navigateTo('/models')">FOR MODELS</a></li>
             </ul>

@@ -5,6 +5,7 @@ import CareersView from '../views/pages/CareersView.vue'
 import CostCalculationView from '../views/CostCalculationView.vue'
 import ContactView from '../views/pages/ContactView.vue'
 import AboutView from '../views/pages/AboutView.vue'
+import ApplyView from '../views/pages/ApplyView.vue'
 import InDevelopmentView from '../views/InDevelopmentView.vue'
 import NotFoundView from '../views/NotFoundView.vue'
 import PrivacyPolicyView from '../views/policies/PrivacyPolicyView.vue'
@@ -86,7 +87,7 @@ const router = createRouter({
     {
       path: '/apply',
       name: 'apply',
-      redirect: '/in-development'
+      component: ApplyView
     },
     {
       path: '/privacy-policy',
