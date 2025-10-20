@@ -318,8 +318,6 @@ const validateForm = (): boolean => {
 
   if (!form.message.trim()) {
     newErrors.message = 'Project description is required'
-  } else if (form.message.trim().length < 20) {
-    newErrors.message = 'Project description must be at least 20 characters'
   }
 
   // Clear previous errors
