@@ -22,29 +22,7 @@
           </div>
           
           <div class="hero-visual">
-            <div class="wizard-preview">
-              <div class="preview-card">
-                <div class="preview-header">
-                  <div class="preview-icon">🤖</div>
-                  <h3>AI Assistant</h3>
-                </div>
-                <p>Friendly guide through the process</p>
-              </div>
-              <div class="preview-card">
-                <div class="preview-header">
-                  <div class="preview-icon">📋</div>
-                  <h3>Step by Step</h3>
-                </div>
-                <p>Simple questions, one at a time</p>
-              </div>
-              <div class="preview-card">
-                <div class="preview-header">
-                  <div class="preview-icon">💡</div>
-                  <h3>Smart Logic</h3>
-                </div>
-                <p>Only relevant questions asked</p>
-              </div>
-            </div>
+            <img src="/dashboard.png" alt="Project Dashboard" class="hero-image" />
           </div>
         </div>
       </Container>
@@ -595,42 +573,17 @@ onMounted(() => {
   margin-bottom: 32px;
 }
 
-.wizard-preview {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.preview-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+.hero-image {
+  width: 100%;
+  height: auto;
   border-radius: 16px;
-  padding: 24px;
-  backdrop-filter: blur(10px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
 }
 
-.preview-header {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 12px;
-}
-
-.preview-icon {
-  font-size: 24px;
-}
-
-.preview-card h3 {
-  color: var(--color-text-primary);
-  font-size: 18px;
-  font-weight: 600;
-  margin: 0;
-}
-
-.preview-card p {
-  color: var(--color-text-muted);
-  margin: 0;
-  font-size: 14px;
+.hero-image:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
 }
 
 /* Wizard Section */
@@ -1398,6 +1351,10 @@ onMounted(() => {
     font-size: 48px;
   }
   
+  .hero-description {
+    font-size: 16px;
+  }
+  
   .wizard-steps {
     padding: 30px;
     min-height: 500px;
@@ -1455,6 +1412,10 @@ onMounted(() => {
 @media (max-width: 480px) {
   .hero-title {
     font-size: 36px;
+  }
+  
+  .hero-description {
+    font-size: 14px;
   }
   
   .hero-section {
