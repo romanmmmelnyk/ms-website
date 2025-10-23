@@ -15,6 +15,7 @@ import PolicyHistoryView from '../views/policies/PolicyHistoryView.vue'
 import CookiePolicyView from '../views/policies/CookiePolicyView.vue'
 import ModelsView from '../views/ModelsView.vue'
 import ApplyModelView from '../views/ApplyModelView.vue'
+import ServicesView from '../views/ServicesView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -114,6 +115,11 @@ const router = createRouter({
       path: '/models',
       name: 'models',
       component: ModelsView
+    },
+    {
+      path: '/services',
+      name: 'services',
+      component: ServicesView
     },
     {
       path: '/apply-model',

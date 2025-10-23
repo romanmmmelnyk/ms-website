@@ -204,24 +204,24 @@
             <p>Get instant, transparent pricing for your software project using our advanced cost calculation algorithm.</p>
             <div class="cta-features">
               <div class="cta-feature">
-                <div class="feature-icon">💰</div>
+                <div class="feature-icon">
+                  <Calculator class="icon-svg" />
+                </div>
                 <span>Instant Quotes</span>
               </div>
               <div class="cta-feature">
-                <div class="feature-icon">📊</div>
+                <div class="feature-icon">
+                  <FileText class="icon-svg" />
+                </div>
                 <span>Detailed Breakdown</span>
               </div>
               <div class="cta-feature">
-                <div class="feature-icon">⚡</div>
+                <div class="feature-icon">
+                  <Brain class="icon-svg" />
+                </div>
                 <span>Smart Algorithm</span>
               </div>
             </div>
-            <a href="/cost-calculator" class="cta-button">
-              Calculate Your Project Cost
-              <svg class="arrow-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </a>
           </div>
           <div class="cta-visual">
             <div class="calculator-mockup">
@@ -238,7 +238,12 @@
                 <div class="mockup-line short"></div>
                 <div class="mockup-line"></div>
                 <div class="mockup-line short"></div>
-                <div class="mockup-button">Calculate Quote</div>
+                <a href="/cost-calculator" class="mockup-button">
+                  Calculate Quote
+                  <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
               </div>
             </div>
           </div>
@@ -266,7 +271,10 @@ import {
   Shield,
   BarChart3,
   Target,
-  Zap
+  Zap,
+  Calculator,
+  FileText,
+  Brain
 } from 'lucide-vue-next'
 
 const isLoading = ref(true)
@@ -638,8 +646,8 @@ onMounted(() => {
 
 .cta-features {
   display: flex;
-  flex-direction: row;
-  gap: 16px;
+  flex-direction: column;
+  gap: 20px;
   margin-bottom: 40px;
   justify-content: flex-start;
 }
@@ -647,52 +655,38 @@ onMounted(() => {
 .cta-feature {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.cta-feature:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
 }
 
 .feature-icon {
-  font-size: 24px;
-  width: 40px;
-  height: 40px;
+  font-size: 20px;
+  width: 36px;
+  height: 36px;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 50%;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .cta-feature span {
   color: var(--color-text-primary);
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
-}
-
-.cta-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  background: var(--gradient-accent);
-  color: var(--color-black);
-  text-decoration: none;
-  padding: 18px 32px;
-  border-radius: 12px;
-  font-size: 18px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(34, 252, 176, 0.3);
-}
-
-.cta-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(34, 252, 176, 0.4);
-}
-
-.arrow-icon {
-  transition: transform 0.3s ease;
-}
-
-.cta-button:hover .arrow-icon {
-  transform: translateX(4px);
+  letter-spacing: 0.01em;
 }
 
 .cta-visual {
@@ -705,16 +699,16 @@ onMounted(() => {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
-  padding: 24px;
-  width: 300px;
+  padding: 32px;
+  width: 400px;
   backdrop-filter: blur(10px);
 }
 
 .mockup-header {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 24px;
+  gap: 20px;
+  margin-bottom: 32px;
 }
 
 .mockup-dots {
@@ -734,14 +728,14 @@ onMounted(() => {
 
 .mockup-header span {
   color: var(--color-text-primary);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
 }
 
 .mockup-content {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 
 .mockup-line {
@@ -755,14 +749,33 @@ onMounted(() => {
 }
 
 .mockup-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   background: var(--gradient-accent);
   color: var(--color-black);
-  padding: 12px 20px;
+  text-decoration: none;
+  padding: 16px 24px;
   border-radius: 8px;
   text-align: center;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
-  margin-top: 8px;
+  margin-top: 12px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(34, 252, 176, 0.3);
+}
+
+.mockup-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(34, 252, 176, 0.4);
+}
+
+.mockup-button .arrow-icon {
+  transition: transform 0.3s ease;
+}
+
+.mockup-button:hover .arrow-icon {
+  transform: translateX(4px);
 }
 
 .white-bg {
@@ -869,29 +882,28 @@ p {
   }
   
   .cta-features {
-    align-items: center;
-    gap: 12px;
+    gap: 16px;
     justify-content: flex-start;
     flex-wrap: wrap;
   }
   
   .cta-feature {
-    font-size: 0.9rem;
+    padding: 10px 14px;
+    gap: 10px;
   }
   
   .feature-icon {
-    font-size: 20px;
-    width: 35px;
-    height: 35px;
+    font-size: 18px;
+    width: 32px;
+    height: 32px;
+  }
+  
+  .cta-feature span {
+    font-size: 14px;
   }
   
   .calculator-mockup {
     width: 250px;
-  }
-  
-  .cta-button {
-    padding: 14px 24px;
-    font-size: 16px;
   }
 }
 
@@ -947,23 +959,28 @@ p {
   }
   
   .cta-features {
-    gap: 10px;
+    gap: 12px;
     justify-content: flex-start;
     flex-wrap: wrap;
   }
   
   .cta-feature {
-    font-size: 0.85rem;
+    padding: 8px 12px;
+    gap: 8px;
   }
   
   .feature-icon {
-    font-size: 18px;
-    width: 32px;
-    height: 32px;
+    font-size: 16px;
+    width: 28px;
+    height: 28px;
+  }
+  
+  .cta-feature span {
+    font-size: 13px;
   }
   
   .calculator-mockup {
-    width: 200px;
+    width: 100%;
     padding: 16px;
   }
   
@@ -973,11 +990,6 @@ p {
   
   .cta-content {
     gap: 20px;
-  }
-  
-  .cta-button {
-    padding: 12px 20px;
-    font-size: 14px;
   }
 }
 </style>

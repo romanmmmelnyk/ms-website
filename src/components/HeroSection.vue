@@ -19,7 +19,7 @@
           </h1>
 
           <div class="hero-buttons">
-            <button class="btn btn-outline">Our services</button>
+            <button class="btn btn-outline" @click="navigateToServices">Our services</button>
             <button class="btn btn-primary" @click="navigateToContact">Get in touch</button>
           </div>
         </div>
@@ -66,6 +66,10 @@ const startTextRotation = () => {
 
 const navigateToContact = () => {
   router.push('/contact')
+}
+
+const navigateToServices = () => {
+  router.push('/services')
 }
 
 const scrollToNextSection = () => {

@@ -452,6 +452,10 @@ const downloadVersion = async (versionId: string) => {
 
 /* Responsive design */
 @media (max-width: 768px) {
+  .terms-policies-page {
+    padding-top: 110px;
+  }
+  
   .terms-policies-content {
     padding: 0 16px;
   }
