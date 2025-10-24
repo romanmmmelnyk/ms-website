@@ -5,6 +5,7 @@ import App from './App.vue'
 import router from './router'
 
 import './assets/main.css'
+import './assets/styles/reusable.css'
 
 // Performance monitoring
 import { performanceMonitor } from './utils/performance'

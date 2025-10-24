@@ -19,15 +19,15 @@
           </h1>
 
           <div class="hero-buttons">
-            <button class="btn btn-outline" @click="navigateToServices">Our services</button>
-            <button class="btn btn-primary" @click="navigateToContact">Get in touch</button>
+            <BaseButton variant="outline" @click="navigateToServices">Our services</BaseButton>
+            <BaseButton variant="primary" @click="navigateToContact">Get in touch</BaseButton>
           </div>
         </div>
 
         <!-- Right Side - Hero SVG -->
         <div class="hero-visual">
           <img
-            src="/hero.svg"
+            src="/assets/logos/hero.svg"
             alt="Hero illustration"
             class="hero-svg"
             loading="lazy"
@@ -37,10 +37,7 @@
       </div>
 
       <!-- Scroll Indicator -->
-      <div class="scroll-indicator" @click="scrollToNextSection" title="Scroll to next section">
-        <div class="chevron"></div>
-        <div class="chevron"></div>
-      </div>
+      <ScrollIndicator target=".services-section" />
     </Container>
   </section>
 </template>
@@ -49,6 +46,8 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import Container from './Container.vue'
+import { BaseButton } from './ui'
+import { ScrollIndicator } from './common'
 import { performanceMonitor, measureSync } from '@/utils/performance'
 
 const router = useRouter()
@@ -72,17 +71,6 @@ const navigateToServices = () => {
   router.push('/services')
 }
 
-const scrollToNextSection = () => {
-  measureSync(() => {
-    const nextSection = document.querySelector('.services-section')
-    if (nextSection) {
-      nextSection.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      })
-    }
-  }, 'scrollToNextSection')
-}
 
 onMounted(() => {
   startTextRotation()
@@ -184,40 +172,6 @@ onUnmounted(() => {
   flex-wrap: wrap;
 }
 
-.btn {
-  padding: 16px 32px;
-  border-radius: 8px;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 1rem;
-  font-weight: 600;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.btn-outline {
-  background: transparent;
-  color: var(--color-text-primary);
-  border: 2px solid var(--color-primary-purple);
-}
-
-.btn-outline:hover {
-  background: var(--color-primary-purple);
-  transform: translateY(-2px);
-}
-
-.btn-primary {
-  background: var(--gradient-primary);
-  color: var(--color-text-primary);
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(127, 0, 253, 0.3);
-}
 
 /* Right Side - Hero SVG */
 .hero-visual {
@@ -235,59 +189,6 @@ onUnmounted(() => {
   transition: transform 0.3s ease;
 }
 
-/* Scroll Indicator */
-.scroll-indicator {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  padding: 10px;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-}
-
-.scroll-indicator:hover .chevron {
-  border-right-color: var(--color-primary-purple);
-  border-bottom-color: var(--color-primary-purple);
-  transform: rotate(45deg) scale(1.1);
-}
-
-.chevron {
-  width: 20px;
-  height: 20px;
-  border-right: 2px solid var(--color-text-muted);
-  border-bottom: 2px solid var(--color-text-muted);
-  transform: rotate(45deg);
-  animation: bounce 2s infinite;
-  transition: all 0.3s ease;
-}
-
-.chevron:hover {
-  border-right-color: var(--color-primary-purple);
-  border-bottom-color: var(--color-primary-purple);
-  transform: rotate(45deg) scale(1.1);
-}
-
-.chevron:nth-child(2) {
-  animation-delay: 0.2s;
-}
-
-@keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateY(0) rotate(45deg);
-  }
-  40% {
-    transform: translateY(-10px) rotate(45deg);
-  }
-  60% {
-    transform: translateY(-5px) rotate(45deg);
-  }
-}
 
 /* Responsive Design */
 @media (min-width: 1025px) {

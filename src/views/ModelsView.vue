@@ -26,7 +26,7 @@
           <!-- Right Side - Hero SVG -->
           <div class="hero-visual">
             <img
-              src="/holographic runway.png"
+              src="/assets/images/ui/holographic-runway.png"
               alt="Hero illustration"
               class="hero-svg"
               loading="lazy"
@@ -41,7 +41,7 @@
       <section ref="dashboardSection" class="dashboard-section" :class="{ 'animate-in': isDashboardVisible }">
         <Container>
           <div class="dashboard-container">
-            <img src="/dashboard.png" alt="Dashboard Interface" class="dashboard-image" ref="dashboardImage" :class="{ 'animate-in': isDashboardImageVisible }" />
+            <img src="/assets/images/ui/dashboard.png" alt="Dashboard Interface" class="dashboard-image" ref="dashboardImage" :class="{ 'animate-in': isDashboardImageVisible }" />
           </div>
         </Container>
       </section>
@@ -60,7 +60,7 @@
             <!-- Right Side - Featured Article Card -->
             <div ref="articleCard" class="featured-article-card" :class="{ 'animate-in': isCardVisible }" @click="navigateToArticle">
               <div ref="articleImage" class="article-image" :class="{ 'animate-in': isCardVisible }">
-                <img src="/model-article.jpg" alt="Model Portfolio" class="model-photo" />
+                <img src="/assets/images/hero/model-article.jpg" alt="Model Portfolio" class="model-photo" />
               </div>
               
               <div ref="articleContent" class="article-card-content" :class="{ 'animate-in': isCardVisible }">
@@ -97,7 +97,7 @@
             <div ref="googleMockup" class="google-mockup" :class="{ 'animate-in': isGoogleMockupVisible }">
               <div class="google-container">
                 <div class="google-header">
-                  <img src="/google.png" alt="Google" class="google-logo" />
+                  <img src="/assets/images/ui/google.png" alt="Google" class="google-logo" />
                 </div>
                 <div class="search-bar">
                   <svg class="search-icon" width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -137,19 +137,19 @@
                 <div class="search-result-label">Search result</div>
                 <div ref="modelProfiles" class="model-profiles" :class="{ 'animate-in': isModelProfilesVisible }">
                   <div class="model-profile active" :class="{ 'fade-in': isModelProfilesVisible }">
-                    <img src="/colton.png" alt="Colton Haynes" class="model-photo" />
+                    <img src="/assets/images/ui/colton.png" alt="Colton Haynes" class="model-photo" />
                     <span class="model-name">Colton Haynes</span>
                   </div>
                   <div class="model-profile blurred" :class="{ 'fade-in': isModelProfilesVisible }">
-                    <img src="/chase.png" alt="Chace Crawford" class="model-photo" />
+                    <img src="/assets/images/ui/chase.png" alt="Chace Crawford" class="model-photo" />
                     <span class="model-name">Chace Crawford</span>
                   </div>
                   <div class="model-profile blurred" :class="{ 'fade-in': isModelProfilesVisible }">
-                    <img src="/dean geyers.png" alt="Dean Geyer" class="model-photo" />
+                    <img src="/assets/images/ui/dean-geyers.png" alt="Dean Geyer" class="model-photo" />
                     <span class="model-name">Dean Geyer</span>
                   </div>
                   <div class="model-profile blurred mobile-hidden" :class="{ 'fade-in': isModelProfilesVisible }">
-                    <img src="/zac.png" alt="Zac Efron" class="model-photo" />
+                    <img src="/assets/images/ui/zac.png" alt="Zac Efron" class="model-photo" />
                     <span class="model-name">Zac Efron</span>
                   </div>
                 </div>
@@ -209,7 +209,7 @@
             <!-- Model Profile Section -->
             <div class="client-model-profile">
               <div class="client-model-photo">
-                <img src="/model-hero.png" alt="Model Photo" class="client-model-image" />
+                <img src="/assets/images/hero/model-hero.png" alt="Model Photo" class="client-model-image" />
               </div>
               <h3 class="model-name">Anna M.</h3>
               <div class="model-measurements">

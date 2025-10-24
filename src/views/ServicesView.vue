@@ -1,16 +1,17 @@
 <template>
   <div class="services-view">
-    <!-- Top Section with Title -->
-    <section class="services-header">
-      <div class="header-content">
-        <nav class="breadcrumbs">
-          <a href="/" class="breadcrumb-link">Home</a>
-          <span class="breadcrumb-separator">/</span>
-          <span class="breadcrumb-current">Services</span>
-        </nav>
-        <h1 class="services-title">Services</h1>
-      </div>
-    </section>
+    <!-- Page Header -->
+    <PageHeader
+      title="Services"
+      subtitle="Comprehensive IT solutions tailored to your business needs"
+      :breadcrumbs="[
+        { label: 'Home', href: '/' },
+        { label: 'Services' }
+      ]"
+      variant="gradient"
+      size="md"
+      :show-background="true"
+    />
     
     <!-- Main Content Section -->
     <section class="services-content">
@@ -43,7 +44,7 @@
               <a href="#" class="card-link">See more →</a>
             </div>
             <div class="card-image-container">
-              <img src="/services/vecteezy_mobile-app-ui-design-icons-graphics-and-user-interface_56409761.png" alt="Mobile App UI Design" class="card-image" />
+              <img src="/assets/images/ui/vecteezy_mobile-app-ui-design-icons-graphics-and-user-interface_56409761.png" alt="Mobile App UI Design" class="card-image" />
             </div>
           </div>
         </div>
@@ -58,7 +59,7 @@
               <a href="#" class="card-link">See more →</a>
             </div>
             <div class="card-image-container">
-              <img src="/services/vecteezy_streamlined-task-management-system-ui-design_56410213.png" alt="Task Management System UI Design" class="card-image" />
+              <img src="/assets/images/ui/vecteezy_streamlined-task-management-system-ui-design_56410213.png" alt="Task Management System UI Design" class="card-image" />
             </div>
           </div>
 
@@ -112,7 +113,7 @@
               <a href="#" class="card-link">See more →</a>
             </div>
             <div class="card-image-container">
-              <img src="/services/vecteezy_checklist-app-manage-tasks-boost-productivity_56411901.png" alt="Checklist App Productivity UI Design" class="card-image" />
+              <img src="/assets/images/ui/vecteezy_checklist-app-manage-tasks-boost-productivity_56411901.png" alt="Checklist App Productivity UI Design" class="card-image" />
             </div>
           </div>
         </div>
@@ -147,85 +148,18 @@
 </template>
 
 <script setup lang="ts">
-// Services page logic will go here
+import { PageHeader } from '@/components/layout'
 </script>
 
 <style scoped>
 .services-view {
   min-height: 100vh;
-}
-
-.services-header {
-  height: 300px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, rgba(76, 0, 151, 0.9) 0%, rgba(51, 0, 102, 0.95) 100%);
-  position: relative;
-  overflow: hidden;
-  padding-top: 2rem;
-}
-
-.services-header::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('/hero.svg') no-repeat center center;
-  background-size: cover;
-  opacity: 0.05;
-  z-index: 1;
-}
-
-.header-content {
-  position: relative;
-  z-index: 2;
-}
-
-.breadcrumbs {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1.5rem;
-  gap: 0.5rem;
-}
-
-.breadcrumb-link {
-  color: rgba(255, 255, 255, 0.8);
-  text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-.breadcrumb-link:hover {
-  color: var(--color-white);
-}
-
-.breadcrumb-separator {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 0.9rem;
-}
-
-.breadcrumb-current {
-  color: var(--color-white);
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-
-.services-title {
-  font-size: 3rem;
-  font-weight: 700;
-  color: var(--color-white);
-  margin: 0;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, #16161E 0%, #2B2969 100%);
 }
 
 .services-content {
   background: var(--color-black);
-  min-height: calc(100vh - 300px);
+  min-height: calc(100vh - 400px);
   padding: 2rem;
   position: relative;
   overflow: hidden;
@@ -396,16 +330,41 @@
 }
 
 @media (max-width: 768px) {
-  .services-grid-row-1,
+  .services-content {
+    padding: 2rem 12px; /* Increased side padding */
+  }
+  
+  .services-grid-container {
+    max-width: 100%; /* Full width */
+    padding: 0;
+  }
+  
+  /* First row: 2 items side by side, then 1 full width */
+  .services-grid-row-1 {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 0.5rem;
+  }
+  
+  /* First two items in same row */
+  .services-grid-row-1 .service-card:nth-child(1),
+  .services-grid-row-1 .service-card:nth-child(2) {
+    grid-column: span 1;
+    grid-row: 1;
+  }
+  
+  /* Third item full width */
+  .services-grid-row-1 .service-card:nth-child(3) {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+  
+  /* Other rows: single column */
   .services-grid-row-2,
   .services-grid-row-3,
   .services-grid-row-4 {
     grid-template-columns: 1fr;
     gap: 0.5rem;
-  }
-  
-  .services-grid-container {
-    padding: 0 1rem;
   }
   
   .service-card {

@@ -22,7 +22,7 @@
           </div>
           
           <div class="hero-visual">
-            <img src="/dashboard.png" alt="Project Dashboard" class="hero-image" />
+            <img src="/assets/images/ui/dashboard.png" alt="Project Dashboard" class="hero-image" />
           </div>
         </div>
       </Container>

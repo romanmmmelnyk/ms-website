@@ -491,7 +491,7 @@ const getParticleStyle = (index: number) => {
 }
 
 .modal-content {
-  padding: 40px;
+  padding: var(--spacing-4xl);
 }
 
 .modal-header {
@@ -588,15 +588,15 @@ const getParticleStyle = (index: number) => {
 .form-input,
 .form-select,
 .form-textarea {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 16px 20px;
+  background: var(--glass-bg-light);
+  border: 1px solid var(--glass-border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg) var(--spacing-xl);
   color: var(--color-text-primary);
   font-family: 'Open Sans', sans-serif;
   font-size: 1rem;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
+  transition: all var(--transition-normal);
+  backdrop-filter: blur(var(--blur-md));
   width: 100%;
   box-sizing: border-box;
 }
@@ -607,7 +607,7 @@ const getParticleStyle = (index: number) => {
   outline: none;
   border-color: var(--color-primary-purple);
   box-shadow: 0 0 0 3px rgba(127, 0, 253, 0.1);
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--glass-bg-medium);
 }
 
 .form-input.filled,

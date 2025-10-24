@@ -1,0 +1,340 @@
+/* ========================================
+   REUSABLE STYLES & MIXINS
+   ======================================== */
+
+/* CSS Custom Properties for consistent values */
+:root {
+  /* Border Radius */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-full: 50%;
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 20px;
+  --spacing-2xl: 24px;
+  --spacing-3xl: 32px;
+  --spacing-4xl: 40px;
+  --spacing-5xl: 48px;
+  --spacing-6xl: 64px;
+
+  /* Glass Effect Values */
+  --glass-bg-light: rgba(255, 255, 255, 0.05);
+  --glass-bg-medium: rgba(255, 255, 255, 0.1);
+  --glass-bg-heavy: rgba(255, 255, 255, 0.15);
+  --glass-border-light: rgba(255, 255, 255, 0.1);
+  --glass-border-medium: rgba(255, 255, 255, 0.2);
+  --glass-border-heavy: rgba(255, 255, 255, 0.3);
+
+  /* Text Opacity */
+  --text-opacity-muted: 0.6;
+  --text-opacity-subtle: 0.8;
+  --text-opacity-primary: 0.9;
+
+  /* Blur Values */
+  --blur-sm: 5px;
+  --blur-md: 10px;
+  --blur-lg: 20px;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  --transition-bounce: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+/* Glass Effect Classes */
+.glass-light {
+  background: var(--glass-bg-light);
+  border: 1px solid var(--glass-border-light);
+  backdrop-filter: blur(var(--blur-md));
+}
+
+.glass-medium {
+  background: var(--glass-bg-medium);
+  border: 1px solid var(--glass-border-medium);
+  backdrop-filter: blur(var(--blur-md));
+}
+
+.glass-heavy {
+  background: var(--glass-bg-heavy);
+  border: 1px solid var(--glass-border-heavy);
+  backdrop-filter: blur(var(--blur-md));
+}
+
+/* Border Radius Classes */
+.rounded-sm { border-radius: var(--radius-sm); }
+.rounded-md { border-radius: var(--radius-md); }
+.rounded-lg { border-radius: var(--radius-lg); }
+.rounded-xl { border-radius: var(--radius-xl); }
+.rounded-2xl { border-radius: var(--radius-2xl); }
+.rounded-full { border-radius: var(--radius-full); }
+
+/* Card Styles */
+.card {
+  background: var(--glass-bg-light);
+  border: 1px solid var(--glass-border-light);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(var(--blur-md));
+  transition: all var(--transition-normal);
+}
+
+.card:hover {
+  background: var(--glass-bg-medium);
+  border-color: var(--glass-border-medium);
+  transform: translateY(-2px);
+}
+
+.card-elevated {
+  background: var(--glass-bg-medium);
+  border: 1px solid var(--glass-border-medium);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(var(--blur-md));
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: all var(--transition-normal);
+}
+
+.card-elevated:hover {
+  background: var(--glass-bg-heavy);
+  border-color: var(--glass-border-heavy);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  transform: translateY(-4px);
+}
+
+/* Form Elements */
+.form-input-base {
+  background: var(--glass-bg-light);
+  border: 1px solid var(--glass-border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg) var(--spacing-xl);
+  color: var(--color-text-primary);
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1rem;
+  transition: all var(--transition-normal);
+  backdrop-filter: blur(var(--blur-md));
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-input-base:focus {
+  outline: none;
+  border-color: var(--color-primary-purple);
+  box-shadow: 0 0 0 3px rgba(127, 0, 253, 0.1);
+  background: var(--glass-bg-medium);
+}
+
+.form-input-base::placeholder {
+  color: var(--color-text-muted);
+  opacity: var(--text-opacity-muted);
+}
+
+/* Button Base Styles */
+.btn-base {
+  padding: var(--spacing-lg) var(--spacing-3xl);
+  border-radius: var(--radius-md);
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Section Styles */
+.section-base {
+  width: 100%;
+  padding: var(--spacing-6xl) 0;
+}
+
+.section-sm { padding: var(--spacing-4xl) 0; }
+.section-md { padding: var(--spacing-5xl) 0; }
+.section-lg { padding: var(--spacing-6xl) 0; }
+.section-xl { padding: calc(var(--spacing-6xl) * 1.5) 0; }
+
+/* Text Styles */
+.text-gradient {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-muted {
+  color: var(--color-text-muted);
+  opacity: var(--text-opacity-muted);
+}
+
+.text-subtle {
+  color: var(--color-text-muted);
+  opacity: var(--text-opacity-subtle);
+}
+
+/* Animation Classes */
+.animate-fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all var(--transition-slow);
+}
+
+.animate-fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.animate-slide-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all var(--transition-slow);
+}
+
+.animate-slide-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.animate-scale {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all var(--transition-slow);
+}
+
+.animate-scale.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Hover Effects */
+.hover-lift {
+  transition: transform var(--transition-normal);
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+.hover-lift-lg {
+  transition: transform var(--transition-normal);
+}
+
+.hover-lift-lg:hover {
+  transform: translateY(-4px);
+}
+
+/* Focus Styles */
+.focus-ring:focus-visible {
+  outline: 2px solid var(--color-primary-purple);
+  outline-offset: 2px;
+}
+
+/* ========================================
+   RESPONSIVE UTILITIES
+   ======================================== */
+
+@media (max-width: 768px) {
+  .section-base { padding: var(--spacing-5xl) 0; }
+  .section-sm { padding: var(--spacing-3xl) 0; }
+  .section-md { padding: var(--spacing-4xl) 0; }
+  .section-lg { padding: var(--spacing-5xl) 0; }
+  .section-xl { padding: var(--spacing-6xl) 0; }
+  
+  .btn-base {
+    padding: var(--spacing-md) var(--spacing-2xl);
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-base { padding: var(--spacing-4xl) 0; }
+  .section-sm { padding: var(--spacing-2xl) 0; }
+  .section-md { padding: var(--spacing-3xl) 0; }
+  .section-lg { padding: var(--spacing-4xl) 0; }
+  .section-xl { padding: var(--spacing-5xl) 0; }
+  
+  .btn-base {
+    padding: var(--spacing-sm) var(--spacing-xl);
+    font-size: 0.875rem;
+  }
+}
+
+/* ========================================
+   COMPONENT-SPECIFIC MIXINS
+   ======================================== */
+
+/* Modal Styles */
+.modal-backdrop {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(var(--blur-lg));
+}
+
+.modal-content-base {
+  background: var(--glass-bg-medium);
+  border: 1px solid var(--glass-border-medium);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(var(--blur-md));
+  padding: var(--spacing-4xl);
+}
+
+/* Navigation Styles */
+.nav-item-base {
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-normal);
+  color: var(--color-text-primary);
+  text-decoration: none;
+}
+
+.nav-item-base:hover {
+  background: var(--glass-bg-light);
+  color: var(--color-primary-purple);
+}
+
+/* Cost Calculator Styles */
+.calculator-step-base {
+  background: var(--glass-bg-light);
+  border: 1px solid var(--glass-border-light);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(var(--blur-md));
+  padding: var(--spacing-3xl);
+  transition: all var(--transition-normal);
+}
+
+.calculator-step-base:hover {
+  background: var(--glass-bg-medium);
+  border-color: var(--glass-border-medium);
+}
+
+/* Portfolio Styles */
+.portfolio-card-base {
+  background: var(--glass-bg-light);
+  border: 1px solid var(--glass-border-light);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(var(--blur-md));
+  overflow: hidden;
+  transition: all var(--transition-normal);
+}
+
+.portfolio-card-base:hover {
+  background: var(--glass-bg-medium);
+  border-color: var(--glass-border-medium);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}

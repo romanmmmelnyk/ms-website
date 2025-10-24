@@ -198,9 +198,9 @@ const backgroundGradient = computed(() => {
 
 <style scoped>
 .interactive-showcase {
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--glass-border-medium);
+  backdrop-filter: blur(var(--blur-md));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -213,14 +213,14 @@ const backgroundGradient = computed(() => {
 @media (max-width: 768px) {
   .interactive-showcase {
     margin: 1.5rem auto;
-    border-radius: 8px;
+    border-radius: var(--radius-md);
   }
 }
 
 @media (max-width: 480px) {
   .interactive-showcase {
     margin: 1rem auto;
-    border-radius: 6px;
+    border-radius: var(--radius-sm);
   }
 }
 

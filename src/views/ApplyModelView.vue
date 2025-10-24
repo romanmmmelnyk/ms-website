@@ -6,12 +6,12 @@
         <div v-if="currentStep === 1" class="step-content">
           <h1 class="title-animation">Model website application</h1>
           <img 
-            src="/designs/DESIGNS-1.png" 
+            src="/assets/images/ui/design-desktop-1.png" 
             alt="Design Portfolio" 
             class="showcase-animation step1-image step1-image-desktop"
           />
           <img 
-            src="/designs/DESIGN-1-Mobile.png" 
+            src="/assets/images/ui/design-mobile-1.png" 
             alt="Design Portfolio" 
             class="showcase-animation step1-image step1-image-mobile"
           />
@@ -96,7 +96,7 @@
                 
                 <!-- Website Preview Section -->
                 <div class="website-preview" :class="{ 'animate-in': showWebsitePreview }">
-                  <img src="/bride-website.png" alt="Wedding Model Website Preview" class="website-preview-image" />
+                  <img src="/assets/images/ui/bride-website.png" alt="Wedding Model Website Preview" class="website-preview-image" />
                 </div>
               </div>
               

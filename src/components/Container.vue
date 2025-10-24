@@ -1,30 +1,9 @@
 <template>
-  <div class="container">
+  <BaseContainer size="lg" padding="md">
     <slot />
-  </div>
+  </BaseContainer>
 </template>
 
 <script setup lang="ts">
-// Container component logic here
+import { BaseContainer } from './ui'
 </script>
-
-<style scoped>
-.container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 20px;
-  width: 100%;
-}
-
-@media (min-width: 640px) {
-  .container {
-    padding: 0 24px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .container {
-    padding: 0 32px;
-  }
-}
-</style>

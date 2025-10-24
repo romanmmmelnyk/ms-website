@@ -417,48 +417,48 @@ const continueToNext = () => {
 .visual-preview {
   width: 200px;
   height: 120px;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
+  border: 2px solid var(--glass-border-medium);
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--glass-bg-light);
 }
 
 .preview-header {
   height: 20px;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--glass-bg-medium);
   display: flex;
   align-items: center;
-  padding: 0 8px;
+  padding: 0 var(--spacing-sm);
 }
 
 .preview-dots {
   display: flex;
-  gap: 4px;
+  gap: var(--spacing-xs);
 }
 
 .preview-dots span {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
+  width: var(--spacing-sm);
+  height: var(--spacing-sm);
+  border-radius: var(--radius-full);
+  background: var(--glass-border-medium);
 }
 
 .preview-content {
-  padding: 16px;
+  padding: var(--spacing-lg);
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--spacing-sm);
 }
 
 .preview-element {
-  height: 12px;
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.1);
+  height: var(--spacing-md);
+  border-radius: var(--radius-sm);
+  background: var(--glass-bg-medium);
 }
 
 /* Design-specific preview styles */
 .basic_template .preview-element {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--glass-bg-medium);
 }
 
 .standard_modern .preview-element {
@@ -479,10 +479,10 @@ const continueToNext = () => {
 .design-details {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 16px;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 12px;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-xl);
+  background: var(--glass-bg-light);
+  border-radius: var(--radius-lg);
 }
 
 .detail-item {

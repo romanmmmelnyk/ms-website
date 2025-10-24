@@ -1,19 +1,18 @@
 <template>
   <div class="crm-development-view">
-    <!-- Hero Section -->
-    <section class="hero-section">
-      <div class="hero-content">
-        <nav class="breadcrumbs">
-          <a href="/" class="breadcrumb-link">Home</a>
-          <span class="breadcrumb-separator">/</span>
-          <a href="/services" class="breadcrumb-link">Services</a>
-          <span class="breadcrumb-separator">/</span>
-          <span class="breadcrumb-current">CRM Development</span>
-        </nav>
-        <h1 class="hero-title">CRM Development</h1>
-        <p class="hero-subtitle">Custom CRM systems tailored to your business needs for maximum efficiency and growth</p>
-      </div>
-    </section>
+    <!-- Page Header -->
+    <PageHeader
+      title="CRM Development"
+      subtitle="Custom CRM systems tailored to your business needs for maximum efficiency and growth"
+      :breadcrumbs="[
+        { label: 'Home', href: '/' },
+        { label: 'Services', href: '/services' },
+        { label: 'CRM Development' }
+      ]"
+      variant="gradient"
+      size="md"
+      :show-background="true"
+    />
 
     <!-- Main Content -->
     <main class="main-content">
@@ -107,7 +106,7 @@
               <p class="section-text">Here's what a custom CRM dashboard can look like, providing comprehensive insights into your business operations:</p>
               <div class="dashboard-image-container">
                 <img 
-                  src="/usefulpics/Dark Mode Modern Project Management Software Desktop Prototype.png" 
+                  src="/assets/images/ui/project-management-prototype.png" 
                   alt="CRM Dashboard Example - Modern Project Management Software" 
                   class="dashboard-image"
                 />
@@ -245,6 +244,7 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue'
+import { PageHeader } from '@/components/layout'
 
 onMounted(() => {
   // Set page title
@@ -268,87 +268,6 @@ onMounted(() => {
 .crm-development-view {
   min-height: 100vh;
   background: linear-gradient(135deg, #16161E 0%, #2B2969 100%);
-}
-
-/* Hero Section */
-.hero-section {
-  height: 400px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, rgba(76, 0, 151, 0.9) 0%, rgba(51, 0, 102, 0.95) 100%);
-  position: relative;
-  overflow: hidden;
-  padding-top: 2rem;
-}
-
-.hero-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('/hero.svg') no-repeat center center;
-  background-size: cover;
-  opacity: 0.05;
-  z-index: 1;
-}
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  max-width: 800px;
-  padding: 0 2rem;
-}
-
-.breadcrumbs {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1.5rem;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.breadcrumb-link {
-  color: rgba(255, 255, 255, 0.8);
-  text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-.breadcrumb-link:hover {
-  color: var(--color-white);
-}
-
-.breadcrumb-separator {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 0.9rem;
-}
-
-.breadcrumb-current {
-  color: var(--color-white);
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-
-.hero-title {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 3.5rem;
-  font-weight: 700;
-  color: var(--color-white);
-  margin: 0 0 1rem 0;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.hero-subtitle {
-  font-size: 1.2rem;
-  color: rgba(255, 255, 255, 0.9);
-  margin: 0;
-  line-height: 1.6;
 }
 
 /* Main Content */
@@ -588,14 +507,6 @@ onMounted(() => {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .hero-title {
-    font-size: 2.5rem;
-  }
-  
-  .hero-subtitle {
-    font-size: 1rem;
-  }
-  
   .section-title {
     font-size: 1.8rem;
   }
@@ -624,10 +535,6 @@ onMounted(() => {
 }
 
 @media (max-width: 480px) {
-  .hero-title {
-    font-size: 2rem;
-  }
-  
   .section-title {
     font-size: 1.6rem;
   }
