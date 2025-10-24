@@ -64,7 +64,7 @@
             @click="goBack"
             class="btn btn-outline"
           >
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
             </svg>
             Go Back
@@ -73,7 +73,7 @@
             @click="navigateToContact"
             class="btn btn-primary"
           >
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
             </svg>
             Get in Touch
@@ -321,6 +321,7 @@ const navigateToContact = () => {
 }
 
 .main-title {
+  font-family: 'Montserrat', sans-serif;
   font-size: 3.5rem;
   font-weight: 700;
   color: var(--color-text-primary);
@@ -435,6 +436,13 @@ const navigateToContact = () => {
   cursor: pointer;
   border: none;
   text-decoration: none;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.btn-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 0.5rem;
 }
 
 .btn-outline {

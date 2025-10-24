@@ -22,7 +22,7 @@
             <div class="card-content">
               <h3 class="card-title">CRM development</h3>
               <p class="card-description">CRM system is an indispensable assistant for customer-oriented business.</p>
-              <a href="#" class="card-link">See more →</a>
+              <a href="/services/crm-development" class="card-link">See more →</a>
             </div>
           </div>
 

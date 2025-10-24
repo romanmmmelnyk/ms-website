@@ -353,6 +353,7 @@ onMounted(() => {
 }
 
 .services-title {
+  font-family: 'Montserrat', sans-serif;
   font-size: 3.5rem;
   font-weight: 700;
   color: var(--color-black);
@@ -405,6 +406,7 @@ onMounted(() => {
 }
 
 .category-title {
+  font-family: 'Montserrat', sans-serif;
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--color-black);
@@ -460,6 +462,7 @@ onMounted(() => {
 }
 
 .card-header h4 {
+  font-family: 'Montserrat', sans-serif;
   margin: 0;
   opacity: 0.8;
   line-height: 1;
@@ -555,6 +558,7 @@ onMounted(() => {
 
 
 .service-card h4 {
+  font-family: 'Montserrat', sans-serif;
   font-size: 1.3rem;
   font-weight: 600;
   color: var(--color-black);
@@ -564,6 +568,7 @@ onMounted(() => {
 }
 
 .service-card p {
+  font-family: 'Open Sans', sans-serif;
   font-size: 1rem;
   color: var(--color-dark-gray);
   line-height: 1.6;
@@ -628,6 +633,7 @@ onMounted(() => {
 }
 
 .cta-text h2 {
+  font-family: 'Montserrat', sans-serif;
   font-size: 3.5rem;
   font-weight: 700;
   color: var(--color-text-primary);
@@ -637,6 +643,7 @@ onMounted(() => {
 }
 
 .cta-text p {
+  font-family: 'Open Sans', sans-serif;
   font-size: 1.3rem;
   line-height: 1.6;
   color: var(--color-text-muted);
@@ -683,6 +690,7 @@ onMounted(() => {
 }
 
 .cta-feature span {
+  font-family: 'Open Sans', sans-serif;
   color: var(--color-text-primary);
   font-size: 15px;
   font-weight: 500;
@@ -727,6 +735,7 @@ onMounted(() => {
 .dot.green { background: #27CA3F; }
 
 .mockup-header span {
+  font-family: 'Montserrat', sans-serif;
   color: var(--color-text-primary);
   font-size: 16px;
   font-weight: 500;
@@ -758,6 +767,7 @@ onMounted(() => {
   padding: 16px 24px;
   border-radius: 8px;
   text-align: center;
+  font-family: 'Open Sans', sans-serif;
   font-size: 16px;
   font-weight: 600;
   margin-top: 12px;

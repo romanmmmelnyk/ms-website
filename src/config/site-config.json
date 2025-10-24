@@ -96,6 +96,12 @@
   "services": {
     "main": [
       {
+        "id": "crm-development",
+        "name": "CRM Development",
+        "url": "/services/crm-development",
+        "description": "Custom Customer Relationship Management systems"
+      },
+      {
         "id": "web-development",
         "name": "Web Development",
         "url": "/services/web-development",

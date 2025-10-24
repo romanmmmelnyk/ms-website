@@ -479,6 +479,7 @@ const toggleFaq = (index: number) => {
 }
 
 .hero-title {
+  font-family: 'Montserrat', sans-serif;
   font-size: 3.5rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
@@ -489,6 +490,7 @@ const toggleFaq = (index: number) => {
 }
 
 .hero-subtitle {
+  font-family: 'Open Sans', sans-serif;
   font-size: 1.25rem;
   line-height: 1.6;
   margin-bottom: 3rem;
@@ -528,6 +530,7 @@ const toggleFaq = (index: number) => {
 }
 
 .section-header h2 {
+  font-family: 'Montserrat', sans-serif;
   font-size: 2.5rem;
   font-weight: 600;
   margin-bottom: 1rem;
@@ -572,6 +575,7 @@ const toggleFaq = (index: number) => {
 }
 
 .culture-card h3 {
+  font-family: 'Montserrat', sans-serif;
   font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 1rem;
@@ -662,6 +666,7 @@ const toggleFaq = (index: number) => {
 }
 
 .position-header h3 {
+  font-family: 'Montserrat', sans-serif;
   font-size: 1.25rem;
   font-weight: 600;
   color: #1f2937;

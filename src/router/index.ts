@@ -16,6 +16,7 @@ import CookiePolicyView from '../views/policies/CookiePolicyView.vue'
 import ModelsView from '../views/ModelsView.vue'
 import ApplyModelView from '../views/ApplyModelView.vue'
 import ServicesView from '../views/ServicesView.vue'
+import CRMDevelopmentView from '../views/CRMDevelopmentView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -87,6 +88,11 @@ const router = createRouter({
       redirect: '/in-development'
     },
     {
+      path: '/services/crm-development',
+      name: 'crm-development',
+      component: CRMDevelopmentView
+    },
+    {
       path: '/apply',
       name: 'apply',
       component: ApplyView
@@ -141,9 +147,37 @@ const router = createRouter({
     }
   ],
   scrollBehavior(to, from, savedPosition) {
-    // Always scroll to top when navigating to a new page
-    return { top: 0 }
+    // Handle hash links with smooth scroll
+    if (to.hash) {
+      return {
+        el: to.hash,
+        behavior: 'smooth',
+        top: 80 // Offset for fixed header
+      }
+    }
+    
+    // Restore saved position for back/forward navigation
+    if (savedPosition) {
+      return {
+        ...savedPosition,
+        behavior: 'smooth'
+      }
+    }
+    
+    // Always scroll to top when navigating to a new page with smooth behavior
+    return { 
+      top: 0,
+      behavior: 'smooth'
+    }
   }
+})
+
+// Navigation guards for smooth transitions
+router.beforeEach((to, from, next) => {
+  // Add a small delay for smooth transition effect
+  setTimeout(() => {
+    next()
+  }, 50)
 })
 
 export default router
