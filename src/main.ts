@@ -21,17 +21,15 @@ app.mount('#app')
 performanceMonitor.trackPageLoad()
 
 // Service worker disabled during development to prevent caching issues
-// Uncomment the following block when ready for production with offline functionality
-/*
+// Unregister any existing service workers to prevent caching issues
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
-      .then((registration) => {
-        console.log('SW registered: ', registration)
+  navigator.serviceWorker.getRegistrations().then((registrations) => {
+    for (const registration of registrations) {
+      registration.unregister().then((success) => {
+        if (success) {
+          console.log('Service worker unregistered successfully')
+        }
       })
-      .catch((registrationError) => {
-        console.log('SW registration failed: ', registrationError)
-      })
+    }
   })
 }
-*/
