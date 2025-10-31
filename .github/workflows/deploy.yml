@@ -16,6 +16,19 @@ jobs:
       - name: Build image
         run: |
           docker build --no-cache -t ms-vue-app:latest .
+          
+      - name: Verify build contains changes
+        run: |
+          # Create a temporary container to check build output
+          docker create --name temp-check ms-vue-app:latest
+          docker cp temp-check:/app/dist ./temp-dist || echo "Could not extract dist"
+          if [ -d "./temp-dist" ]; then
+            echo "Checking for changes in built files..."
+            grep -r "6.5 Website Configuration" ./temp-dist/ && echo "✅ Changes found in build!" || echo "❌ Changes NOT found in build!"
+            grep -r "Website Configuration Submissions" ./temp-dist/ && echo "✅ Section 6.5 found!" || echo "❌ Section 6.5 NOT found!"
+          fi
+          docker rm temp-check
+          rm -rf ./temp-dist || true
 
       - name: Start ssh-agent
         uses: webfactory/ssh-agent@v0.9.0
