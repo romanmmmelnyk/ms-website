@@ -404,6 +404,16 @@ const formData = ref({
   paymentPlan: 'monthly' as 'monthly' | 'annual'
 })
 
+// Helper function to get headers for models API requests
+const getModelsApiHeaders = (additionalHeaders: Record<string, string> = {}) => {
+  const token = import.meta.env.VITE_MODEL_API_TOKEN
+  return {
+    'Content-Type': 'application/json',
+    ...(token && { 'X-Admin-Token': token }),
+    ...additionalHeaders
+  }
+}
+
 const checkEmail = async (email: string) => {
   // Testing bypass - mark test emails as available
   if (email.toLowerCase() === 'test@test.com' || email.toLowerCase() === 'test') {
@@ -427,7 +437,9 @@ const checkEmail = async (email: string) => {
   emailTimeout.value = window.setTimeout(async () => {
     try {
       const apiUrl = import.meta.env.VITE_MODELS_API || 'http://localhost:8210'
-      const response = await fetch(`${apiUrl}/api/auth/check-email?email=${encodeURIComponent(email)}`)
+      const response = await fetch(`${apiUrl}/api/auth/check-email?email=${encodeURIComponent(email)}`, {
+        headers: getModelsApiHeaders()
+      })
       
       if (response.ok) {
         const data = await response.json()
@@ -447,9 +459,7 @@ const sendVerificationCode = async (email: string) => {
     const apiUrl = import.meta.env.VITE_MODELS_API || 'http://localhost:8210'
     const response = await fetch(`${apiUrl}/api/auth/send-verification-code`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: getModelsApiHeaders(),
       body: JSON.stringify({ email })
     })
 
@@ -470,9 +480,7 @@ const verifyEmailCode = async (email: string, code: string) => {
     const apiUrl = import.meta.env.VITE_MODELS_API || 'http://localhost:8210'
     const response = await fetch(`${apiUrl}/api/auth/verify-email-code`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: getModelsApiHeaders(),
       body: JSON.stringify({ email, code })
     })
 
@@ -591,9 +599,7 @@ const handleCheckoutSubmit = async () => {
       
       const response = await fetch(`${apiUrl}/api/applications/checkout`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: getModelsApiHeaders(),
         body: JSON.stringify({
           email: formData.value.email,
           firstName: formData.value.firstName,

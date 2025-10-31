@@ -3,6 +3,7 @@
 interface ImportMetaEnv {
   readonly VITE_BACKEND_API: string
   readonly VITE_MODELS_API: string
+  readonly VITE_MODEL_API_TOKEN: string
 }
 
 interface ImportMeta {
