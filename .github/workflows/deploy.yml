@@ -20,14 +20,25 @@ jobs:
       - name: Verify build contains changes
         run: |
           # Create a temporary container to check build output
-          docker create --name temp-check ms-vue-app:latest
+          docker create --name temp-check ms-vue-app:latest || true
           docker cp temp-check:/app/dist ./temp-dist || echo "Could not extract dist"
           if [ -d "./temp-dist" ]; then
             echo "Checking for changes in built files..."
-            grep -r "6.5 Website Configuration" ./temp-dist/ && echo "✅ Changes found in build!" || echo "❌ Changes NOT found in build!"
-            grep -r "Website Configuration Submissions" ./temp-dist/ && echo "✅ Section 6.5 found!" || echo "❌ Section 6.5 NOT found!"
+            echo "Files in dist/assets:"
+            ls -la ./temp-dist/assets/*.js 2>/dev/null | head -5 || echo "No JS files found"
+            echo ""
+            echo "Searching for '6.5 Website Configuration'..."
+            grep -r "6.5 Website Configuration" ./temp-dist/ 2>/dev/null | head -1 && echo "✅ Changes found in build!" || echo "❌ Changes NOT found in build!"
+            echo ""
+            echo "Searching for 'Website Configuration Submissions'..."
+            grep -r "Website Configuration Submissions" ./temp-dist/ 2>/dev/null | head -1 && echo "✅ Section 6.5 found!" || echo "❌ Section 6.5 NOT found!"
+            echo ""
+            echo "Searching for 'MothModelsTermsOfServiceView'..."
+            grep -r "MothModelsTermsOfServiceView" ./temp-dist/ 2>/dev/null | head -1 && echo "✅ Component found!" || echo "❌ Component NOT found!"
+          else
+            echo "❌ temp-dist directory not created"
           fi
-          docker rm temp-check
+          docker rm temp-check || true
           rm -rf ./temp-dist || true
 
       - name: Start ssh-agent
