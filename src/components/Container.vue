@@ -7,3 +7,6 @@
 <script setup lang="ts">
 import { BaseContainer } from './ui'
 </script>
+
+<style scoped>
+</style>

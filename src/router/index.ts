@@ -11,10 +11,12 @@ import InDevelopmentView from '../views/InDevelopmentView.vue'
 import NotFoundView from '../views/NotFoundView.vue'
 import PrivacyPolicyView from '../views/policies/PrivacyPolicyView.vue'
 import TermsOfServiceView from '../views/policies/TermsOfServiceView.vue'
+import MothModelsTermsOfServiceView from '../views/policies/MothModelsTermsOfServiceView.vue'
 import PolicyHistoryView from '../views/policies/PolicyHistoryView.vue'
 import CookiePolicyView from '../views/policies/CookiePolicyView.vue'
 import ModelsView from '../views/ModelsView.vue'
 import ApplyModelView from '../views/ApplyModelView.vue'
+import ModelApplyView from '../views/ModelApplyView.vue'
 import ServicesView from '../views/ServicesView.vue'
 import CRMDevelopmentView from '../views/CRMDevelopmentView.vue'
 
@@ -113,6 +115,11 @@ const router = createRouter({
       component: TermsOfServiceView
     },
     {
+      path: '/models/terms-of-service',
+      name: 'moth-models-terms-of-service',
+      component: MothModelsTermsOfServiceView
+    },
+    {
       path: '/cookie-policy',
       name: 'cookie-policy',
       component: CookiePolicyView
@@ -130,7 +137,7 @@ const router = createRouter({
     {
       path: '/apply-model',
       name: 'apply-model',
-      redirect: '/in-development'
+      component: ModelApplyView
     },
     // Policy history routes
     {

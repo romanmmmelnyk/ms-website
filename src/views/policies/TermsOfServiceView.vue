@@ -6,6 +6,15 @@
     policy-id="terms-of-service"
   >
     <div class="document-content">
+      <!-- Moth Models Banner -->
+      <div class="moth-models-banner">
+        <svg class="info-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M8 11V8M8 5h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="banner-text">Please note: If you're looking for <strong>Moth Models</strong> terms of service, please visit our <router-link to="/models/terms-of-service" class="banner-link">dedicated Moth Models Terms of Service page</router-link>.</span>
+      </div>
+
       <section class="document-section">
         <h2>1. Introduction</h2>
         <h3>1.1 Ownership of Platform; Agreement to Terms of Service</h3>
@@ -692,6 +701,47 @@ const { email, phone, address } = useSiteConfig()
   font-weight: 600;
 }
 
+.moth-models-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 20px;
+  background: #f8f9fa;
+  border-left: 3px solid #007bff;
+  border-radius: 6px;
+  margin-bottom: 32px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #4a4a4a;
+}
+
+.info-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: #007bff;
+}
+
+.banner-text {
+  flex: 1;
+}
+
+.banner-text strong {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+.banner-link {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.banner-link:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
 @media (max-width: 768px) {
   .document-section h2 {
     font-size: 1.125rem;
@@ -704,6 +754,17 @@ const { email, phone, address } = useSiteConfig()
   .document-section p,
   .document-section li {
     font-size: 0.875rem;
+  }
+
+  .moth-models-banner {
+    padding: 14px 16px;
+    font-size: 0.8125rem;
+    gap: 10px;
+  }
+
+  .info-icon {
+    width: 14px;
+    height: 14px;
   }
 }
 </style>

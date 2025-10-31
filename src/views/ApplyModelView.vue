@@ -27,8 +27,8 @@
               <span class="checkbox-custom"></span>
               <span class="terms-text">
                 I agree to the 
-                <router-link to="/terms-of-service" class="terms-link" target="_blank">
-                  Terms of Service
+                <router-link to="/models/terms-of-service" class="terms-link" target="_blank">
+                  Moth Models Terms of Service
                 </router-link>
               </span>
             </label>

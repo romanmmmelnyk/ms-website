@@ -486,7 +486,8 @@ const handleSubmit = async () => {
 
     // Make the API call
     console.log('Submitting payload:', payload)
-    const response = await fetch('https://server.moth.solutions/enquiries', {
+    const apiUrl = import.meta.env.VITE_BACKEND_API || 'https://server.moth.solutions'
+    const response = await fetch(`${apiUrl}/enquiries`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

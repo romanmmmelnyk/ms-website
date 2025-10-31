@@ -790,7 +790,7 @@ const nextMonth = () => {
 }
 
 const navigateToContact = () => {
-  showContactModal.value = true
+  router.push('/apply-model')
 }
 
 const closeContactModal = () => {
