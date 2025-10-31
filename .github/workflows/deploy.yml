@@ -26,6 +26,15 @@ jobs:
       # - name: Add server host key
       #   run: ssh-keyscan -p "${{ secrets.SSH_PORT || 22 }}" "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts
 
+      - name: Remove old image on server
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+        run: |
+          ssh -o StrictHostKeyChecking=no -p "${SSH_PORT:-22}" "$SSH_USER@$SSH_HOST" \
+            "docker rmi ms-vue-app:latest || true"
+
       - name: Transfer image (gzip) and load on server
         env:
           SSH_HOST: ${{ secrets.SSH_HOST }}
@@ -34,6 +43,10 @@ jobs:
         run: |
           docker save ms-vue-app:latest | gzip -1 | \
             ssh -o StrictHostKeyChecking=no -p "${SSH_PORT:-22}" "$SSH_USER@$SSH_HOST" "gunzip | docker load"
+          
+          # Verify image was loaded
+          ssh -o StrictHostKeyChecking=no -p "${SSH_PORT:-22}" "$SSH_USER@$SSH_HOST" \
+            "docker images ms-vue-app:latest"
 
       - name: Restart container
         env:
@@ -43,9 +56,17 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no -p "${SSH_PORT:-22}" "$SSH_USER@$SSH_HOST" << 'EOF'
             set -e
+            # Stop and remove old container
+            docker stop ms-vue-app || true
             docker rm -f ms-vue-app || true
+            # Remove any dangling images
+            docker image prune -f
+            # Start new container with explicit image pull
             docker run -d --name ms-vue-app --restart unless-stopped -p 9100:9100 ms-vue-app:latest
-            docker image prune -f || true
+            # Verify container is running
+            docker ps | grep ms-vue-app
+            # Show container image info
+            docker inspect ms-vue-app --format='{{.Config.Image}}'
           EOF
 
       - name: Smoke check (HTTP 200 expected)
